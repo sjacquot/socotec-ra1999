@@ -5,6 +5,7 @@ sonata_core:
     form_type: horizontal
 
 sonata_block:
+    default_contexts: [socotec]
     blocks:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:

@@ -16,24 +16,25 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new AppBundle\AppBundle(),
-	    // Sonata
-	    new Sonata\CoreBundle\SonataCoreBundle(),
-            // Sonata Admin
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
-	    // Sonata Doctrine
-	    new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-	    // Sonata Easy Extend ?
-	    new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-	    // Sonata Classification
-	    new Sonata\ClassificationBundle\SonataClassificationBundle(),
-	    new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
-        // Sonata Media
-        new Sonata\MediaBundle\SonataMediaBundle(),
-        new JMS\SerializerBundle\JMSSerializerBundle(),
-	    new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            // Sonata
+            new Sonata\CoreBundle\SonataCoreBundle(),
+                // Sonata Admin
+                new Sonata\BlockBundle\SonataBlockBundle(),
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+                new Sonata\AdminBundle\SonataAdminBundle(),
+            // Sonata Doctrine
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            // Sonata Easy Extend ?
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            // Sonata Classification
+            new Sonata\ClassificationBundle\SonataClassificationBundle(),
+            new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
+            // Sonata Media
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
