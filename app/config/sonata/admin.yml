@@ -1,4 +1,9 @@
 sonata_admin:
+    title:      SOCOTEC
+    title_logo: logo/SOCOTEC.png
+    assets:
+        extra_stylesheets:
+            - css/styles.css
     dashboard:
         groups:
             operations:

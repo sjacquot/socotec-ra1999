@@ -1,0 +1,52 @@
+a[style="border-top: 1px solid #444444; padding-top: 10px"]{
+    display: none;
+}
+.skin-black .wrapper, .skin-black .main-sidebar, .skin-black .left-side {
+    background-color: #0082DE;
+}
+.skin-black .sidebar-menu>li:hover>a, .skin-black .sidebar-menu>li.active>a {
+    color: #0082DE;
+    background: white;
+    border-left-color: #0082DE;
+}
+.skin-black .sidebar-form {
+    border: 1px solid #0082DE;
+}
+.skin-black .sidebar-form input[type="text"], .skin-black .sidebar-form .btn, a {
+    color: #0082DE;
+}
+.skin-black .sidebar-form input[type="text"], .skin-black .sidebar-form .btn {
+    background-color: #fff;
+}
+.box.box-primary {
+    border-top-color: #0082DE;
+}
+.btn-primary {
+    background-color: #0082DE;
+    border-color: #006dde;
+}
+.logo span{
+    color:black;
+}
+
+@media (max-width: 767px){
+    .skin-black .main-header>.logo {
+        background-color: white;
+    }
+    nav.navbar.navbar-static-top{
+        position: fixed;
+        top: 0;
+    }
+    .skin-black .main-header>.logo {
+        position: fixed;
+        width: 72%;
+        display: inline-block;
+        margin: auto;
+        z-index: 9999;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .content-wrapper {
+        padding-top: 0!important;
+    }
+}
