@@ -28,8 +28,8 @@ class AppKernel extends Kernel
             // Sonata Easy Extend ?
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             // Sonata Classification
-            new Sonata\ClassificationBundle\SonataClassificationBundle(),
-            new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
+            //new Sonata\ClassificationBundle\SonataClassificationBundle(),
+            //new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
             // Sonata Media
 //            new Sonata\MediaBundle\SonataMediaBundle(),
 //            new JMS\SerializerBundle\JMSSerializerBundle(),
