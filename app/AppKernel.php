@@ -32,9 +32,9 @@ class AppKernel extends Kernel
             new Sonata\ClassificationBundle\SonataClassificationBundle(),
             new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
             // Sonata Media
-            new Sonata\MediaBundle\SonataMediaBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+//            new Sonata\MediaBundle\SonataMediaBundle(),
+//            new JMS\SerializerBundle\JMSSerializerBundle(),
+//            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

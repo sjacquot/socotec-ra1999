@@ -1,3 +1,13 @@
+sonata_admin:
+    dashboard:
+        groups:
+            operations:
+                on_top: true
+                label:                Operation
+                label_catalogue:      ~
+                items:
+                    - admin.operation
+                icon:  <i class="fa fa-briefcase"></i>
 sonata_core:
     form:
         mapping:
@@ -8,6 +18,7 @@ sonata_block:
     default_contexts: [socotec]
     blocks:
         # enable the SonataAdminBundle block
+        sonata.admin.block.search_result:
         sonata.admin.block.admin_list:
             contexts: [admin]
 

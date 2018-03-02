@@ -3,7 +3,6 @@ sonata_classification:
         tag:          Application\Sonata\ClassificationBundle\Entity\Tag
         category:     Application\Sonata\ClassificationBundle\Entity\Category
         collection:   Application\Sonata\ClassificationBundle\Entity\Collection
-        media:        Application\Sonata\MediaBundle\Entity\Media
         context:      Application\Sonata\ClassificationBundle\Entity\Context
 
     admin:
@@ -34,8 +33,6 @@ doctrine:
                 mappings:
                     ApplicationSonataClassificationBundle: ~
                     SonataClassificationBundle: ~
-                    ApplicationSonataMediaBundle: ~
-                    SonataMediaBundle: ~
-    dbal:
-        types:
-            json: Sonata\Doctrine\Types\JsonType
+#    dbal:
+#        types:
+#            json: Sonata\Doctrine\Types\JsonType

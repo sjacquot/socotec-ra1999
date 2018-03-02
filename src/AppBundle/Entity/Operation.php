@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,10 +13,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Operation
 {
+    /**
+     *
+     */
     const Draft = 0;
+    /**
+     *
+     */
     const DraftWithSheet = 1;
+    /**
+     *
+     */
     const ReportGenerated = 2;
+    /**
+     *
+     */
     const CertGenerated = 4;
+    /**
+     *
+     */
     const Closed = 8;
     /**
      * @var int
@@ -43,115 +59,126 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\Column(name="report_reference", type="string", length=255)
+     * @ORM\Column(name="report_reference", type="string", length=255, nullable=true)
      */
     private $reportReference;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="measure_company", type="string", length=255)
+     * @ORM\Column(name="measure_company", type="string", length=255, nullable=true)
      */
     private $measureCompany;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="measure_author", type="string", length=255)
+     * @ORM\Column(name="measure_author", type="string", length=255, nullable=true)
      */
     private $measureAuthor;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="measure_date", type="date")
+     * @ORM\Column(name="measure_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $measureDate;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="sheet_date", type="date")
-     */
-    private $sheetDate;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="info", type="text")
+     * @ORM\Column(name="info", type="text", nullable=true)
      */
     private $info;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_address", type="text")
+     * @ORM\Column(name="operation_address", type="text", nullable=true)
      */
     private $operationAddress;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_city", type="string", length=255)
+     * @ORM\Column(name="operation_city", type="string", length=255, nullable=true)
      */
     private $operationCity;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_objective", type="string", length=255)
+     * @ORM\Column(name="operation_objective", type="string", length=255, nullable=true)
      */
     private $operationObjective;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_measure_ref", type="string", length=255)
+     * @ORM\Column(name="operation_measure_ref", type="string", length=255, nullable=true)
      */
     private $operationMeasureRef;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sheet_file", type="string", length=255)
-     */
-    private $sheetFile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="measure_report", type="string", length=255)
+     * @ORM\Column(name="measure_report", type="string", length=255, nullable=true)
      */
     private $measureReport;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="measure_cert", type="string", length=255)
+     * @ORM\Column(name="measure_cert", type="string", length=255, nullable=true)
      */
     private $measureCert;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $updatedAt;
+
+
+    /**
+     * Many Operation have Many Documents.
+     * @ORM\ManyToMany(targetEntity="Document", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_has_document",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="document_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $document;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="status", type="integer", nullable=true)
      */
     private $status = self::Draft;
 
+    /**
+     * Operation constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt= new \DateTime();
+        $this->updatedAt= new \DateTime();
+        $this->document = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -308,30 +335,6 @@ class Operation
     }
 
     /**
-     * Set sheetDate
-     *
-     * @param \DateTime $sheetDate
-     *
-     * @return Operation
-     */
-    public function setSheetDate($sheetDate)
-    {
-        $this->sheetDate = $sheetDate;
-
-        return $this;
-    }
-
-    /**
-     * Get sheetDate
-     *
-     * @return \DateTime
-     */
-    public function getSheetDate()
-    {
-        return $this->sheetDate;
-    }
-
-    /**
      * Set info
      *
      * @param string $info
@@ -452,30 +455,6 @@ class Operation
     }
 
     /**
-     * Set sheetFile
-     *
-     * @param string $sheetFile
-     *
-     * @return Operation
-     */
-    public function setSheetFile($sheetFile)
-    {
-        $this->sheetFile = $sheetFile;
-
-        return $this;
-    }
-
-    /**
-     * Get sheetFile
-     *
-     * @return string
-     */
-    public function getSheetFile()
-    {
-        return $this->sheetFile;
-    }
-
-    /**
      * Set measureReport
      *
      * @param string $measureReport
@@ -556,7 +535,7 @@ class Operation
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime();
 
         return $this;
     }
@@ -593,6 +572,34 @@ class Operation
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * @param $document
+     * @return mixed
+     */
+    public function addDocument($document)
+    {
+        $this->document[] = $document;
+
+        return $document;
+    }
+
+    /**
+     * @param $document
+     * @return bool
+     */
+    public function removeDocument($document)
+    {
+        return $this->document->removeElement($document);
     }
 }
 

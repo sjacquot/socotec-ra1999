@@ -56,8 +56,8 @@ doctrine:
                 mappings:
                     SonataClassificationBundle: ~
                     ApplicationSonataClassificationBundle: ~
-                    ApplicationSonataMediaBundle: ~
-                    SonataMediaBundle: ~
+#                    ApplicationSonataMediaBundle: ~
+#                    SonataMediaBundle: ~
 #    dbal:
 #        types:
 #            json: Sonata\Doctrine\Types\JsonType

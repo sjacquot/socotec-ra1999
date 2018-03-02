@@ -31,7 +31,7 @@ services:
 
     admin.operation:
         class: AppBundle\Admin\OperationAdmin
-        arguments: [~, AppBundle\Entity\Operation, ~]
+        arguments: [~, AppBundle\Entity\Operation, SonataAdminBundle:CRUD, "@service_container"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Opération }
 
@@ -39,3 +39,11 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    app.document_uploader:
+            class: AppBundle\Service\FileUploader
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+
+    AppBundle\Service\:
+          resource: "../../src/AppBundle/Service"
+          public: true
