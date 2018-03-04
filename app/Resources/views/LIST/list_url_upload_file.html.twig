@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.document %}
+    <div>
+        <a href="/uploads/doc/{{ object.document.pathDocXml }}" download>object.document.name</a>
+    </div>
+    {% endif %}
+{% endblock %}
