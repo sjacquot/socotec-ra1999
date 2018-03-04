@@ -205,7 +205,13 @@ class Operation
     private $equipement;
 
     /**
-     * One Operation has Many Aae result.
+     * One Operation has One Results set.
+     * @ORM\OneToOne(targetEntity="Results", mappedBy="operation")
+     */
+    private $results;
+
+    /**
+     * One Operation has One Aae result.
      * @ORM\OneToMany(targetEntity="Aae", mappedBy="operation")
      */
     private $aae;

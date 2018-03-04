@@ -27,6 +27,7 @@ class ExtractResults
     const BC = "Bruits de Chocs";
     const BEVMC = "Bruit des Equipements de VMC";
     const BEIEL = "Bruit des Equipements Individuels Extérieurs au Logement contrôlé";
+    const BEIIL = "Bruit des Equipements Individuels de chauffage, climatisation ou de production d'ECS Intérieurs au Logement contrôlé";
     const BEC = "Bruit des Equipements Collectifs (hors VMC)";
     const AAE = "Aire d'Absorption Equivalente";
 
@@ -41,6 +42,7 @@ class ExtractResults
         $highestRow = $worksheet->getHighestRow(); // e.g. 10
         $dataInCols = [2,3,4,5,6,9,12,15,16];
         $resultsArray = array();
+
         for ($row = 1; $row <= $highestRow; $row++){
             $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row)->getCalculatedValue();
             if(strpos($value, self::BAI) !== false){ // STR COMP With Type
@@ -96,14 +98,59 @@ class ExtractResults
                     if(strlen($data[0])>0){
                         $resultsArray[self::BEVMC][] = $data;
                     }
-                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row++)->getCalculatedValue();
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
                 }
             }
             if(strpos($value, self::BEIEL) !== false){ // STR COMP With Types
-
+                $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
+                while(strlen($value)>= 1){
+                    $data = array();
+                    foreach ($dataInCols as $col ){
+                        $Celldata = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                        if($Celldata !== null){
+                            $data[] = $Celldata;
+                        }
+                    }
+                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if(strlen($data[0])>0){
+                        $resultsArray[self::BEIEL][] = $data;
+                    }
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
+                }
+            }
+            if(strpos($value, self::BEIIL) !== false){ // STR COMP With Types
+                $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
+                while(strlen($value)>= 1){
+                    $data = array();
+                    foreach ($dataInCols as $col ){
+                        $Celldata = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                        if($Celldata !== null){
+                            $data[] = $Celldata;
+                        }
+                    }
+                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if(strlen($data[0])>0){
+                        $resultsArray[self::BEIIL][] = $data;
+                    }
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
+                }
             }
             if(strpos($value, self::BEC) !== false){ // STR COMP With Types
-
+                $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
+                while(strlen($value)>= 1){
+                    $data = array();
+                    foreach ($dataInCols as $col ){
+                        $Celldata = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                        if($Celldata !== null){
+                            $data[] = $Celldata;
+                        }
+                    }
+                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if(strlen($data[0])>0){
+                        $resultsArray[self::BEC][] = $data;
+                    }
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
+                }
             }
             if(strpos($value, self::AAE) !== false){ // STR COMP With Types
                 $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 4)->getCalculatedValue();
@@ -120,6 +167,7 @@ class ExtractResults
 
             }
         }
+
         return $resultsArray;
     }
 }
