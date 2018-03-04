@@ -445,7 +445,7 @@ class Shock
      */
     public function getData()
     {
-        return $this->data;
+        return json_decode($this->data);
     }
 
     /**
@@ -453,6 +453,6 @@ class Shock
      */
     public function setData($data)
     {
-        $this->data = $data;
+        $this->data = json_encode($data);
     }
 }

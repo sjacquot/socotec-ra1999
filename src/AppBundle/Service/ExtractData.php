@@ -64,14 +64,20 @@ class ExtractData
         $spreadSheet = $this->container->get('app.read_xls_sheetfile')->readXLSSheetFile($operation);
 
         $extractResult = new ExtractResults();
+        $dataResult = $extractResult->readResults($spreadSheet);
 
 
         $dataAAE = [];
-        $dataResult = $extractResult->readResults($spreadSheet);
         $dataEquipement = [];
         $dataShock = [];
         $dataForeigner = [];
         $dataAerien = [];
+
+        //loop to create the aae row
+        foreach ($dataResult as $data){
+            //fucniton to create a new AAE
+            $this->UploadResults($operation, $data);
+        }
 
         //loop to create the aae row
         foreach ($dataAAE as $data){
@@ -231,5 +237,28 @@ class ExtractData
         $this->entityManager->persist($foreigner);
 
         return $foreigner;
+    }
+
+    /**
+     * Create or upload the foreigner(s) for an opeartion
+     *
+     * @param Operation $operation
+     * @param $data
+     * @return Results
+     */
+    private function UploadResults(Operation $operation, $data){
+
+        $results = $this->entityManager->getRepository(Foreigner::class)->findOneByOperation($operation);
+
+        if(is_null($results)){
+            // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
+            $results = new Results();
+            $results->setOperation($operation);
+        }
+        $results->setData($data);
+
+        $this->entityManager->persist($results);
+
+        return $results;
     }
 }

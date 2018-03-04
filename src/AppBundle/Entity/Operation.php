@@ -797,7 +797,7 @@ class Operation
         $address = array();
         $address[0] = $xlsReader->getActiveSheet()->getCell("D11")->getValue();
         $address[1] = $xlsReader->getActiveSheet()->getCell("D12")->getValue();
-        $this->setOperationAddress($address);
+        $this->setOperationAddress(json_encode($address));
         $this->setOperationCity($xlsReader->getActiveSheet()->getCell("D13")->getValue());
         $this->setOperationObjective($xlsReader->getActiveSheet()->getCell("D15")->getValue());
         $this->setOperationMeasureRef($xlsReader->getActiveSheet()->getCell("D16")->getValue());
