@@ -121,15 +121,42 @@ class Results
                     if(strlen($data[0])>0){
                         $resultsArray[self::BEVMC][] = $data;
                     }
-                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row++)->getCalculatedValue();
-                    echo "Line ".$row."Value";
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
                 }
             }
             if(strpos($value, self::BEIEL) !== false){ // STR COMP With Types
-
+                $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
+                while(strlen($value)>= 1){
+                    $data = array();
+                    foreach ($dataInCols as $col ){
+                        $Celldata = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                        if($Celldata !== null){
+                            $data[] = $Celldata;
+                        }
+                    }
+                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if(strlen($data[0])>0){
+                        $resultsArray[self::BEIEL][] = $data;
+                    }
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
+                }
             }
             if(strpos($value, self::BEC) !== false){ // STR COMP With Types
-
+                $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
+                while(strlen($value)>= 1){
+                    $data = array();
+                    foreach ($dataInCols as $col ){
+                        $Celldata = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                        if($Celldata !== null){
+                            $data[] = $Celldata;
+                        }
+                    }
+                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if(strlen($data[0])>0){
+                        $resultsArray[self::BEC][] = $data;
+                    }
+                    $value = $worksheet->getCellByColumnAndRow(2 /* col B */, ++$row)->getCalculatedValue();
+                }
             }
             if(strpos($value, self::AAE) !== false){ // STR COMP With Types
                 $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 4)->getCalculatedValue();
@@ -145,7 +172,8 @@ class Results
                 }
 
             }
-        }        $this->setData($resultsArray);
+        }
+        $this->setData($resultsArray);
     }
 
 }

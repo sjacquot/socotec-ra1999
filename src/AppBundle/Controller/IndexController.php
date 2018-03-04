@@ -38,8 +38,6 @@ class IndexController extends Controller
         $results = new Results();
         $results->readResults($spreadsheet);
         echo "<pre>";
-        var_dump($operation);
-        echo "<hr>";
         var_dump($results);
         echo "</pre>";
         die();
