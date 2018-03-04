@@ -29,6 +29,15 @@ class Aerien
     private $operation;
 
     /**
+     * Fiche de traitement de mesure n° A(1)
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $idOfSheet;
+
+    /**
      * LOCAL EMISSION Nom
      *
      * @var string
@@ -209,6 +218,22 @@ class Aerien
     public function setOperation($operation)
     {
         $this->operation = $operation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdOfSheet()
+    {
+        return $this->idOfSheet;
+    }
+
+    /**
+     * @param string $idOfSheet
+     */
+    public function setIdOfSheet($idOfSheet)
+    {
+        $this->idOfSheet = $idOfSheet;
     }
 
     /**

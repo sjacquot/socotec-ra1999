@@ -29,6 +29,15 @@ class Shock
     private $operation;
 
     /**
+     * Fiche de traitement de mesure n° C(1)
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $idOfSheet;
+
+    /**
      * Local emission Nom
      *
      * @var string
@@ -180,6 +189,22 @@ class Shock
     public function setOperation($operation)
     {
         $this->operation = $operation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdOfSheet()
+    {
+        return $this->idOfSheet;
+    }
+
+    /**
+     * @param string $idOfSheet
+     */
+    public function setIdOfSheet($idOfSheet)
+    {
+        $this->idOfSheet = $idOfSheet;
     }
 
     /**

@@ -44,6 +44,10 @@ services:
             class: AppBundle\Service\FileUploader
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
 
+    app.extract_file:
+            class: AppBundle\Service\ExtractData
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"
           public: true
