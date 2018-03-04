@@ -194,6 +194,12 @@ class Operation
     private $aerien;
 
     /**
+     * One Operation has Many Shock.
+     * @ORM\OneToMany(targetEntity="Shock", mappedBy="operation")
+     */
+    private $shock;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
@@ -208,6 +214,8 @@ class Operation
         $this->createdAt= new \DateTime();
         $this->updatedAt= new \DateTime();
         $this->document = new ArrayCollection();
+        $this->shock = new ArrayCollection();
+        $this->aerien = new ArrayCollection();
     }
 
     /**
