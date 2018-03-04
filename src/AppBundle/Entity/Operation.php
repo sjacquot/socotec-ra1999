@@ -188,6 +188,12 @@ class Operation
     private $document;
 
     /**
+     * One Operation has Many Aerien.
+     * @ORM\OneToMany(targetEntity="Aerien", mappedBy="operation")
+     */
+    private $aerien;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
