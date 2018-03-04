@@ -144,7 +144,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="boalean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $MeasureAffectedByBackgroundNoise;
 
