@@ -631,7 +631,7 @@ class Operation
      * @param $document
      * @return mixed
      */
-    public function addDocument($document)
+    public function addDocument(Document $document)
     {
         $this->document[] = $document;
 
@@ -656,11 +656,14 @@ class Operation
     }
 
     /**
-     * @param mixed $aerien
+     * @param Aerien $aerien
+     * @return Aerien
      */
-    public function setAerien($aerien)
+    public function addAerien(Aerien $aerien)
     {
-        $this->aerien = $aerien;
+        $this->aerien[] = $aerien;
+
+        return $aerien;
     }
 
     /**
@@ -672,11 +675,14 @@ class Operation
     }
 
     /**
-     * @param mixed $shock
+     * @param Shock $shock
+     * @return Shock
      */
-    public function setShock($shock)
+    public function addShock(Shock $shock)
     {
-        $this->shock = $shock;
+        $this->shock[] = $shock;
+
+        return $shock;
     }
 
     /**
@@ -688,11 +694,14 @@ class Operation
     }
 
     /**
-     * @param mixed $equipement
+     * @param Equipement $equipement
+     * @return Equipement
      */
-    public function setEquipement($equipement)
+    public function addEquipement(Equipement $equipement)
     {
-        $this->equipement = $equipement;
+        $this->equipement[] = $equipement;
+
+        return $equipement;
     }
 
     /**
