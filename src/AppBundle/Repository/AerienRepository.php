@@ -17,10 +17,11 @@ class AerienRepository extends EntityRepository
     /**
      * @param Operation $operation
      * @param $idOfSheet
+     * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneByIdOfSheetAndOperation(Operation $operation, $idOfSheet){
-        $this->getEntityManager()
+        return $this->getEntityManager()
             ->getRepository(Aerien::class)
             ->createQueryBuilder('a')
             ->where('a.idOfSheet = :idOfSheet')
@@ -31,6 +32,21 @@ class AerienRepository extends EntityRepository
                     'operation' => $operation,
                     ]
             )
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByOperation(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Aerien::class)
+            ->createQueryBuilder('a')
+            ->where('a.operation = :operation')
+            ->setParameter('operation', $operation)
             ->getQuery()
             ->getOneOrNullResult();
     }

@@ -17,10 +17,11 @@ class AaeRepository extends EntityRepository
     /**
      * @param Operation $operation
      * @param $measureNumber
+     * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneByMeasureNumberAndOperation(Operation $operation, $measureNumber){
-        $this->getEntityManager()
+        return $this->getEntityManager()
             ->getRepository(Aae::class)
             ->createQueryBuilder('a')
             ->where('a.measureNumber = :measureNumber')
@@ -31,6 +32,21 @@ class AaeRepository extends EntityRepository
                     'operation' => $operation,
                 ]
             )
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByOperation(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Aae::class)
+            ->createQueryBuilder('a')
+            ->where('a.operation = :operation')
+            ->setParameter('operation', $operation)
             ->getQuery()
             ->getOneOrNullResult();
     }

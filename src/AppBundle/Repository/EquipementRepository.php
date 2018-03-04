@@ -18,10 +18,11 @@ class EquipementRepository extends EntityRepository
      * @param Operation $operation
      * @param $measureNumber
      * @param $equipementType
+     * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneByMeasureNumberAndOperation(Operation $operation, $measureNumber, $equipementType){
-        $this->getEntityManager()
+        return $this->getEntityManager()
             ->getRepository(Equipement::class)
             ->createQueryBuilder('a')
             ->where('a.measureNumber = :measureNumber')
@@ -34,6 +35,21 @@ class EquipementRepository extends EntityRepository
                     'operation' => $operation,
                 ]
             )
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByOperation(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Equipement::class)
+            ->createQueryBuilder('a')
+            ->where('a.operation = :operation')
+            ->setParameter('operation', $operation)
             ->getQuery()
             ->getOneOrNullResult();
     }
