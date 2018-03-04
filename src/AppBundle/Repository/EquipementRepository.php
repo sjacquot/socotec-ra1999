@@ -20,7 +20,7 @@ class EquipementRepository extends EntityRepository
      * @param $equipementType
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByIdOfSheetAndOperation(Operation $operation, $measureNumber, $equipementType){
+    public function findOneByMeasureNumberAndOperation(Operation $operation, $measureNumber, $equipementType){
         $this->getEntityManager()
             ->getRepository(Equipement::class)
             ->createQueryBuilder('a')

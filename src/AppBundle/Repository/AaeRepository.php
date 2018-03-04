@@ -19,7 +19,7 @@ class AaeRepository extends EntityRepository
      * @param $measureNumber
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByIdOfSheetAndOperation(Operation $operation, $measureNumber){
+    public function findOneByMeasureNumberAndOperation(Operation $operation, $measureNumber){
         $this->getEntityManager()
             ->getRepository(Aae::class)
             ->createQueryBuilder('a')
