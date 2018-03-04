@@ -93,7 +93,7 @@ class OperationAdmin extends Admin
         if ($this->isCurrentRoute('edit')) {
             $formMapper
                 ->with('Metadata', array('class' => 'col-md-9'))
-                ->add('name')
+                ->add('name', null, ['label'=>'Nom'])
                 ->add('status')
                 ->add('measureCompany')
                 ->add('measureAuthor')
@@ -122,7 +122,7 @@ class OperationAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name', null, ['global_search' => true]);
+        $datagridMapper->add('name', null, ['global_search' => true, 'label'=> 'Nom']);
         $datagridMapper->add('caseReferance', null, ['global_search' => true]);
         $datagridMapper->add('status', null, ['global_search' => true]);
         $datagridMapper->add('measureCompany', null, ['global_search' => true]);
@@ -150,7 +150,7 @@ class OperationAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name')
+        $listMapper->addIdentifier('name', null, ['label'=>'Nom'])
                     ->add('caseReferance')
                     ->add('reportReference')
                     ->add('measureAuthor')
@@ -178,6 +178,7 @@ class OperationAdmin extends Admin
     {
         $showMapper
             ->tab('General') // the tab call is optional
+                ->add('name', null, ['label'=>'Nom'])
                 ->add('caseReferance')
                 ->add('reportReference')
                 ->add('measureCompany')
