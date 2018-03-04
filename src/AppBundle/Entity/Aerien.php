@@ -29,7 +29,7 @@ class Aerien
     private $operation;
 
     /**
-     *
+     * LOCAL EMISSION Nom
      *
      * @var string
      *
@@ -38,6 +38,8 @@ class Aerien
     private $localEmissionName;
 
     /**
+     * LOCAL EMISSION Volume in (m3)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -45,6 +47,8 @@ class Aerien
     private $localEmissionVolume;
 
     /**
+     * LOCAL RECEPTION Nom
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -52,6 +56,8 @@ class Aerien
     private $localReceptionName;
 
     /**
+     * LOCAL RECEPTION Volume (m3)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -59,6 +65,8 @@ class Aerien
     private $localReceptionVolume;
 
     /**
+     * Paroi Separative (Nature Paroi)
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -66,6 +74,8 @@ class Aerien
     private $separatingNatureWall;
 
     /**
+     * Paroi separative Nature Doublage
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -73,6 +83,8 @@ class Aerien
     private $separatingDubbingNatureWall;
 
     /**
+     * Paroi separative Eapaisseur (cm)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -80,6 +92,8 @@ class Aerien
     private $separatingThicknessWall;
 
     /**
+     * Nombre de porte (emission / reception)
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -87,6 +101,8 @@ class Aerien
     private $doorNumber;
 
     /**
+     * Bouche Extraction
+     *
      * @var string
      *
      * @ORM\Column(type="boolean", nullable=true)
@@ -94,6 +110,8 @@ class Aerien
     private $extractionMouth;
 
     /**
+     * Doublage Facade Nature
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -101,6 +119,8 @@ class Aerien
     private $facadeDoublingNature;
 
     /**
+     * Doublage Facade Epaisseru (cm)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -108,6 +128,8 @@ class Aerien
     private $facadeDoublingThickness;
 
     /**
+     * Type transmission
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -115,6 +137,8 @@ class Aerien
     private $transmissionType;
 
     /**
+     * Surface du local de reception
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -122,6 +146,8 @@ class Aerien
     private $localReceptionSurface;
 
     /**
+     * observation Eventuelle
+     *
      * @var text
      *
      * @ORM\Column(type="text", nullable=true)
@@ -129,6 +155,8 @@ class Aerien
     private $comment;
 
     /**
+     * Isolement Acoustique standardisé pndéré
+     *
      * String because you have the  prefix dB
      *
      * @var string
@@ -138,6 +166,8 @@ class Aerien
     private $weightedStandardizedAcousticIsolation;
 
     /**
+     * Objectif RA 1999
+     *
      * String because you have the  prefix dB
      *
      * @var string
@@ -147,6 +177,8 @@ class Aerien
     private $objectifRa1999;
 
     /**
+     * a json of all the line of the resultats de l'essai table
+     *
      * @var json
      *
      * @ORM\Column(type="json", nullable=true)
