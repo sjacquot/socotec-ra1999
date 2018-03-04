@@ -62,7 +62,7 @@ class ExtractData
      */
     private function extractDataFromDocuement(Document $document, Operation $operation){
         $path = $document->getPathDocXml();
-        //TODO: traitemnet de AAE
+        //TODO: traitemnet des datas
         $dataAAE = [];
         $dataEquipement = [];
         $dataShock = [];
