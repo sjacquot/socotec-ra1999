@@ -48,6 +48,9 @@ services:
             class: AppBundle\Service\ExtractData
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
 
+    app.extract_sheet_result:
+            class: AppBundle\Service\ExtractResults
+
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"
           public: true
