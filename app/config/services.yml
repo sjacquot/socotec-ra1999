@@ -31,7 +31,7 @@ services:
 
     admin.operation:
         class: AppBundle\Admin\OperationAdmin
-        arguments: [~, AppBundle\Entity\Operation, SonataAdminBundle:CRUD, "@service_container"]
+        arguments: [~, AppBundle\Entity\Operation, AppBundle:CRUD, "@service_container"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Opération }
 

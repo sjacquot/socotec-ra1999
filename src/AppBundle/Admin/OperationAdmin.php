@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -52,6 +53,15 @@ class OperationAdmin extends Admin
          * getFilter for list if there is the cookie
          */
         $this->container = $container;
+    }
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('report', $this->getRouterIdParameter().'/report');
+        $collection->add('certificate', $this->getRouterIdParameter().'/certificate');
     }
 
     /**
@@ -144,29 +154,18 @@ class OperationAdmin extends Admin
                     ->add('reportReference')
                     ->add('measureCompany')
                     ->add('measureAuthor')
-                    ->add('info')
-                    ->add('operationAddress')
-                    ->add('operationCity')
-                    ->add('operationObjective')
-                    ->add('operationMeasureRef')
-                    ->add('measureReport')
-                    ->add('measureCert')
-                    ->add('measureDate')
                     ->add('document')
-                    ->add('status', 'choice', [
-                        'editable' => true,
-                        'class' => 'Vendor\ExampleBundle\Entity\ExampleStatus',
-                        'choices' => [
-                            1 => 'Active',
-                            2 => 'Inactive',
-                            3 => 'Draft',
-                        ],
-                    ])
                     ->add('_action', null, [
                     'actions' => [
                         'show' => [],
                         'edit' => [],
                         'delete' => [],
+                        'repport' => [
+                            'template' => 'CRUD/list__action_report.html.twig'
+                        ],
+                        'certificate' => [
+                            'template' => 'CRUD/list__action_certificate.html.twig'
+                        ],
                     ]
                 ]);
     }

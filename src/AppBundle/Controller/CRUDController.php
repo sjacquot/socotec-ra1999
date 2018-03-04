@@ -18,55 +18,55 @@ class CRUDController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function generateCertificateAction($id)
+    public function CertificateAction($id)
     {
-        $object = $this->admin->getSubject();
+        $operation = $this->admin->getSubject();
 
-        if (!$object) {
+        if (!$operation) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
+        $em = $this->getDoctrine()->getManager();
 
-        // Be careful, you may need to overload the __clone method of your object
-        // to set its id to null !
-        $clonedObject = clone $object;
+        //TODO: repport generation
+        //TODO: get the report path
+        $pathDocCertificate = '';
 
-        $clonedObject->setName($object->getName().' (Clone)');
+        $document = $operation->getDocument();
+        //$document->setCertificate($pathDocReport);
 
-        $this->admin->create($clonedObject);
+        $em->persist($document);
+        $em->flush();
 
-        $this->addFlash('sonata_flash_success', 'Cloned successfully');
 
-        return new RedirectResponse($this->admin->generateUrl('list'));
-
-        // if you have a filtered list and want to keep your filters after the redirect
-        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+        //return new RedirectResponse('/uploads/doc/3ef86a8dce5c8cd83782136824458fa9.xls');
+        return new RedirectResponse('/uploads/doc/'.$pathDocCertificate);
     }
 
     /**
      * @param $id
      * @return RedirectResponse
      */
-    public function generateRepportAction($id)
+    public function ReportAction($id)
     {
-        $object = $this->admin->getSubject();
+        $operation = $this->admin->getSubject();
 
-        if (!$object) {
+        if (!$operation) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
+        $em = $this->getDoctrine()->getManager();
 
-        // Be careful, you may need to overload the __clone method of your object
-        // to set its id to null !
-        $clonedObject = clone $object;
+        //TODO: repport generation
+        //TODO: get the report path
+        $pathDocReport = '';
 
-        $clonedObject->setName($object->getName().' (Clone)');
+        $document = $operation->getDocument();
+        //$document->setReport($pathDocReport);
 
-        $this->admin->create($clonedObject);
+        $em->persist($document);
+        $em->flush();
 
-        $this->addFlash('sonata_flash_success', 'Cloned successfully');
 
-        return new RedirectResponse($this->admin->generateUrl('list'));
-
-        // if you have a filtered list and want to keep your filters after the redirect
-        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+        //return new RedirectResponse('/uploads/doc/3ef86a8dce5c8cd83782136824458fa9.xls');
+        return new RedirectResponse('/uploads/doc/'.$pathDocReport);
     }
 }
