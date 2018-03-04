@@ -206,6 +206,12 @@ class Operation
     private $equipement;
 
     /**
+     * One Operation has Many Aae result.
+     * @ORM\OneToMany(targetEntity="Aae", mappedBy="operation")
+     */
+    private $aae;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
@@ -223,6 +229,7 @@ class Operation
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
         $this->equipement = new ArrayCollection();
+        $this->aae = new ArrayCollection();
     }
 
     /**
@@ -702,6 +709,25 @@ class Operation
         $this->equipement[] = $equipement;
 
         return $equipement;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAae()
+    {
+        return $this->aae;
+    }
+
+    /**
+     * @param Aae $aae
+     * @return Aae
+     */
+    public function addAae(Aae $aae)
+    {
+        $this->aae[] = $aae;
+
+        return $aae;
     }
 
     /**
