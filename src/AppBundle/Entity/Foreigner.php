@@ -29,6 +29,15 @@ class Foreigner
     private $operation;
 
     /**
+     * Fiche de traitement de mesure n° F(1)
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $idOfSheet;
+
+    /**
      * Emission Name
      *
      * @var string
@@ -252,6 +261,22 @@ class Foreigner
     public function setOperation($operation)
     {
         $this->operation = $operation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdOfSheet()
+    {
+        return $this->idOfSheet;
+    }
+
+    /**
+     * @param string $idOfSheet
+     */
+    public function setIdOfSheet($idOfSheet)
+    {
+        $this->idOfSheet = $idOfSheet;
     }
 
     /**
