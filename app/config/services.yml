@@ -44,12 +44,20 @@ services:
             class: AppBundle\Service\FileUploader
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
 
-    app.extract_file:
+    app.extract_data:
             class: AppBundle\Service\ExtractData
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
 
     app.extract_sheet_result:
             class: AppBundle\Service\ExtractResults
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
+
+    app.read_xls_sheetfile:
+            class: AppBundle\Service\ReadXLSSheetFile
+            arguments: ["@service_container"]
+            public: true
 
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"

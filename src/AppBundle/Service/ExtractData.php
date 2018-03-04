@@ -48,28 +48,20 @@ class ExtractData
 
     /**
      * @param Operation $operation
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function extractData(Operation $operation){
-        $allDocument = $operation->getDocument();
-        foreach ($allDocument as $document){
-            $this->extractDataFromDocument($document, $operation);
-        }
+        $document = $operation->getDocument();
+        $this->extractDataFromDocument($document, $operation);
     }
 
     /**
      * @param Document $document
      * @param Operation $operation
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     private function extractDataFromDocument(Document $document, Operation $operation){
-        $path = $document->getPathDocXml();
-
-
         //TODO: traitemnet des datas
 
-        $spreadSheet = $operation->readXLSSheetFile();
-
+        $spreadSheet = $this->container->get('app.read_xls_sheetfile')->readXLSSheetFile($operation);
 
         $extractResult = new ExtractResults();
 

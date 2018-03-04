@@ -180,16 +180,9 @@ class Operation
 
 
     /**
-     * Many Operation have Many Documents.
-     * @ORM\ManyToMany(targetEntity="Document", inversedBy="operation")
-     * @ORM\JoinTable(name="operation_has_document",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="document_id", referencedColumnName="id")
-     *   }
-     * )
+     * One Product has One Shipment.
+     * @ORM\OneToOne(targetEntity="Document")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
      */
     private $document;
 
@@ -641,23 +634,11 @@ class Operation
     }
 
     /**
-     * @param $document
-     * @return mixed
+     * @param mixed $document
      */
-    public function addDocument(Document $document)
+    public function setDocument($document)
     {
-        $this->document[] = $document;
-
-        return $document;
-    }
-
-    /**
-     * @param $document
-     * @return bool
-     */
-    public function removeDocument($document)
-    {
-        return $this->document->removeElement($document);
+        $this->document = $document;
     }
 
     /**
@@ -782,26 +763,7 @@ class Operation
     {
         return $this->sheetNames;
     }
-    /**
-     * MANAGE ALL READINGS FROM XLS MEASURE SHEET
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
-     */
-    public function readXLSSheetFile(){
-        $inputFileType = 'Xls';
-        $reader = IOFactory::createReader($inputFileType);
 
-        $spreadsheet = $reader->load($this->container->getParameter('kernel.root_dir').'/../web/uploads/docs/'.$this->getDocument()->getPathDocXml());
-
-        $this->setSheetCount($spreadsheet->getSheetCount());
-        $this->setSheetNames($spreadsheet->getSheetNames());
-
-        /**
-         *  Read all data to fill Operation Entity
-         */
-        $this->readOperationData($spreadsheet);
-        return $spreadsheet;
-    }
     /**
      * Read Operation from file
      *

@@ -57,17 +57,9 @@ class Document
     private $created;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="document")
-     */
-    private $operation;
-
-    /**
      * Document constructor.
      */
     public function __construct() {
-        $this->operation = new ArrayCollection();
         $this->created = new \DateTime();
     }
 
@@ -164,22 +156,6 @@ class Document
     public function setCreated($created)
     {
         $this->created = $created;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOperation()
-    {
-        return $this->operation;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $operation
-     */
-    public function setOperation($operation)
-    {
-        $this->operation = $operation;
     }
 }
 
