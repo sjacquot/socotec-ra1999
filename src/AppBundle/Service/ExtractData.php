@@ -48,22 +48,34 @@ class ExtractData
 
     /**
      * @param Operation $operation
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function extractData(Operation $operation){
         $allDocument = $operation->getDocument();
         foreach ($allDocument as $document){
-            $this->extractDataFromDocuement($document, $operation);
+            $this->extractDataFromDocument($document, $operation);
         }
     }
 
     /**
      * @param Document $document
      * @param Operation $operation
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    private function extractDataFromDocuement(Document $document, Operation $operation){
+    private function extractDataFromDocument(Document $document, Operation $operation){
         $path = $document->getPathDocXml();
+
+
         //TODO: traitemnet des datas
+
+        $spreadSheet = $operation->readXLSSheetFile();
+
+
+        $extractResult = new ExtractResults();
+
+
         $dataAAE = [];
+        $dataResult = $extractResult->readResults($spreadSheet);
         $dataEquipement = [];
         $dataShock = [];
         $dataForeigner = [];
@@ -98,7 +110,6 @@ class ExtractData
             //fucniton to create a new aerien
             $this->UploadAerien($operation, $data);
         }
-
 
         $this->entityManager->flush();
 
@@ -198,7 +209,7 @@ class ExtractData
             $shock->setOperation($operation);
         }
         $shock->setFlooringNature($data['flooring_nature']);
-        //TODO: other data of aerien
+        //TODO: other data of shock
 
         $this->entityManager->persist($shock);
 
@@ -223,13 +234,10 @@ class ExtractData
             $foreigner->setOperation($operation);
         }
         $foreigner->setBoilerSuctionCup($data['boiler_suction_cup']);
-        //TODO: other data of aerien
+        //TODO: other data of foreigner
 
         $this->entityManager->persist($foreigner);
 
         return $foreigner;
     }
-
-
-
 }

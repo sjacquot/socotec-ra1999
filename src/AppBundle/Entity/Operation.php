@@ -791,7 +791,7 @@ class Operation
         $inputFileType = 'Xls';
         $reader = IOFactory::createReader($inputFileType);
 
-        $spreadsheet = $reader->load($this->container->getParameter('kernel.root_dir').'/../web/uploads/docs/'.$this->getDocument()->getPathDocWord());
+        $spreadsheet = $reader->load($this->container->getParameter('kernel.root_dir').'/../web/uploads/docs/'.$this->getDocument()->getPathDocXml());
 
         $this->setSheetCount($spreadsheet->getSheetCount());
         $this->setSheetNames($spreadsheet->getSheetNames());
