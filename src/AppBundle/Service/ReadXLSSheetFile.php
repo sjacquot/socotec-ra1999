@@ -40,10 +40,6 @@ class ReadXLSSheetFile
 
         $spreadsheet = $reader->load($this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml());
 
-        /**
-         *  Read all data to fill Operation Entity
-         */
-        $operation->readOperationData($spreadsheet);
         return $spreadsheet;
     }
 }
