@@ -29,6 +29,8 @@ class Foreigner
     private $operation;
 
     /**
+     * Emission Name
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -36,6 +38,8 @@ class Foreigner
     private $localEmissionName;
 
     /**
+     * Emission Name
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -43,6 +47,8 @@ class Foreigner
     private $localEmissionVolume;
 
     /**
+     * Emission Type
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -50,6 +56,8 @@ class Foreigner
     private $localEmissionType;
 
     /**
+     * LOCAL RECEPTION Nom
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -57,6 +65,8 @@ class Foreigner
     private $localReceptionName;
 
     /**
+     * Local reception volume (m3)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -64,6 +74,8 @@ class Foreigner
     private $localReceptionVolume;
 
     /**
+     * Paroi separative Nature Paroi
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -71,6 +83,8 @@ class Foreigner
     private $separatingNatureWall;
 
     /**
+     * Paroi separative Epaisseur (cm)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -78,6 +92,8 @@ class Foreigner
     private $separatingThicknessWall;
 
     /**
+     * paroi separative Nature doublage
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -85,6 +101,8 @@ class Foreigner
     private $separatingDubbingNatureWall;
 
     /**
+     * paroi separative (Doublage) Epaisseur(cm)
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -92,6 +110,8 @@ class Foreigner
     private $separatingDubbingThicknessWall;
 
     /**
+     * Menuserie Matériaux
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -99,6 +119,8 @@ class Foreigner
     private $carpentryMaterial;
 
     /**
+     * Menuserie Ouvrant
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -106,6 +128,8 @@ class Foreigner
     private $carpentryOpening;
 
     /**
+     * Menuserie (Ouvrant) Type
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -113,6 +137,8 @@ class Foreigner
     private $carpentryOpeningType;
 
     /**
+     * Menuserie (Ouvrant) Number
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -120,6 +146,8 @@ class Foreigner
     private $carpentryOpeningNumber;
 
     /**
+     * Menuserie Coffre volet Roulant
+     *
      * @var string
      *
      * @ORM\Column(type="boolean", nullable=true)
@@ -127,13 +155,8 @@ class Foreigner
     private $rollingShutterBox;
 
     /**
-     * @var string
+     * ENTRÉE D'AIR VMC Nombre
      *
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $rollingShutterBoxNumber;
-
-    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -141,6 +164,8 @@ class Foreigner
     private $vmcAirIntakeNumber;
 
     /**
+     * ENTRÉE D'AIR VMC Position
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -148,6 +173,8 @@ class Foreigner
     private $vmcAirIntakePosition;
 
     /**
+     * ENTRÉE D'AIR VMC Type
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -155,6 +182,8 @@ class Foreigner
     private $vmcAirIntakeType;
 
     /**
+     * VENTOUSE CHAUDIERE
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -162,6 +191,8 @@ class Foreigner
     private $boilerSuctionCup;
 
     /**
+     * OBSERVATION(S) EVENTUELLE(S) :
+     *
      * @var text
      *
      * @ORM\Column(type="text", nullable=true)
@@ -169,6 +200,8 @@ class Foreigner
     private $comment;
 
     /**
+     * Isolement acoustique standardisé pondéré :
+     *
      * String because you have the  prefix dB
      *
      * @var string
@@ -178,6 +211,7 @@ class Foreigner
     private $weightedStandardizedAcousticIsolation;
 
     /**
+     * Objectif RA 1999 :
      * String because you have the  prefix dB
      *
      * @var string
@@ -442,22 +476,6 @@ class Foreigner
     public function setRollingShutterBox($rollingShutterBox)
     {
         $this->rollingShutterBox = $rollingShutterBox;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRollingShutterBoxNumber()
-    {
-        return $this->rollingShutterBoxNumber;
-    }
-
-    /**
-     * @param string $rollingShutterBoxNumber
-     */
-    public function setRollingShutterBoxNumber($rollingShutterBoxNumber)
-    {
-        $this->rollingShutterBoxNumber = $rollingShutterBoxNumber;
     }
 
     /**
