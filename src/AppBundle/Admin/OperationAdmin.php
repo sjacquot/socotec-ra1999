@@ -153,9 +153,9 @@ class OperationAdmin extends Admin
         $listMapper->addIdentifier('name')
                     ->add('caseReferance')
                     ->add('reportReference')
-                    ->add('measureCompany')
                     ->add('measureAuthor')
-                    ->add('document')
+                    ->add('measureDate')
+                    ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig'))
                     ->add('_action', null, [
                     'actions' => [
                         'show' => [],
