@@ -86,6 +86,12 @@ class Operation
      * @ORM\Column(name="report_reference", type="string", length=255, nullable=true)
      */
     private $reportReference;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sheet_date", type="string", length=255, nullable=true)
+     */
+    private $sheetDate;
 
     /**
      * @var string
@@ -744,6 +750,22 @@ class Operation
     public function setSheetCount($SheetCount)
     {
         $this->SheetCount = $SheetCount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSheetDate()
+    {
+        return $this->sheetDate;
+    }
+
+    /**
+     * @param string $sheetDate
+     */
+    public function setSheetDate($sheetDate)
+    {
+        $this->sheetDate = $sheetDate;
     }
 
     /**
