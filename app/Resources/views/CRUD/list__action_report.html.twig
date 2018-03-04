@@ -1,4 +1,6 @@
-<a href="{{ admin.generateObjectUrl('report', object) }}" class="btn btn-sm btn-default" title="Report">
-    <i class="fa fa-file" aria-hidden="true"></i>
-    Report
-</a>
+{% if object.document %}
+    <a href="{{ admin.generateObjectUrl('report', object) }}" class="btn btn-sm btn-default" title="Report">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        Report
+    </a>
+{% endif %}
