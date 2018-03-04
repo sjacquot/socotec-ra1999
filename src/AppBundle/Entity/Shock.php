@@ -29,6 +29,8 @@ class Shock
     private $operation;
 
     /**
+     * Local emission Nom
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -36,6 +38,8 @@ class Shock
     private $localEmissionName;
 
     /**
+     * Local emission volume (m3)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -43,6 +47,8 @@ class Shock
     private $localEmissionVolume;
 
     /**
+     * Local reception nom
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -50,6 +56,8 @@ class Shock
     private $localReceptionName;
 
     /**
+     * Local reception (m3)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -57,6 +65,8 @@ class Shock
     private $localReceptionVolume;
 
     /**
+     * Plancher support Nature
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -64,6 +74,8 @@ class Shock
     private $separatingNatureFloor;
 
     /**
+     * Plancher Epaisseur (cm)
+     *
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -71,6 +83,26 @@ class Shock
     private $separatingThicknessFloor;
 
     /**
+     * REVETEMENT DE SOL Nature revêtement
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $flooringNature;
+
+    /**
+     * REVETEMENT DE SOL Traitement acoustique
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $flooringAcousticTreatment;
+
+    /**
+     * Type Transmition
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -78,6 +110,8 @@ class Shock
     private $transmissionType;
 
     /**
+     * Surface du local de reception
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -85,6 +119,8 @@ class Shock
     private $localReceptionSurface;
 
     /**
+     * obeservation eventuelle
+     *
      * @var text
      *
      * @ORM\Column(type="text", nullable=true)
@@ -92,6 +128,7 @@ class Shock
     private $comment;
 
     /**
+     * Niveau de pression pondéré du bruit de choc standardisé :
      * String because you have the  prefix dB
      *
      * @var string
@@ -101,6 +138,7 @@ class Shock
     private $weightedStandardizedShockNoise;
 
     /**
+     * Objectif RA 1999 :
      * String because you have the  prefix dB
      *
      * @var string
@@ -110,6 +148,7 @@ class Shock
     private $objectifRa1999;
 
     /**
+     * Tableau Résultats de l'essai
      * @var json
      *
      * @ORM\Column(type="json", nullable=true)
@@ -237,6 +276,38 @@ class Shock
     public function setSeparatingThicknessFloor($separatingThicknessFloor)
     {
         $this->separatingThicknessFloor = $separatingThicknessFloor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlooringNature()
+    {
+        return $this->flooringNature;
+    }
+
+    /**
+     * @param string $flooringNature
+     */
+    public function setFlooringNature($flooringNature)
+    {
+        $this->flooringNature = $flooringNature;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlooringAcousticTreatment()
+    {
+        return $this->flooringAcousticTreatment;
+    }
+
+    /**
+     * @param string $flooringAcousticTreatment
+     */
+    public function setFlooringAcousticTreatment($flooringAcousticTreatment)
+    {
+        $this->flooringAcousticTreatment = $flooringAcousticTreatment;
     }
 
     /**
