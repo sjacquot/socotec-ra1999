@@ -32,7 +32,7 @@ class CRUDController extends Controller
         $pathDocCertificate = '';
 
         $document = $operation->getDocument();
-        //$document->setCertificate($pathDocReport);
+        $document->setPathCertificate($pathDocCertificate);
 
         $em->persist($document);
         $em->flush();
@@ -60,7 +60,7 @@ class CRUDController extends Controller
         $pathDocReport = '';
 
         $document = $operation->getDocument();
-        //$document->setReport($pathDocReport);
+        $document->setPathReport($pathDocReport);
 
         $em->persist($document);
         $em->flush();
