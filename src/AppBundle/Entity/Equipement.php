@@ -22,6 +22,13 @@ class Equipement
     private $id;
 
     /**
+     * Many Equipement results have One Operation.
+     * @ORM\ManyToOne(targetEntity="Operation", inversedBy="equipement")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
+     */
+    private $operation;
+
+    /**
      * Title of the array like
      * Fiche de traitement de mesure : EQUIPEMENTS TECHNIQUES de type 1
      *
@@ -266,6 +273,22 @@ class Equipement
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperation()
+    {
+        return $this->operation;
+    }
+
+    /**
+     * @param mixed $operation
+     */
+    public function setOperation($operation)
+    {
+        $this->operation = $operation;
     }
 
     /**

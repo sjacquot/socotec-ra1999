@@ -200,6 +200,12 @@ class Operation
     private $shock;
 
     /**
+     * One Operation has Many Equipement result.
+     * @ORM\OneToMany(targetEntity="Equipement", mappedBy="operation")
+     */
+    private $equipement;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
@@ -216,6 +222,7 @@ class Operation
         $this->document = new ArrayCollection();
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
+        $this->equipement = new ArrayCollection();
     }
 
     /**
@@ -638,6 +645,54 @@ class Operation
     public function removeDocument($document)
     {
         return $this->document->removeElement($document);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAerien()
+    {
+        return $this->aerien;
+    }
+
+    /**
+     * @param mixed $aerien
+     */
+    public function setAerien($aerien)
+    {
+        $this->aerien = $aerien;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShock()
+    {
+        return $this->shock;
+    }
+
+    /**
+     * @param mixed $shock
+     */
+    public function setShock($shock)
+    {
+        $this->shock = $shock;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEquipement()
+    {
+        return $this->equipement;
+    }
+
+    /**
+     * @param mixed $equipement
+     */
+    public function setEquipement($equipement)
+    {
+        $this->equipement = $equipement;
     }
 
     /**

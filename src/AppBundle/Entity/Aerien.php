@@ -29,6 +29,8 @@ class Aerien
     private $operation;
 
     /**
+     *
+     *
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
