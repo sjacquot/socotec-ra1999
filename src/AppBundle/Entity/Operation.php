@@ -180,16 +180,9 @@ class Operation
 
 
     /**
-     * Many Operation have Many Documents.
-     * @ORM\ManyToMany(targetEntity="Document", inversedBy="operation")
-     * @ORM\JoinTable(name="operation_has_document",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="document_id", referencedColumnName="id")
-     *   }
-     * )
+     * One Product has One Shipment.
+     * @ORM\OneToOne(targetEntity="Document")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
      */
     private $document;
 
@@ -216,6 +209,12 @@ class Operation
      * @ORM\OneToMany(targetEntity="Aae", mappedBy="operation")
      */
     private $aae;
+
+    /**
+     * One Operation has Many results.
+     * @ORM\OneToMany(targetEntity="Results", mappedBy="operation")
+     */
+    private $results;
 
     /**
      * @var int
@@ -641,23 +640,11 @@ class Operation
     }
 
     /**
-     * @param $document
-     * @return mixed
+     * @param mixed $document
      */
-    public function addDocument(Document $document)
+    public function setDocument($document)
     {
-        $this->document[] = $document;
-
-        return $document;
-    }
-
-    /**
-     * @param $document
-     * @return bool
-     */
-    public function removeDocument($document)
-    {
-        return $this->document->removeElement($document);
+        $this->document = $document;
     }
 
     /**
@@ -737,6 +724,17 @@ class Operation
     }
 
     /**
+     * @param Results $results
+     * @return Results
+     */
+    public function addResults(Results $results)
+    {
+        $this->results[] = $results;
+
+        return $results;
+    }
+
+    /**
      * @return int
      */
     public function getSheetCount()
@@ -782,26 +780,7 @@ class Operation
     {
         return $this->sheetNames;
     }
-    /**
-     * MANAGE ALL READINGS FROM XLS MEASURE SHEET
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
-     */
-    public function readXLSSheetFile(){
-        $inputFileType = 'Xls';
-        $reader = IOFactory::createReader($inputFileType);
 
-        $spreadsheet = $reader->load($this->container->getParameter('kernel.root_dir').'/../web/uploads/docs/'.$this->getDocument()->getPathDocXml());
-
-        $this->setSheetCount($spreadsheet->getSheetCount());
-        $this->setSheetNames($spreadsheet->getSheetNames());
-
-        /**
-         *  Read all data to fill Operation Entity
-         */
-        $this->readOperationData($spreadsheet);
-        return $spreadsheet;
-    }
     /**
      * Read Operation from file
      *
@@ -818,7 +797,7 @@ class Operation
         $address = array();
         $address[0] = $xlsReader->getActiveSheet()->getCell("D11")->getValue();
         $address[1] = $xlsReader->getActiveSheet()->getCell("D12")->getValue();
-        $this->setOperationAddress($address);
+        $this->setOperationAddress(json_encode($address));
         $this->setOperationCity($xlsReader->getActiveSheet()->getCell("D13")->getValue());
         $this->setOperationObjective($xlsReader->getActiveSheet()->getCell("D15")->getValue());
         $this->setOperationMeasureRef($xlsReader->getActiveSheet()->getCell("D16")->getValue());

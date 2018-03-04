@@ -48,71 +48,66 @@ class ExtractData
 
     /**
      * @param Operation $operation
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function extractData(Operation $operation){
-        $allDocument = $operation->getDocument();
-        foreach ($allDocument as $document){
-            $this->extractDataFromDocument($document, $operation);
+        $spreadSheet = $this->container->get('app.read_xls_sheetfile')->readXLSSheetFile($operation);
+        if($spreadSheet){
+            /**
+             *  Read all data to fill Operation Entity
+             */
+            $operation->readOperationData($spreadSheet);
+            /**
+             * Extract other file data
+             */
+            $this->extractDataFromDocument($operation, $spreadSheet);
+
+            $this->entityManager->persist($operation);
+            $this->entityManager->flush();
         }
     }
 
     /**
-     * @param Document $document
      * @param Operation $operation
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @param $spreadSheet
      */
-    private function extractDataFromDocument(Document $document, Operation $operation){
-        $path = $document->getPathDocXml();
-
-
-        //TODO: traitemnet des datas
-
-        $spreadSheet = $operation->readXLSSheetFile();
-
+    private function extractDataFromDocument(Operation $operation, $spreadSheet){
 
         $extractResult = new ExtractResults();
-
-
-        $dataAAE = [];
         $dataResult = $extractResult->readResults($spreadSheet);
-        $dataEquipement = [];
-        $dataShock = [];
-        $dataForeigner = [];
+
         $dataAerien = [];
 
-        //loop to create the aae row
-        foreach ($dataAAE as $data){
-            //fucniton to create a new AAE
-            $this->UploadAAE($operation, $data);
+        $dataForeigner = [];
+
+        $dataShock = [];
+
+        $dataEquipement = [];
+
+        $dataAAE = [];
+
+        if($dataResult){
+            $this->UploadResults($operation, $dataResult);
         }
 
-        //loop to create the equipement row
-        foreach ($dataEquipement as $data){
-            //fucniton to create a new Equipement
-            $this->UploadEquipement($operation, $data);
+        if($dataAerien){
+            $this->UploadAerien($operation, $dataAerien);
         }
 
-        //loop to create the shock row
-        foreach ($dataShock as $data){
-            //fucniton to create a new shock
-            $this->UploadShock($operation, $data);
+        if($dataForeigner){
+            $this->UploadForeigner($operation, $dataForeigner);
         }
 
-        //loop to create the foreigner row
-        foreach ($dataForeigner as $data){
-            //fucniton to create a new foreigner
-            $this->UploadForeigner($operation, $data);
+        if($dataShock){
+            $this->UploadShock($operation, $dataShock);
         }
 
-        //loop to create the aerien row
-        foreach ($dataAerien as $data){
-            //fucniton to create a new aerien
-            $this->UploadAerien($operation, $data);
+        if($dataEquipement){
+            $this->UploadEquipement($operation, $dataEquipement);
         }
 
-        $this->entityManager->flush();
-
+        if($dataAAE){
+            $this->UploadAAE($operation, $dataAAE);
+        }
     }
 
     /**
@@ -124,16 +119,17 @@ class ExtractData
      */
     private function UploadAAE(Operation $operation, $data){
 
-        $aae = $this->entityManager->getRepository(Aae::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number']);
+        //$aae = $this->entityManager->getRepository(Aae::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number']);
+        $aae = $this->entityManager->getRepository(Aae::class)->findOneByOperation($operation);
 
         if(is_null($aae)){
             // here it's if the aae doesn't exist already it created it and set the basic info that already uptodate un existing aae
             $aae = new Aae();
-            $aae->setMeasureNumber($data['measure_number']);
+            //$aae->setMeasureNumber($data['measure_number']);
             $aae->setOperation($operation);
         }
-        $aae->setAaeCalculation($data['aae_calculation']);
-        //TODO: other data of AAE
+        //$aae->setAaeCalculation($data['aae_calculation']);
+        $aae->setData($data);
 
         $this->entityManager->persist($aae);
 
@@ -149,17 +145,18 @@ class ExtractData
      */
     private function UploadEquipement(Operation $operation, $data){
 
-        $equipement = $this->entityManager->getRepository(Equipement::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number'], $data['equipement_type']);
+        //$equipement = $this->entityManager->getRepository(Equipement::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number'], $data['equipement_type']);
+        $equipement = $this->entityManager->getRepository(Equipement::class)->findOneByOperation($operation);
 
         if(is_null($equipement)){
             // here it's if the Equipement doesn't exist already it created it and set the basic info that already uptodate un existing Equipement
             $equipement = new Equipement();
-            $equipement->setMeasureNumber($data['measure_number']);
+            //$equipement->setMeasureNumber($data['measure_number']);
             $equipement->setOperation($operation);
-            $equipement->setEquipementType($data['equipement_type']);
+            //$equipement->setEquipementType($data['equipement_type']);
         }
-        $equipement->setCommentLnATobjectifQualitel($data['equipement_type']);
-        //TODO: other data of equipement
+//        $equipement->setCommentLnATobjectifQualitel($data['equipement_type']);
+        $equipement->setData($data);
 
         $this->entityManager->persist($equipement);
 
@@ -183,8 +180,7 @@ class ExtractData
             $aerien->setIdOfSheet($data['idOfSheet']);
             $aerien->setOperation($operation);
         }
-        $aerien->setDoorNumber($data['door_number']);
-        //TODO: other data of aerien
+        $aerien->setData($data['data']);
 
         $this->entityManager->persist($aerien);
 
@@ -208,8 +204,7 @@ class ExtractData
             $shock->setIdOfSheet($data['idOfSheet']);
             $shock->setOperation($operation);
         }
-        $shock->setFlooringNature($data['flooring_nature']);
-        //TODO: other data of shock
+        $shock->setData($data['data']);
 
         $this->entityManager->persist($shock);
 
@@ -233,11 +228,33 @@ class ExtractData
             $foreigner->setIdOfSheet($data['idOfSheet']);
             $foreigner->setOperation($operation);
         }
-        $foreigner->setBoilerSuctionCup($data['boiler_suction_cup']);
-        //TODO: other data of foreigner
+        $foreigner->setData($data['data']);
 
         $this->entityManager->persist($foreigner);
 
         return $foreigner;
+    }
+
+    /**
+     * Create or upload the foreigner(s) for an opeartion
+     *
+     * @param Operation $operation
+     * @param $data
+     * @return Results
+     */
+    private function UploadResults(Operation $operation, $data){
+
+        $results = $this->entityManager->getRepository(Results::class)->findOneByOperation($operation);
+
+        if(is_null($results)){
+            // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
+            $results = new Results();
+            $results->setOperation($operation);
+        }
+        $results->setData($data);
+
+        $this->entityManager->persist($results);
+
+        return $results;
     }
 }

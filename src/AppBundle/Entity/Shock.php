@@ -164,6 +164,15 @@ class Shock
      */
     private $testResult;
 
+    /**
+     * a json of all the line of the resultats de l'essai table
+     *
+     * @var json
+     *
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data;
+
 
     /**
      * Get id.
@@ -429,5 +438,21 @@ class Shock
     public function setTestResult($testResult)
     {
         $this->testResult = $testResult;
+    }
+
+    /**
+     * @return json
+     */
+    public function getData()
+    {
+        return json_decode($this->data);
+    }
+
+    /**
+     * @param json $data
+     */
+    public function setData($data)
+    {
+        $this->data = json_encode($data);
     }
 }

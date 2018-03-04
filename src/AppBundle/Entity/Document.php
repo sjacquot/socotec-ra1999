@@ -42,7 +42,14 @@ class Document
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $path_doc_word;
+    private $path_report;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $path_certificate;
 
     /**
      *
@@ -57,17 +64,9 @@ class Document
     private $created;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="document")
-     */
-    private $operation;
-
-    /**
      * Document constructor.
      */
     public function __construct() {
-        $this->operation = new ArrayCollection();
         $this->created = new \DateTime();
     }
 
@@ -137,19 +136,34 @@ class Document
     /**
      * @return string
      */
-    public function getPathDocWord()
+    public function getPathReport()
     {
-        return $this->path_doc_word;
+        return $this->path_report;
     }
 
     /**
-     * @param string $path_doc_word
+     * @param string $path_report
      */
-    public function setPathDocWord($path_doc_word)
+    public function setPathReport($path_report)
     {
-        $this->path_doc_word = $path_doc_word;
+        $this->path_report = $path_report;
     }
 
+    /**
+     * @return string
+     */
+    public function getPathCertificate()
+    {
+        return $this->path_certificate;
+    }
+
+    /**
+     * @param string $path_certificate
+     */
+    public function setPathCertificate($path_certificate)
+    {
+        $this->path_certificate = $path_certificate;
+    }
     /**
      * @return mixed
      */
@@ -164,22 +178,6 @@ class Document
     public function setCreated($created)
     {
         $this->created = $created;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOperation()
-    {
-        return $this->operation;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $operation
-     */
-    public function setOperation($operation)
-    {
-        $this->operation = $operation;
     }
 }
 

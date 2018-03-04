@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Foreigner;
 use AppBundle\Entity\Operation;
 use Doctrine\ORM\EntityRepository;
 
@@ -16,10 +17,11 @@ class ForeignerRepository extends EntityRepository
     /**
      * @param Operation $operation
      * @param $idOfSheet
+     * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneByIdOfSheetAndOperation(Operation $operation, $idOfSheet){
-        $this->getEntityManager()
+        return $this->getEntityManager()
             ->getRepository(Shock::class)
             ->createQueryBuilder('a')
             ->where('a.idOfSheet = :idOfSheet')
@@ -30,6 +32,21 @@ class ForeignerRepository extends EntityRepository
                     'operation' => $operation,
                 ]
             )
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByOperation(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Foreigner::class)
+            ->createQueryBuilder('a')
+            ->where('a.operation = :operation')
+            ->setParameter('operation', $operation)
             ->getQuery()
             ->getOneOrNullResult();
     }

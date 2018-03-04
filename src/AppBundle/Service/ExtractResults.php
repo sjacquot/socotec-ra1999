@@ -97,7 +97,6 @@ class ExtractResults
                         $resultsArray[self::BEVMC][] = $data;
                     }
                     $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row++)->getCalculatedValue();
-                    echo "Line ".$row."Value";
                 }
             }
             if(strpos($value, self::BEIEL) !== false){ // STR COMP With Types

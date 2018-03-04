@@ -208,6 +208,15 @@ class Aae
      */
     private $comment;
 
+    /**
+     * a json of all the line of the resultats de l'essai table
+     *
+     * @var json
+     *
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data;
+
 
     /**
      * Get id.
@@ -553,5 +562,21 @@ class Aae
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return json
+     */
+    public function getData()
+    {
+        return json_decode($this->data);
+    }
+
+    /**
+     * @param json $data
+     */
+    public function setData($data)
+    {
+        $this->data = json_encode($data);
     }
 }
