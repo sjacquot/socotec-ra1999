@@ -217,12 +217,6 @@ class Operation
     private $aae;
 
     /**
-     * One Operation has Many results.
-     * @ORM\OneToMany(targetEntity="Results", mappedBy="operation")
-     */
-    private $results;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
@@ -727,6 +721,14 @@ class Operation
         $this->aae[] = $aae;
 
         return $aae;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 
     /**
