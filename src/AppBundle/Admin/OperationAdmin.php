@@ -72,6 +72,13 @@ class OperationAdmin extends Admin
             ->add('name')
             ->add('caseReferance',null)
             ->add('reportReference')
+            ->add('document', EntityType::class, array(
+                'multiple' => true,
+                'required' => false,
+                'label' => 'Documents already updated',
+                'class' => 'AppBundle\Entity\Document',
+            ))
+            ->add('documents', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Add Document'))
             ->end()
             ->with('Metadata', array('class' => 'col-md-9'))
             ->add('status')
@@ -91,14 +98,6 @@ class OperationAdmin extends Admin
                 'dp_use_current'        => true,
                 'format' => 'dd/MM/yyyy',
             ))
-
-            ->add('document', EntityType::class, array(
-                'multiple' => true,
-                'required' => false,
-                'label' => 'Documents already updated',
-                'class' => 'AppBundle\Entity\Document',
-            ))
-            ->add('documents', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Add Document'))
             ->end()
         ;
 
@@ -171,10 +170,10 @@ class OperationAdmin extends Admin
     }
 
     /**
-     * @param $site
+     * @param $operation
      * @throws \Exception
      */
-    public function preValidate($site)
+    public function preValidate($operation)
     {
         $files = $this->getForm()->get('documents')->getData();
         $fileUploader = $this->container->get(FileUploader::class);
@@ -190,7 +189,7 @@ class OperationAdmin extends Admin
             // $this->entityManager->flush();
 
             if($document){
-                $site->addDocument($document);
+                $operation->addDocument($document);
             }
         }
     }

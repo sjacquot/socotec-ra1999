@@ -4,35 +4,59 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+
 
 /**
- * Operation
+ * Class Operation
  *
  * @ORM\Table(name="operation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OperationRepository")
  */
 class Operation
 {
+/**
+ * Constants value for Status values can be
+ * Draft
+ * DraftWithSheet | ReportGenerated | CertGenerated (binary or operation)
+ * Closed
+ *
+ */
     /**
-     *
+     * Operation is draft (new)
      */
     const Draft = 0;
     /**
-     *
+     * Operation with SpreadSheet Workbook loaded
      */
     const DraftWithSheet = 1;
     /**
-     *
+     * Operation with RA199 measuring report
      */
     const ReportGenerated = 2;
     /**
-     *
+     * Operation with RA199 Certificate
      */
     const CertGenerated = 4;
     /**
-     *
+     *   Operation finished
      */
     const Closed = 8;
+
+    /**
+     * @var integer
+     */
+    private $SheetCount;
+    /**
+     * @var array
+     */
+    private $sheetNames;
+    /**
+     * @var array
+     */
+    const sheetName = "Renseignements";
     /**
      * @var int
      *
@@ -601,5 +625,78 @@ class Operation
     {
         return $this->document->removeElement($document);
     }
+
+    /**
+     * @return int
+     */
+    public function getSheetCount()
+    {
+        return $this->SheetCount;
+    }
+
+    /**
+     * @param integer $SheetCount
+     */
+    public function setSheetCount($SheetCount)
+    {
+        $this->SheetCount = $SheetCount;
+    }
+
+    /**
+     * @param array $sheetNames
+     */
+    public function setSheetNames($sheetNames)
+    {
+        $this->sheetNames = $sheetNames;
+    }
+    /**
+     * @return array
+     */
+    public function getSheetNames()
+    {
+        return $this->sheetNames;
+    }
+    /**
+     * MANAGE ALL READINGS FROM XLS MEASURE SHEET
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
+    public function readXLSSheetFile(){
+        $inputFileType = 'Xls';
+        $reader = IOFactory::createReader($inputFileType);
+
+        $spreadsheet = $reader->load($this->container->getParameter('kernel.root_dir').'/../web/uploads/docs/'.$this->getDocument()->getPathDocWord());
+
+        $this->setSheetCount($spreadsheet->getSheetCount());
+        $this->setSheetNames($spreadsheet->getSheetNames());
+
+        /**
+         *  Read all data to fill Operation Entity
+         */
+        $this->readOperationData($spreadsheet);
+        return $spreadsheet;
+    }
+    /**
+     * Read Operation from file
+     *
+     * @param IOFactory
+     */
+    public function readOperationData($xlsReader){
+        $xlsReader->setActiveSheetIndexByName(self::sheetName);
+        $this->setMeasureCompany($xlsReader->getActiveSheet()->getCell("D6")->getValue());
+        $this->setMeasureAuthor($xlsReader->getActiveSheet()->getCell("D7")->getValue());
+        $this->setMeasureDate($xlsReader->getActiveSheet()->getCell("D8")->getValue());
+        $this->setSheetDate($xlsReader->getActiveSheet()->getCell("D9")->getValue());
+        $this->setName($xlsReader->getActiveSheet()->getCell("D10")->getValue());
+        $this->setInfo($xlsReader->getActiveSheet()->getCell("D11")->getValue());
+        $address = array();
+        $address[0] = $xlsReader->getActiveSheet()->getCell("D11")->getValue();
+        $address[1] = $xlsReader->getActiveSheet()->getCell("D12")->getValue();
+        $this->setOperationAddress($address);
+        $this->setOperationCity($xlsReader->getActiveSheet()->getCell("D13")->getValue());
+        $this->setOperationObjective($xlsReader->getActiveSheet()->getCell("D15")->getValue());
+        $this->setOperationMeasureRef($xlsReader->getActiveSheet()->getCell("D16")->getValue());
+    }
+
 }
 
