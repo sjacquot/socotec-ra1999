@@ -32,23 +32,17 @@ class GenerateCertificate extends WordGenerator
         $templateFile = realpath($templateFile);
 
         $templateProcessor = new TemplateProcessor($templateFile);
-        $templateProcessor->setValue('MO', "A AJOUTER A OPERATION");
-        $templateProcessor->setValue('OPENAME', $operation->getName());
-        $templateProcessor->setValue('OPEINFO', $operation->getInfo());
-        $templateProcessor->setValue('OPREF', $operation->getReportReference());
-        $templateProcessor->setValue('OPCASE', $operation->getCaseReferance());
-        $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
-        $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
+        // Data from Operation
+        $this->fillTplOperation($templateProcessor,$operation);
+        // Data from Results
+        $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());
 
-        $results = $operation->getResults();
-        $resultsData = $results->getData();
-        $this->fillTplResuls($templateProcessor,$resultsData);
+        $certFilePath = $this->container->getParameter('path_document').'/certificate';
+        $certFilePath = realpath($certFilePath);
 
-        $certFilePath = $this->container->getParameter('path_document').'/certificate/';
         $date = date ( "Y-m-d_His");
-        $certFileName = $operation->getName().'-'.$operation->getReportReference()."-".$operation->getCaseReferance()."-".$date.".docx";
-        $certFilePath .= $certFileName;
-
+        $certFileName = "Attestation-".$operation->getName().'-'.$operation->getReportReference()."-".$operation->getCaseReferance()."-".$date.".docx";
+        $certFilePath .= "/".$certFileName;
         $templateProcessor->saveAs($certFilePath);
         return $certFileName;
     }

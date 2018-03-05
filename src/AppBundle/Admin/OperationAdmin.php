@@ -79,34 +79,34 @@ class OperationAdmin extends Admin
     {
 
         $formMapper
-            ->with('Operation/Chantier', array('class' => 'col-md-9'))
-                ->add('caseReferance',null)
-                ->add('reportReference')
+            ->with('Opération/Chantier', array('class' => 'col-md-9'))
+                ->add('caseReferance',null,['label'=>'Référence dossier'])
+                ->add('reportReference',null,['label'=>'Référence rapport'])
                 ->add('document', EntityType::class, array(
                     'multiple' => false,
                     'required' => false,
-                    'label' => 'Documents already updated',
+                    'label' => 'Fiche de mesure (XLS)',
                     'class' => 'AppBundle\Entity\Document',
                 ))
-                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Add Document'))
+                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
             ->end();
         if ($this->isCurrentRoute('edit')) {
             $formMapper
                 ->with('Metadata', array('class' => 'col-md-9'))
                 ->add('name', null, ['label'=>'Nom'])
                 ->add('status')
-                ->add('measureCompany')
-                ->add('measureAuthor')
-                ->add('info')
-                ->add('operationAddress')
-                ->add('operationCity')
-                ->add('operationObjective')
-                ->add('operationMeasureRef')
-                ->add('measureReport')
-                ->add('measureCert')
+                ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
+                ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
+                ->add('info',null,['label'=>'Informations'])
+                ->add('operationAddress',null,['label'=>'Adresse'])
+                ->add('operationCity',null,['label'=>'Ville'])
+                ->add('operationObjective',null,['label'=>'Objectif'])
+                ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
+                ->add('measureReport',null,['label'=>'Rapport de mesure détaillé'])
+                ->add('measureCert',null,['label'=>'Attestation de conformité'])
                 ->add('measureDate', DatePickerType::class, array(
                     'required' => false,
-                    'label' => 'Expiration Date',
+                    'label' => 'Date de la mesure',
                     'dp_side_by_side' => true,
                     'dp_use_current' => true,
                     'format' => 'dd/MM/yyyy',
@@ -123,26 +123,28 @@ class OperationAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('name', null, ['global_search' => true, 'label'=> 'Nom']);
-        $datagridMapper->add('caseReferance', null, ['global_search' => true]);
-        $datagridMapper->add('status', null, ['global_search' => true]);
-        $datagridMapper->add('measureCompany', null, ['global_search' => true]);
-        $datagridMapper->add('measureAuthor', null, ['global_search' => true]);
-        $datagridMapper->add('info', null, ['global_search' => true]);
-        $datagridMapper->add('operationAddress', null, ['global_search' => true]);
-        $datagridMapper->add('operationCity', null, ['global_search' => true]);
-        $datagridMapper->add('operationObjective', null, ['global_search' => true]);
-        $datagridMapper->add('operationMeasureRef', null, ['global_search' => true]);
-        $datagridMapper->add('measureReport', null, ['global_search' => true]);
-        $datagridMapper->add('measureCert', null, ['global_search' => true]);
+        $datagridMapper->add('caseReferance', null, ['global_search' => true, 'label'=>'Référence dossier']);
+        $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
+        $datagridMapper->add('document', null, ['global_search' => true, 'label'=>'Fiche de mesure (XLS)']);
+
+        $datagridMapper->add('status', null, ['global_search' => true, 'label'=>'Etat de traitement']);
+        $datagridMapper->add('measureCompany', null, ['global_search' => true, 'label'=>'Société']);
+        $datagridMapper->add('measureAuthor', null, ['global_search' => true, 'label'=>'Auteur(s)']);
+        $datagridMapper->add('info', null, ['global_search' => true, 'label'=>'informations']);
+        $datagridMapper->add('operationAddress', null, ['global_search' => true, 'label'=>'Adresse']);
+        $datagridMapper->add('operationCity', null, ['global_search' => true, 'label'=>'Ville']);
+        $datagridMapper->add('operationObjective', null, ['global_search' => true, 'label'=>'Objectif']);
+        $datagridMapper->add('operationMeasureRef', null, ['global_search' => true, 'label'=>'Référentiel mesure']);
+        $datagridMapper->add('measureReport', null, ['global_search' => false, 'label'=>'Rapport détaillé']);
+        $datagridMapper->add('measureCert', null, ['global_search' => false, 'label'=>'Attestation']);
         $datagridMapper->add('measureDate', null, array(
             'field_type'=>DatePickerType::class,
-            'global_search' => true
+            'global_search' => true, 'label'=>'Date de la mesure'
         ), null, [
             'dp_view_mode'          => 'days',
             'dp_min_view_mode'      => 'days',
             'format' => 'dd/MM/yyyy'
         ]);
-        $datagridMapper->add('document', null, ['global_search' => true]);
     }
 
     /**
@@ -151,17 +153,17 @@ class OperationAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', null, ['label'=>'Nom'])
-                    ->add('caseReferance')
-                    ->add('reportReference')
-                    ->add('measureAuthor')
-                    ->add('measureDate')
-                    ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig'))
+                    ->add('caseReferance',null,['label'=>'Référence dossier'])
+                    ->add('reportReference',null,['label'=>'Référence rapport'])
+                    ->add('measureAuthor',null,['label'=>'Auteur(s)'])
+                    ->add('measureDate',null,['label'=>'Date de la mesure'])
+                    ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig',null,'label'=>'Fiche de mesure (XLS)'))
                     ->add('_action', null, [
                     'actions' => [
                         'show' => [],
                         'edit' => [],
                         'delete' => [],
-                        'repport' => [
+                        'report' => [
                             'template' => 'CRUD/list__action_report.html.twig'
                         ],
                         'certificate' => [

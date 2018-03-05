@@ -13,6 +13,7 @@ sonata_admin:
                 items:
                     - admin.operation
                 icon:  <i class="fa fa-briefcase"></i>
+
 sonata_core:
     form:
         mapping:

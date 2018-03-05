@@ -35,11 +35,14 @@ class ReadXLSSheetFile
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function readXLSSheetFile(Operation $operation){
-        $inputFileType = 'Xls';
-        $reader = IOFactory::createReader($inputFileType);
+
         $doc = $operation->getDocument();
+
         if(isset($doc)){
-            $spreadsheet = $reader->load($this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml());
+            $inputFileName = $this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml();
+            $inputFileType = IOFactory::identify($inputFileName);
+            $reader = IOFactory::createReader($inputFileType);
+            $spreadsheet = $reader->load($inputFileName);
             return $spreadsheet;
         } else {
             return null;

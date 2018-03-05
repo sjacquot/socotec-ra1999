@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Operation;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -114,6 +115,23 @@ class WordGenerator
         }
     }
 
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Operation $operation
+     */
+    protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
+
+        $templateProcessor->setValue('MO', "A AJOUTER A OPERATION");
+        $templateProcessor->setValue('OPENAME', $operation->getName());
+        $templateProcessor->setValue('OPEINFO', $operation->getInfo());
+        $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
+        $date = date ( "d/m/Y");
+        $templateProcessor->setValue('REPORTDATE', $date);
+        $templateProcessor->setValue('CASEREF', $operation->getCaseReferance());
+        $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
+        $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
+
+}
     /**
      * @param TemplateProcessor $templateProcessor
      * @param $dataArray
