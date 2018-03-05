@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Results;
+use AppBundle\Service\ExtractResults;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController extends Controller
 {
@@ -21,13 +23,16 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/generateReport")
+     * @Route("/generateReport/{file}", name="debugresults" )
      */
-    public function generateReportAction()
+    public function generateReportAction($file)
     {
         $inputFileType = 'Xls';
         $reader = IOFactory::createReader($inputFileType);
-        $path = $this->container->getParameter('kernel.root_dir')."/../web/uploads/test/test2-mod.xls";
+        $path = realpath($this->container->getParameter('kernel.root_dir')."/../web/uploads/test/".$file);
+        if($path == false){
+            return new Response('',404);
+        }
         $filePath = realpath("$path");
         var_dump($filePath);
 
@@ -35,10 +40,10 @@ class IndexController extends Controller
 
         $operation = new Operation();
         $operation->readOperationData($spreadsheet);
-        $results = new Results();
-        $results->readResults($spreadsheet);
+        $results = new ExtractResults();
+        $arrayResults = $results->readResults($spreadsheet);
         echo "<pre>";
-        var_dump($results);
+        var_dump($arrayResults);
         echo "</pre>";
         die();
         return $this->render('Index/generate_report.html.twig', array(
