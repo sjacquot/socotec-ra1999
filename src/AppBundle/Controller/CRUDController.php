@@ -26,6 +26,7 @@ class CRUDController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
         $em = $this->getDoctrine()->getManager();
+        var_dump($operation);die();
 
         //TODO: repport generation
         //TODO: get the report path
@@ -38,7 +39,6 @@ class CRUDController extends Controller
         $em->flush();
 
 
-        //return new RedirectResponse('/uploads/doc/3ef86a8dce5c8cd83782136824458fa9.xls');
         return new RedirectResponse('/uploads/doc/'.$pathDocCertificate);
     }
 
@@ -55,6 +55,7 @@ class CRUDController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
+        var_dump($operation);die();
         //TODO: repport generation
         //TODO: get the report path
         $pathDocReport = '';
@@ -66,7 +67,6 @@ class CRUDController extends Controller
         $em->flush();
 
 
-        //return new RedirectResponse('/uploads/doc/3ef86a8dce5c8cd83782136824458fa9.xls');
         return new RedirectResponse('/uploads/doc/'.$pathDocReport);
     }
 }

@@ -59,6 +59,16 @@ services:
             arguments: ["@service_container"]
             public: true
 
+    app.generate_report:
+            class: AppBundle\Service\GenerateReport
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
+
+    app.generate_certificate:
+            class: AppBundle\Service\GenerateCertificate
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
+
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"
           public: true

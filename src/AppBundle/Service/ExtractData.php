@@ -36,7 +36,7 @@ class ExtractData
     private $entityManager;
 
     /**
-     * FileUploader constructor.
+     * ExtractData constructor.
      * @param ContainerInterface $container
      * @param EntityManagerInterface $entityManager
      */
