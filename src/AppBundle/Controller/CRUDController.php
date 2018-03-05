@@ -26,11 +26,8 @@ class CRUDController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
         $em = $this->getDoctrine()->getManager();
-        var_dump($operation);die();
-
-        //TODO: repport generation
-        //TODO: get the report path
-        $pathDocCertificate = '';
+        //TODO: Finish certificate generation in AppBundle\Service\GenerateCertificate
+        $pathDocCertificate = $this->container->get('app.generate_certificate')->generateCertificate($operation);
 
         $document = $operation->getDocument();
         $document->setPathCertificate($pathDocCertificate);
@@ -39,7 +36,7 @@ class CRUDController extends Controller
         $em->flush();
 
 
-        return new RedirectResponse('/uploads/doc/'.$pathDocCertificate);
+        return new RedirectResponse('/uploads/media/documents/certificate/'.$pathDocCertificate);
     }
 
     /**

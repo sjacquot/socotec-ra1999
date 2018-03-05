@@ -19,6 +19,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Results
 {
     /**
+     * $type possible values
+     */
+    const BAI = "Bruits Aériens Intérieurs";
+    const BAE = "Bruits Aériens Extérieurs";
+    const BC = "Bruits de Chocs";
+    const BEVMC = "Bruit des Equipements de VMC";
+    const BEIEL = "Bruit des Equipements Individuels Extérieurs au Logement contrôlé";
+    const BEIIL = "Bruit des Equipements Individuels de chauffage, climatisation ou de production d'ECS Intérieurs au Logement contrôlé";
+    const BEC = "Bruit des Equipements Collectifs (hors VMC)";
+    const AAE = "Aire d'Absorption Equivalente";
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
