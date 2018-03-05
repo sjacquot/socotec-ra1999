@@ -64,6 +64,6 @@ class CRUDController extends Controller
         $em->flush();
 
 
-        return new RedirectResponse('/uploads/doc/'.$pathDocReport);
+        return new RedirectResponse('/uploads/media/documents/report'.$pathDocReport);
     }
 }

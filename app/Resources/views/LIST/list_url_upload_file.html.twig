@@ -3,7 +3,7 @@
 {% block field %}
     {% if object.document %}
     <div>
-        <a href="/uploads/doc/{{ object.document.pathDocXml }}" download>{{ object.document.name }}</a>
+        <a href="/uploads/media/documents/{{ object.document.pathDocXml }}" download>{{ object.document.name }}</a>
     </div>
     {% endif %}
 {% endblock %}
