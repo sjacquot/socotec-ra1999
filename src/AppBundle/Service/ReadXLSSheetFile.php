@@ -37,9 +37,13 @@ class ReadXLSSheetFile
     public function readXLSSheetFile(Operation $operation){
         $inputFileType = 'Xls';
         $reader = IOFactory::createReader($inputFileType);
+        $doc = $operation->getDocument();
+        if(isset($doc)){
+            $spreadsheet = $reader->load($this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml());
+            return $spreadsheet;
+        } else {
+            return null;
+        }
 
-        $spreadsheet = $reader->load($this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml());
-
-        return $spreadsheet;
-    }
+        }
 }
