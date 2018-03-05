@@ -52,10 +52,9 @@ class CRUDController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        var_dump($operation);die();
-        //TODO: repport generation
+        //TODO: Finsh report generation
+        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
         //TODO: get the report path
-        $pathDocReport = '';
 
         $document = $operation->getDocument();
         $document->setPathReport($pathDocReport);
