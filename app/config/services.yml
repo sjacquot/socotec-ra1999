@@ -50,7 +50,11 @@ services:
             public: true
 
     app.extract_sheet_result:
-            class: AppBundle\Service\ExtractResults
+                class: AppBundle\Service\ExtractResults
+                arguments: ["@service_container", '@doctrine.orm.entity_manager']
+                public: true
+    app.extract_BAI_result:
+            class: AppBundle\Service\ExtractBAI
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
             public: true
 

@@ -35,9 +35,7 @@ class ReadXLSSheetFile
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function readXLSSheetFile(Operation $operation){
-
         $doc = $operation->getDocument();
-
         if(isset($doc)){
             $inputFileName = $this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml();
             $inputFileType = IOFactory::identify($inputFileName);
@@ -47,6 +45,5 @@ class ReadXLSSheetFile
         } else {
             return null;
         }
-
-        }
+    }
 }

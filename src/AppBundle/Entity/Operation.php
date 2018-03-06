@@ -796,19 +796,22 @@ class Operation
      */
     public function readOperationData($xlsReader){
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
-        $this->setMeasureCompany($xlsReader->getActiveSheet()->getCell("D6")->getValue());
-        $this->setMeasureAuthor($xlsReader->getActiveSheet()->getCell("D7")->getValue());
-        $this->setMeasureDate($xlsReader->getActiveSheet()->getCell("D8")->getValue());
-        $this->setSheetDate($xlsReader->getActiveSheet()->getCell("D9")->getValue());
-        $this->setName($xlsReader->getActiveSheet()->getCell("D10")->getValue());
-        $this->setInfo($xlsReader->getActiveSheet()->getCell("D11")->getValue());
+
+        $workSheet = $xlsReader->getActiveSheet();
+
+        $this->setMeasureCompany($workSheet->getCell("D6")->getCalculatedValue());
+        $this->setMeasureAuthor($workSheet->getCell("D7")->getCalculatedValue());
+        $this->setMeasureDate($workSheet->getCell("D8")->getCalculatedValue());
+        $this->setSheetDate($workSheet->getCell("D9")->getCalculatedValue());
+        $this->setName($workSheet->getCell("D10")->getCalculatedValue());
+        $this->setInfo($workSheet->getCell("D11")->getCalculatedValue());
         $address = array();
-        $address[0] = $xlsReader->getActiveSheet()->getCell("D11")->getValue();
-        $address[1] = $xlsReader->getActiveSheet()->getCell("D12")->getValue();
+        $address[0] = $workSheet->getCell("D11")->getCalculatedValue();
+        $address[1] = $workSheet->getCell("D12")->getCalculatedValue();
         $this->setOperationAddress(json_encode($address));
-        $this->setOperationCity($xlsReader->getActiveSheet()->getCell("D13")->getValue());
-        $this->setOperationObjective($xlsReader->getActiveSheet()->getCell("D15")->getValue());
-        $this->setOperationMeasureRef($xlsReader->getActiveSheet()->getCell("D16")->getValue());
+        $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());
+        $this->setOperationObjective($workSheet->getCell("D15")->getCalculatedValue());
+        $this->setOperationMeasureRef($workSheet->getCell("D16")->getCalculatedValue());
     }
 
 }

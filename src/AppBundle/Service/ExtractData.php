@@ -72,8 +72,32 @@ class ExtractData
      */
     private function extractDataFromDocument(Operation $operation, $spreadSheet){
 
+        $SheetNames = $spreadSheet->getSheetNames();
+
         $extractResult = new ExtractResults();
         $dataResult = $extractResult->readResults($spreadSheet);
+
+        if($dataResult){
+            $this->UploadResults($operation, $dataResult);
+        }
+
+        $matches  = preg_grep ('/^A\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+                // BAI
+            $extractBAI = new ExtractBAI();
+            $extractBAI->extractBAI($spreadSheet, $sheet);
+        }
+
+        $matches  = preg_grep ('/^F\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+            // BAE
+        }
+
+        $matches  = preg_grep ('/^C\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+            // BC
+        }
+
 
         $dataAerien = [];
 
@@ -85,9 +109,6 @@ class ExtractData
 
         $dataAAE = [];
 
-        if($dataResult){
-            $this->UploadResults($operation, $dataResult);
-        }
 
         if($dataAerien){
             $this->UploadAerien($operation, $dataAerien);
