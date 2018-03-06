@@ -193,6 +193,12 @@ class Operation
     private $aerien;
 
     /**
+     * One Operation has Many Foreigner (Aérien exterieur).
+     * @ORM\OneToMany(targetEntity="Foreigner", mappedBy="operation")
+     */
+    private $foreigner;
+
+    /**
      * One Operation has Many Shock.
      * @ORM\OneToMany(targetEntity="Shock", mappedBy="operation")
      */
@@ -233,6 +239,7 @@ class Operation
         $this->document = new ArrayCollection();
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
+        $this->foreigner = new ArrayCollection();
         $this->equipement = new ArrayCollection();
         $this->aae = new ArrayCollection();
     }
@@ -665,6 +672,16 @@ class Operation
 
         return $aerien;
     }
+    /**
+     * @param Foreigner $foreigner
+     * @return Aerien
+     */
+    public function addForeigner(Foreigner $foreigner)
+    {
+        $this->foreigner[] = $foreigner;
+
+        return $foreigner;
+    }
 
     /**
      * @return mixed
@@ -787,6 +804,22 @@ class Operation
     public function getSheetNames()
     {
         return $this->sheetNames;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForeigner()
+    {
+        return $this->foreigner;
+    }
+
+    /**
+     * @param mixed $foreigner
+     */
+    public function setForeigner($foreigner)
+    {
+        $this->foreigner = $foreigner;
     }
 
     /**

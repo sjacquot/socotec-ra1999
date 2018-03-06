@@ -95,6 +95,12 @@ class ExtractData
         $matches  = preg_grep ('/^F\((\d+)\)/i', $SheetNames);
         foreach ($matches as $sheet){
             // BAE
+            $extractBAE = new ExtractBAE();
+            $extractBAE->extractBAE($spreadSheet, $sheet);
+            if(!is_null($extractBAE->idOfSheet)){
+                $ForeignEntity = $this->UploadForeigner($operation, $extractBAE);
+                $operation->addForeigner($ForeignEntity);
+            }
         }
 
         $matches  = preg_grep ('/^C\((\d+)\)/i', $SheetNames);
@@ -103,7 +109,6 @@ class ExtractData
         }
 
 
-        $dataForeigner = [];
 
         $dataShock = [];
 
@@ -111,11 +116,6 @@ class ExtractData
 
         $dataAAE = [];
 
-
-
-        if($dataForeigner){
-            $this->UploadForeigner($operation, $dataForeigner);
-        }
 
         if($dataShock){
             $this->UploadShock($operation, $dataShock);
@@ -272,12 +272,43 @@ class ExtractData
         if(is_null($foreigner)){
             // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
             $foreigner = new Foreigner();
-            $foreigner->setIdOfSheet($data['idOfSheet']);
+            $foreigner->setIdOfSheet($data->idOfSheet);
             $foreigner->setOperation($operation);
         }
-        $foreigner->setData($data['data']);
+        $foreigner->setLocalEmissionName($data->localEmissionName);
+        $foreigner->setLocalEmissionType($data->localEmissionType);
+        $foreigner->setLocalReceptionName($data->localReceptionName);
+        $foreigner->setLocalReceptionVolume($data->localReceptionVolume);
 
-        $this->entityManager->persist($foreigner);
+        $foreigner->setSeparatingNatureWall($data->separatingNatureWall);
+        $foreigner->setSeparatingThicknessWall($data->separatingThicknessWall);
+        $foreigner->setSeparatingDubbingNatureWall($data->separatingDubbingNatureWall);
+        $foreigner->setSeparatingDubbingThicknessWall($data->separatingDubbingThicknessWall);
+
+        $foreigner->setCarpentryMaterial($data->carpentryMaterial);
+        $foreigner->setCarpentryOpening($data->carpentryOpening);
+        $foreigner->setCarpentryOpeningType($data->carpentryOpeningType);
+//        $data->carpentryOpeningNumber;
+        $foreigner->setRollingShutterBox($data->rollingShutterBox);
+
+        $foreigner->setVmcAirIntakeNumber($data->vmcAirIntakeNumber);
+        $foreigner->setVmcAirIntakePosition($data->vmcAirIntakePosition);
+        $foreigner->setVmcAirIntakeType($data->vmcAirIntakeType);
+
+        $foreigner->setBoilerSuctionCup($data->boilerSuctionCup);
+
+        $foreigner->setComment($data->comment);
+
+        $foreigner->setWeightedStandardizedAcousticIsolation($data->weightedStandardizedAcousticIsolation);
+        $foreigner->setObjectifRa1999($data->objectifRa1999);
+        $foreigner->setPassRa1999($data->PassRa1999);
+
+        $foreigner->setTestResult($data->testResult);
+
+        $foreigner->setData($data->data);
+
+
+        $data->entityManager->persist($foreigner);
 
         return $foreigner;
     }
