@@ -226,6 +226,7 @@ class ExtractData
 
         $aerien->setTestResult($data->testResult);
 
+        $aerien->setPassRa1999($data->PassRa1999);
         $aerien->setData($data->data);
 
         $this->entityManager->persist($aerien);

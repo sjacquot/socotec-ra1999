@@ -164,6 +164,14 @@ class ExtractBAI
     public $testResult;
 
     /**
+     * Appreciation de la mesure
+     *
+     * @var text
+     *
+     */
+    public $PassRa1999;
+
+    /**
      * a json of all the line of the resultats de l'essai table
      *
      * @var json
@@ -204,6 +212,8 @@ class ExtractBAI
         $this->objectifRa1999 = $worksheet->getCell('L47')->getCalculatedValue();
 
         $this->testResult = $worksheet->rangeToArray('B40:L45', '', true, true, true);
+
+        $this->PassRa1999  = $worksheet->getCell('D52')->getCalculatedValue();
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
 

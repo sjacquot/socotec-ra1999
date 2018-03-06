@@ -195,6 +195,15 @@ class Aerien
     private $testResult;
 
     /**
+     * Appreciation de la mesure
+     *
+     * @var text
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $PassRa1999;
+
+    /**
      * a json of all the line of the resultats de l'essai table
      *
      * @var json
@@ -515,6 +524,22 @@ class Aerien
     public function setTestResult($testResult)
     {
         $this->testResult = json_encode($testResult);
+    }
+
+    /**
+     * @return text
+     */
+    public function getPassRa1999()
+    {
+        return $this->PassRa1999;
+    }
+
+    /**
+     * @param text $PassRa1999
+     */
+    public function setPassRa1999($PassRa1999)
+    {
+        $this->PassRa1999 = $PassRa1999;
     }
 
     /**
