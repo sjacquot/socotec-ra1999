@@ -12,6 +12,10 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+/**
+ * Class ExtractBAI Extract data from A(#) worksheet
+ * @package AppBundle\Service
+ */
 class ExtractBAI
 {
     public $idOfSheet;
@@ -171,8 +175,10 @@ class ExtractBAI
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
-        $title = $worksheet->getCell('D2')->getCalculatedValue();
-        $this->idOfSheet = str_replace("#VALUE!", $sheetName,$title);
+        $this->idOfSheet = $sheetName;
+//        $title = $worksheet->getCell('D2')->getCalculatedValue();
+//        $this->idOfSheet = str_replace("#VALUE!", $sheetName,$title);
+
         $this->localEmissionName = $worksheet->getCell('I15')->getCalculatedValue();
         $this->localEmissionVolume = $worksheet->getCell('I16')->getCalculatedValue();
         $this->localReceptionName = $worksheet->getCell('I19')->getCalculatedValue();

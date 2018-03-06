@@ -114,7 +114,7 @@ class Aerien
      *
      * @var string
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $extractionMouth;
 
@@ -506,7 +506,7 @@ class Aerien
      */
     public function getTestResult()
     {
-        return $this->testResult;
+        return json_decode($this->testResult);
     }
 
     /**
@@ -514,7 +514,7 @@ class Aerien
      */
     public function setTestResult($testResult)
     {
-        $this->testResult = $testResult;
+        $this->testResult = json_encode($testResult);
     }
 
     /**

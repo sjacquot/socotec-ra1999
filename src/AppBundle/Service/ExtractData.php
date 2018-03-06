@@ -86,6 +86,10 @@ class ExtractData
                 // BAI
             $extractBAI = new ExtractBAI();
             $extractBAI->extractBAI($spreadSheet, $sheet);
+            if(!is_null($extractBAI->idOfSheet)){
+                $AerienEntity = $this->UploadAerien($operation, $extractBAI);
+                $operation->addAerien($AerienEntity);
+            }
         }
 
         $matches  = preg_grep ('/^F\((\d+)\)/i', $SheetNames);
@@ -99,8 +103,6 @@ class ExtractData
         }
 
 
-        $dataAerien = [];
-
         $dataForeigner = [];
 
         $dataShock = [];
@@ -110,9 +112,6 @@ class ExtractData
         $dataAAE = [];
 
 
-        if($dataAerien){
-            $this->UploadAerien($operation, $dataAerien);
-        }
 
         if($dataForeigner){
             $this->UploadForeigner($operation, $dataForeigner);
@@ -193,15 +192,41 @@ class ExtractData
      */
     private function UploadAerien(Operation $operation, $data){
 
-        $aerien = $this->entityManager->getRepository(Aerien::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
+        $aerien = $this->entityManager->getRepository(Aerien::class)->findOneByIdOfSheetAndOperation($operation, $data->idOfSheet);
 
         if(is_null($aerien)){
             // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
             $aerien = new Aerien();
-            $aerien->setIdOfSheet($data['idOfSheet']);
+            $aerien->setIdOfSheet($data->idOfSheet);
             $aerien->setOperation($operation);
         }
-        $aerien->setData($data['data']);
+        $aerien->setLocalEmissionName($data->localEmissionName);
+        $aerien->setLocalEmissionVolume($data->localEmissionVolume);
+        $aerien->setLocalReceptionName($data->localReceptionName);
+        $aerien->setLocalReceptionVolume($data->localReceptionVolume);
+
+        $aerien->setSeparatingNatureWall($data->separatingNatureWall);
+        $aerien->setSeparatingDubbingNatureWall($data->separatingDubbingNatureWall);
+        $aerien->setSeparatingThicknessWall($data->separatingThicknessWall);
+
+        $aerien->setDoorNumber($data->doorNumber);
+
+        $aerien->setExtractionMouth($data->extractionMouth);
+
+        $aerien->setFacadeDoublingNature($data->facadeDoublingNature);
+        $aerien->setFacadeDoublingThickness($data->facadeDoublingThickness);
+
+        $aerien->setTransmissionType($data->transmissionType);
+
+        $aerien->setLocalReceptionSurface($data->localReceptionSurface);
+        $aerien->setComment($data->comment);
+
+        $aerien->setWeightedStandardizedAcousticIsolation($data->weightedStandardizedAcousticIsolation);
+        $aerien->setObjectifRa1999($data->objectifRa1999);
+
+        $aerien->setTestResult($data->testResult);
+
+        $aerien->setData($data->data);
 
         $this->entityManager->persist($aerien);
 
