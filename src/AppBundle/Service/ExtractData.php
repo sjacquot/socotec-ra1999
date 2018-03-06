@@ -243,7 +243,7 @@ class ExtractData
      */
     private function UploadShock(Operation $operation, $data){
 
-        $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
+       // $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
 
         if(is_null($shock)){
             // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
@@ -267,7 +267,7 @@ class ExtractData
      */
     private function UploadForeigner(Operation $operation, $data){
 
-        $foreigner = $this->entityManager->getRepository(Foreigner::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
+        $foreigner = $this->entityManager->getRepository(Foreigner::class)->findOneByIdOfSheetAndOperation($operation, $data->idOfSheet);
 
         if(is_null($foreigner)){
             // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
