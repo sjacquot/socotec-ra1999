@@ -19,4 +19,7 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     # path document for xls
-    path_document:  %kernel.root_dir%/../web/uploads/media/documents
+
+    path_document: '%kernel.root_dir%/../web/uploads/media/documents'
+    path_template_certificate: '%kernel.root_dir%/../src/AppBundle/Resources/templates/cert-ra1999.docx'
+    path_template_report: '%kernel.root_dir%/../src/AppBundle/Resources/templates/report-ra1999.docx'
