@@ -49,9 +49,9 @@ class Aerien
     /**
      * LOCAL EMISSION Volume in (m3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localEmissionVolume;
 
@@ -67,9 +67,9 @@ class Aerien
     /**
      * LOCAL RECEPTION Volume (m3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localReceptionVolume;
 
@@ -94,9 +94,9 @@ class Aerien
     /**
      * Paroi separative Eapaisseur (cm)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $separatingThicknessWall;
 
@@ -130,9 +130,9 @@ class Aerien
     /**
      * Doublage Facade Epaisseru (cm)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $facadeDoublingThickness;
 
@@ -271,7 +271,7 @@ class Aerien
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalEmissionVolume()
     {
@@ -279,7 +279,7 @@ class Aerien
     }
 
     /**
-     * @param float $localEmissionVolume
+     * @param string $localEmissionVolume
      */
     public function setLocalEmissionVolume($localEmissionVolume)
     {
@@ -303,7 +303,7 @@ class Aerien
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalReceptionVolume()
     {
@@ -311,7 +311,7 @@ class Aerien
     }
 
     /**
-     * @param float $localReceptionVolume
+     * @param string $localReceptionVolume
      */
     public function setLocalReceptionVolume($localReceptionVolume)
     {
@@ -351,7 +351,7 @@ class Aerien
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getSeparatingThicknessWall()
     {
@@ -359,7 +359,7 @@ class Aerien
     }
 
     /**
-     * @param float $separatingThicknessWall
+     * @param string $separatingThicknessWall
      */
     public function setSeparatingThicknessWall($separatingThicknessWall)
     {
@@ -415,7 +415,7 @@ class Aerien
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getFacadeDoublingThickness()
     {
@@ -423,7 +423,7 @@ class Aerien
     }
 
     /**
-     * @param float $facadeDoublingThickness
+     * @param string $facadeDoublingThickness
      */
     public function setFacadeDoublingThickness($facadeDoublingThickness)
     {

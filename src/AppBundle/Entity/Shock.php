@@ -49,9 +49,9 @@ class Shock
     /**
      * Local emission volume (m3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localEmissionVolume;
 
@@ -67,9 +67,9 @@ class Shock
     /**
      * Local reception (m3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localReceptionVolume;
 
@@ -85,9 +85,9 @@ class Shock
     /**
      * Plancher Epaisseur (cm)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $separatingThicknessFloor;
 
@@ -233,7 +233,7 @@ class Shock
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalEmissionVolume()
     {
@@ -241,7 +241,7 @@ class Shock
     }
 
     /**
-     * @param float $localEmissionVolume
+     * @param string $localEmissionVolume
      */
     public function setLocalEmissionVolume($localEmissionVolume)
     {
@@ -265,7 +265,7 @@ class Shock
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalReceptionVolume()
     {
@@ -273,7 +273,7 @@ class Shock
     }
 
     /**
-     * @param float $localReceptionVolume
+     * @param string $localReceptionVolume
      */
     public function setLocalReceptionVolume($localReceptionVolume)
     {
@@ -297,7 +297,7 @@ class Shock
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getSeparatingThicknessFloor()
     {
@@ -305,7 +305,7 @@ class Shock
     }
 
     /**
-     * @param float $separatingThicknessFloor
+     * @param string $separatingThicknessFloor
      */
     public function setSeparatingThicknessFloor($separatingThicknessFloor)
     {

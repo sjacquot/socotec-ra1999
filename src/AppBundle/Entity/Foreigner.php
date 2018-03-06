@@ -49,9 +49,9 @@ class Foreigner
     /**
      * Emission Name
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localEmissionVolume;
 
@@ -76,9 +76,9 @@ class Foreigner
     /**
      * Local reception volume (m3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localReceptionVolume;
 
@@ -94,9 +94,9 @@ class Foreigner
     /**
      * Paroi separative Epaisseur (cm)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $separatingThicknessWall;
 
@@ -159,16 +159,16 @@ class Foreigner
      *
      * @var string
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $rollingShutterBox;
 
     /**
      * ENTRÉE D'AIR VMC Nombre
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $vmcAirIntakeNumber;
 
@@ -314,7 +314,7 @@ class Foreigner
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalEmissionVolume()
     {
@@ -322,7 +322,7 @@ class Foreigner
     }
 
     /**
-     * @param float $localEmissionVolume
+     * @param string $localEmissionVolume
      */
     public function setLocalEmissionVolume($localEmissionVolume)
     {
@@ -362,7 +362,7 @@ class Foreigner
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getLocalReceptionVolume()
     {
@@ -370,7 +370,7 @@ class Foreigner
     }
 
     /**
-     * @param float $localReceptionVolume
+     * @param string $localReceptionVolume
      */
     public function setLocalReceptionVolume($localReceptionVolume)
     {
@@ -394,7 +394,7 @@ class Foreigner
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getSeparatingThicknessWall()
     {
@@ -402,7 +402,7 @@ class Foreigner
     }
 
     /**
-     * @param float $separatingThicknessWall
+     * @param string $separatingThicknessWall
      */
     public function setSeparatingThicknessWall($separatingThicknessWall)
     {
@@ -522,7 +522,7 @@ class Foreigner
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getVmcAirIntakeNumber()
     {
@@ -530,7 +530,7 @@ class Foreigner
     }
 
     /**
-     * @param float $vmcAirIntakeNumber
+     * @param string $vmcAirIntakeNumber
      */
     public function setVmcAirIntakeNumber($vmcAirIntakeNumber)
     {

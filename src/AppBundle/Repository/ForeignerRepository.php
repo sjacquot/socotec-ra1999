@@ -22,7 +22,7 @@ class ForeignerRepository extends EntityRepository
      */
     public function findOneByIdOfSheetAndOperation(Operation $operation, $idOfSheet){
         return $this->getEntityManager()
-            ->getRepository(Shock::class)
+            ->getRepository(Foreigner::class)
             ->createQueryBuilder('a')
             ->where('a.idOfSheet = :idOfSheet')
             ->andWhere('a.operation = :operation')

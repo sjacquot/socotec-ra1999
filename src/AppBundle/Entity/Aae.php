@@ -76,72 +76,72 @@ class Aae
     /**
      * Indice unique d'absorption αw (w1)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorptionIndexW1;
 
     /**
      * Indice unique d'absorption αw (w2)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorptionIndexW2;
 
     /**
      * Indice unique d'absorption αw (w3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorptionIndexW3;
 
     /**
      * Surface d'absorbant mesurée en m2 (SA1)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorberArea1;
 
     /**
      * Surface d'absorbant mesurée en m2 (SA2)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorberArea2;
 
     /**
      * Surface d'absorbant mesurée en m2 (SA3)
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $absorberArea3;
 
     /**
      * Surface au sol totale mesurée en m2
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $totalFloorArea;
 
     /**
      * AAE calculée en %
      *
-     * @var float
+     * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $aaeCalculation;
 
@@ -150,7 +150,7 @@ class Aae
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $AaeObjectifRa1999;
 
@@ -168,7 +168,7 @@ class Aae
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $AaeObjectifQualitel;
 
@@ -186,7 +186,7 @@ class Aae
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $AaeObjectifRa1999Second;
 
@@ -325,7 +325,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorptionIndexW1()
     {
@@ -333,7 +333,7 @@ class Aae
     }
 
     /**
-     * @param float $absorptionIndexW1
+     * @param string $absorptionIndexW1
      */
     public function setAbsorptionIndexW1($absorptionIndexW1)
     {
@@ -341,7 +341,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorptionIndexW2()
     {
@@ -349,7 +349,7 @@ class Aae
     }
 
     /**
-     * @param float $absorptionIndexW2
+     * @param string $absorptionIndexW2
      */
     public function setAbsorptionIndexW2($absorptionIndexW2)
     {
@@ -357,7 +357,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorptionIndexW3()
     {
@@ -365,7 +365,7 @@ class Aae
     }
 
     /**
-     * @param float $absorptionIndexW3
+     * @param string $absorptionIndexW3
      */
     public function setAbsorptionIndexW3($absorptionIndexW3)
     {
@@ -373,7 +373,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorberArea1()
     {
@@ -381,7 +381,7 @@ class Aae
     }
 
     /**
-     * @param float $absorberArea1
+     * @param string $absorberArea1
      */
     public function setAbsorberArea1($absorberArea1)
     {
@@ -389,7 +389,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorberArea2()
     {
@@ -397,7 +397,7 @@ class Aae
     }
 
     /**
-     * @param float $absorberArea2
+     * @param string $absorberArea2
      */
     public function setAbsorberArea2($absorberArea2)
     {
@@ -405,7 +405,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAbsorberArea3()
     {
@@ -413,7 +413,7 @@ class Aae
     }
 
     /**
-     * @param float $absorberArea3
+     * @param string $absorberArea3
      */
     public function setAbsorberArea3($absorberArea3)
     {
@@ -421,7 +421,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getTotalFloorArea()
     {
@@ -429,7 +429,7 @@ class Aae
     }
 
     /**
-     * @param float $totalFloorArea
+     * @param string $totalFloorArea
      */
     public function setTotalFloorArea($totalFloorArea)
     {
@@ -437,7 +437,7 @@ class Aae
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getAaeCalculation()
     {
@@ -445,7 +445,7 @@ class Aae
     }
 
     /**
-     * @param float $aaeCalculation
+     * @param string $aaeCalculation
      */
     public function setAaeCalculation($aaeCalculation)
     {

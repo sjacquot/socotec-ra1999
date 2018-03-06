@@ -90,7 +90,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LASmaxTry1;
 
@@ -99,7 +99,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LASmaxTry2;
 
@@ -108,7 +108,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LASmaxTry3;
 
@@ -117,7 +117,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LASavg;
 
@@ -126,7 +126,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnEquipement;
 
@@ -135,7 +135,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnBackgroundNoise;
 
@@ -153,7 +153,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tr250;
 
@@ -162,7 +162,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tr500;
 
@@ -171,7 +171,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tr1000;
 
@@ -180,7 +180,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tr2000;
 
@@ -189,7 +189,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $correctionTr;
 
@@ -198,7 +198,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnAT;
 
@@ -207,7 +207,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnATobjectifRa1999;
 
@@ -225,7 +225,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnATobjectifQualitel;
 
@@ -243,7 +243,7 @@ class Equipement
      *
      * @var string
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $LnATobjectifRa1999Second;
 

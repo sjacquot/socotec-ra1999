@@ -308,7 +308,7 @@ class ExtractData
         $foreigner->setData($data->data);
 
 
-        $data->entityManager->persist($foreigner);
+        $this->entityManager->persist($foreigner);
 
         return $foreigner;
     }
