@@ -70,7 +70,7 @@ class ExtractData
      * @param Operation $operation
      * @param $spreadSheet
      */
-    private function extractDataFromDocument(Operation $operation, Spreadsheet $spreadSheet){
+    private function extractDataFromDocument(Operation $operation, $spreadSheet){
 
         $SheetNames = $spreadSheet->getSheetNames();
 
@@ -119,11 +119,9 @@ class ExtractData
             $this->UploadEquipement($operation, $Equipement);
         }
 
-        $dataAAE = [];
-
-
-        if($dataAAE){
-            $this->UploadAAE($operation, $dataAAE);
+        $AAE = new ExtractAAE();
+        if($AAE->readAAE($spreadSheet)) {
+            $this->UploadAAE($operation, $AAE);
         }
     }
 
@@ -134,19 +132,17 @@ class ExtractData
      * @param $data
      * @return Aae
      */
-    private function UploadAAE(Operation $operation, $data){
+    private function UploadAAE(Operation $operation, ExtractAAE $data){
 
-        //$aae = $this->entityManager->getRepository(Aae::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number']);
         $aae = $this->entityManager->getRepository(Aae::class)->findOneByOperation($operation);
 
         if(is_null($aae)){
             // here it's if the aae doesn't exist already it created it and set the basic info that already uptodate un existing aae
             $aae = new Aae();
-            //$aae->setMeasureNumber($data['measure_number']);
             $aae->setOperation($operation);
         }
-        //$aae->setAaeCalculation($data['aae_calculation']);
-        $aae->setData($data);
+        $aae->setData($data->data);
+        $aae->setComments($data->comments);
 
         $this->entityManager->persist($aae);
 
@@ -297,7 +293,7 @@ class ExtractData
      */
     private function UploadShock(Operation $operation, $data){
 
-       $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
+       $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data->idOfSheet);
 
         if(is_null($shock)){
             // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien

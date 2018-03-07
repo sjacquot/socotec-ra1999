@@ -45,7 +45,9 @@ class ExtractResults
 
         for ($row = 1; $row <= $highestRow; $row++){
             $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row)->getCalculatedValue();
+            // read $value until remarkable value found to indicate start of a table
             if(strpos($value, self::BAI) !== false){ // STR COMP With Type
+                // go to the start of Values to be extracted
                 $value = $worksheet->getCellByColumnAndRow(2 /* col B */, $row += 7)->getCalculatedValue();
                 while(strlen($value)>= 1){
                     $data = array();

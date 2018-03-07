@@ -8,8 +8,33 @@
 
 namespace AppBundle\Service;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExtractAAE
 {
+    const sheetName = "EQUIPEMENTS";
 
+    private $worksheet;
+    private $highestRow;
+    public $data;
+    public $comments;
+    public function readAAE(Spreadsheet $xlsReader)
+    {
+        $xlsReader->setActiveSheetIndexByName(self::sheetName);
+        $this->worksheet = $xlsReader->getActiveSheet();
+        $this->highestRow = $this->worksheet->getHighestRow();
+
+        $index = 6;
+        for($index;$index<=$this->highestRow;$index+=3){
+            $value = $this->worksheet->getCellByColumnAndRow(2,$index)->getCalculatedValue();
+            if(strlen($value)>0){
+                $this->data[] = $this->worksheet->rangeToArray("B".$index.":Q".($index+3),'',true,true,false);
+            }
+        }
+        $this->comments = $this->worksheet->rangeToArray("T6:T".$index,'',true,true,false);
+        return true;
+    }
 }

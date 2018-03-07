@@ -240,7 +240,6 @@ class Operation
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
         $this->foreigner = new ArrayCollection();
-        $this->aae = new ArrayCollection();
     }
 
     /**
