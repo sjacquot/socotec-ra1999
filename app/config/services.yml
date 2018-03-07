@@ -43,21 +43,37 @@ services:
     app.document_uploader:
             class: AppBundle\Service\FileUploader
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
-
+    # Service to coordinate whole workbook import
     app.extract_data:
             class: AppBundle\Service\ExtractData
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
             public: true
-
+    # Services speciallized for each type of data sheet
     app.extract_sheet_result:
                 class: AppBundle\Service\ExtractResults
                 arguments: ["@service_container", '@doctrine.orm.entity_manager']
                 public: true
     app.extract_BAI_result:
-            class: AppBundle\Service\ExtractBAI
+                class: AppBundle\Service\ExtractBAI
+                arguments: ["@service_container", '@doctrine.orm.entity_manager']
+                public: true
+    app.extract_BC_result:
+                class: AppBundle\Service\ExtractBC
+                arguments: ["@service_container", '@doctrine.orm.entity_manager']
+                public: true
+    app.extract_BAE_result:
+            class: AppBundle\Service\ExtractBAE
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
             public: true
-
+    app.extract_EQUIPM_result:
+            class: AppBundle\Service\ExtractEquipments
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
+    app.extract_AAE_result:
+            class: AppBundle\Service\ExtractAAE
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
+            public: true
+    # Service to initiate XLS import
     app.read_xls_sheetfile:
             class: AppBundle\Service\ReadXLSSheetFile
             arguments: ["@service_container"]

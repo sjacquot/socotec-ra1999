@@ -195,7 +195,7 @@ class ExtractBAE
      */
     public $PassRa1999;
 
-    public function extractBAE($xlsReader, $sheetName){
+    public function extractBAE(Spreadsheet $xlsReader, $sheetName){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
@@ -233,6 +233,7 @@ class ExtractBAE
         $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
+        return true;
 
     }
 

@@ -36,7 +36,7 @@ class ExtractResults
      * @param $xlsReader
      * @return array
      */
-    public function readResults($xlsReader){
+    public function readResults(Spreadsheet $xlsReader){
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $highestRow = $worksheet->getHighestRow(); // e.g. 10

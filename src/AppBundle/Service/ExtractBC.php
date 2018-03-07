@@ -13,10 +13,10 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Class ExtractBAI Extract data from A(#) worksheet
+ * Class ExtractBC Extract data from C(#) worksheet
  * @package AppBundle\Service
  */
-class ExtractBAI
+class ExtractBC
 {
     public $idOfSheet;
 
@@ -58,7 +58,7 @@ class ExtractBAI
      * @var string
      *
      */
-    public $separatingNatureWall;
+    public $separatingNatureFloor;
 
     /**
      * Paroi separative Nature Doublage
@@ -76,7 +76,7 @@ class ExtractBAI
      * @var float
      *
      */
-    public $separatingThicknessWall;
+    public $separatingThicknessFloor;
 
     /**
      * Nombre de porte (emission / reception)
@@ -125,7 +125,7 @@ class ExtractBAI
      * @var string
      *
      */
-    public $localReceptionSurface;
+    public $nbShockMachines;
 
     /**
      * observation Eventuelle
@@ -179,8 +179,7 @@ class ExtractBAI
      */
     public $data;
 
-    public function extractBAI(Spreadsheet $xlsReader, $sheetName){
-
+    public function extractBC(Spreadsheet $xlsReader, $sheetName){
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $this->idOfSheet = $sheetName;
@@ -189,33 +188,28 @@ class ExtractBAI
 
         $this->localEmissionName = $worksheet->getCell('I15')->getCalculatedValue();
         $this->localEmissionVolume = $worksheet->getCell('I16')->getCalculatedValue();
+
         $this->localReceptionName = $worksheet->getCell('I19')->getCalculatedValue();
         $this->localReceptionVolume = $worksheet->getCell('I20')->getCalculatedValue();
 
-        $this->separatingNatureWall = $worksheet->getCell('I23')->getCalculatedValue();
-        $this->separatingDubbingNatureWall = $worksheet->getCell('I24')->getCalculatedValue();
-        $this->separatingThicknessWall = $worksheet->getCell('I25')->getCalculatedValue();
+        $this->separatingNatureFloor = $worksheet->getCell('I23')->getCalculatedValue();
+        $this->separatingThicknessFloor = $worksheet->getCell('I24')->getCalculatedValue();
 
-        $this->doorNumber = $worksheet->getCell('I28')->getCalculatedValue();
+        $this->flooringNature = $worksheet->getCell('I27')->getCalculatedValue();
+        $this->flooringAcousticTreatment = $worksheet->getCell('I28')->getCalculatedValue();
 
-        $this->extractionMouth = $worksheet->getCell('I30')->getCalculatedValue();
+        $this->transmissionType = $worksheet->getCell('I31')->getCalculatedValue();
+        // NB MACHINE A CHOCs
+        $this->nbShockMachines = $worksheet->getCell('I34')->getCalculatedValue();
 
-        $this->facadeDoublingNature = $worksheet->getCell('I33')->getCalculatedValue();
-        $this->facadeDoublingThickness = $worksheet->getCell('I34')->getCalculatedValue();
+        $this->comment = $worksheet->getCell('IQ23')->getCalculatedValue();
 
-        $this->transmissionType = $worksheet->getCell('I36')->getCalculatedValue();
+        $this->weightedStandardizedShockNoise = $worksheet->getCell('H46')->getCalculatedValue();
+        $this->objectifRa1999 = $worksheet->getCell('H51')->getCalculatedValue();
+        $this->PassRa1999 = $worksheet->getCell('D52')->getCalculatedValue();
 
-        $this->localReceptionSurface = $worksheet->getCell('Q20')->getCalculatedValue();
-        $this->comment = $worksheet->getCell('Q23')->getCalculatedValue();
-
-        $this->weightedStandardizedAcousticIsolation = $worksheet->getCell('L46')->getCalculatedValue();
-        $this->objectifRa1999 = $worksheet->getCell('L47')->getCalculatedValue();
-
-        $this->testResult = $worksheet->rangeToArray('B40:L45', '', true, true, true);
-
-        $this->PassRa1999  = $worksheet->getCell('D52')->getCalculatedValue();
-
-        $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
+        $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
+        $this->data = $worksheet->rangeToArray('N2:S17', '', true, true, true);
         return true;
 
     }

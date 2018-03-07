@@ -125,7 +125,7 @@ class Shock
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $localReceptionSurface;
+    private $nbShockMachines;
 
     /**
      * obeservation eventuelle
@@ -155,6 +155,15 @@ class Shock
      * @ORM\Column(type="string", nullable=true)
      */
     private $objectifRa1999;
+
+    /**
+     * Appreciation de la mesure
+     *
+     * @var text
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $PassRa1999;
 
     /**
      * Tableau Résultats de l'essai
@@ -363,17 +372,17 @@ class Shock
     /**
      * @return string
      */
-    public function getLocalReceptionSurface()
+    public function getNbShockMachines()
     {
-        return $this->localReceptionSurface;
+        return $this->nbShockMachines;
     }
 
     /**
-     * @param string $localReceptionSurface
+     * @param string $nbShockMachines
      */
-    public function setLocalReceptionSurface($localReceptionSurface)
+    public function setNbShockMachines($nbShockMachines)
     {
-        $this->localReceptionSurface = $localReceptionSurface;
+        $this->nbShockMachines = $nbShockMachines;
     }
 
     /**
@@ -455,4 +464,21 @@ class Shock
     {
         $this->data = json_encode($data);
     }
+
+    /**
+     * @return text
+     */
+    public function getPassRa1999()
+    {
+        return $this->PassRa1999;
+    }
+
+    /**
+     * @param text $PassRa1999
+     */
+    public function setPassRa1999($PassRa1999)
+    {
+        $this->PassRa1999 = $PassRa1999;
+    }
+
 }

@@ -16,31 +16,6 @@ class EquipementRepository extends EntityRepository
 {
     /**
      * @param Operation $operation
-     * @param $measureNumber
-     * @param $equipementType
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findOneByMeasureNumberAndOperation(Operation $operation, $measureNumber, $equipementType){
-        return $this->getEntityManager()
-            ->getRepository(Equipement::class)
-            ->createQueryBuilder('a')
-            ->where('a.measureNumber = :measureNumber')
-            ->andWhere('a.equipementType = :equipementType')
-            ->andWhere('a.operation = :operation')
-            ->setParameters(
-                [
-                    'measureNumber' => $measureNumber,
-                    'equipementType' => $equipementType,
-                    'operation' => $operation,
-                ]
-            )
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    /**
-     * @param Operation $operation
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

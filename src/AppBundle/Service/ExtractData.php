@@ -70,7 +70,7 @@ class ExtractData
      * @param Operation $operation
      * @param $spreadSheet
      */
-    private function extractDataFromDocument(Operation $operation, $spreadSheet){
+    private function extractDataFromDocument(Operation $operation, Spreadsheet $spreadSheet){
 
         $SheetNames = $spreadSheet->getSheetNames();
 
@@ -105,25 +105,22 @@ class ExtractData
 
         $matches  = preg_grep ('/^C\((\d+)\)/i', $SheetNames);
         foreach ($matches as $sheet){
-            // BC
+            // BAE
+            $extractBC = new ExtractBC();
+            $extractBC->extractBC($spreadSheet, $sheet);
+            if(!is_null($extractBC->idOfSheet)){
+                $ShockEntity = $this->UploadShock($operation, $extractBC);
+                $operation->addShock($ShockEntity);
+            }
         }
 
-
-
-        $dataShock = [];
-
-        $dataEquipement = [];
+        $Equipement = new ExtractEquipments();
+        if($Equipement->readEquipment($spreadSheet)){
+            $this->UploadEquipement($operation, $Equipement);
+        }
 
         $dataAAE = [];
 
-
-        if($dataShock){
-            $this->UploadShock($operation, $dataShock);
-        }
-
-        if($dataEquipement){
-            $this->UploadEquipement($operation, $dataEquipement);
-        }
 
         if($dataAAE){
             $this->UploadAAE($operation, $dataAAE);
@@ -163,20 +160,21 @@ class ExtractData
      * @param $data
      * @return Equipement
      */
-    private function UploadEquipement(Operation $operation, $data){
+    private function UploadEquipement(Operation $operation, ExtractEquipments $data){
 
-        //$equipement = $this->entityManager->getRepository(Equipement::class)->findOneByMeasureNumberAndOperation($operation, $data['measure_number'], $data['equipement_type']);
         $equipement = $this->entityManager->getRepository(Equipement::class)->findOneByOperation($operation);
 
         if(is_null($equipement)){
             // here it's if the Equipement doesn't exist already it created it and set the basic info that already uptodate un existing Equipement
             $equipement = new Equipement();
-            //$equipement->setMeasureNumber($data['measure_number']);
             $equipement->setOperation($operation);
-            //$equipement->setEquipementType($data['equipement_type']);
-        }
-//        $equipement->setCommentLnATobjectifQualitel($data['equipement_type']);
-        $equipement->setData($data);
+            }
+        $equipement->setType1($data->type1);
+        $equipement->setType1AmbiantNoise($data->type1AmbiantNoise);
+        $equipement->setType1Comments($data->type1Comments);
+        $equipement->setType2($data->type2);
+        $equipement->setType2AmbiantNoise($data->type2AmbiantNoise);
+        $equipement->setType2Comments($data->type2Comments);
 
         $this->entityManager->persist($equipement);
 
@@ -234,36 +232,13 @@ class ExtractData
         return $aerien;
     }
 
-    /**
-     * Create or upload the shock(s) for an opeartion
-     *
-     * @param Operation $operation
-     * @param $data
-     * @return Shock
-     */
-    private function UploadShock(Operation $operation, $data){
-
-       // $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
-
-        if(is_null($shock)){
-            // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
-            $shock = new Shock();
-            $shock->setIdOfSheet($data['idOfSheet']);
-            $shock->setOperation($operation);
-        }
-        $shock->setData($data['data']);
-
-        $this->entityManager->persist($shock);
-
-        return $shock;
-    }
 
     /**
      * Create or upload the foreigner(s) for an opeartion
      *
      * @param Operation $operation
      * @param $data
-     * @return Shock
+     * @return Foreigner
      */
     private function UploadForeigner(Operation $operation, $data){
 
@@ -311,6 +286,53 @@ class ExtractData
         $this->entityManager->persist($foreigner);
 
         return $foreigner;
+    }
+
+    /**
+     * Create or upload the shock(s) for an opeartion
+     *
+     * @param Operation $operation
+     * @param $data
+     * @return Shock
+     */
+    private function UploadShock(Operation $operation, $data){
+
+       $shock = $this->entityManager->getRepository(Shock::class)->findOneByIdOfSheetAndOperation($operation, $data['idOfSheet']);
+
+        if(is_null($shock)){
+            // here it's if the aerien doesn't exist already it created it and set the basic info that already uptodate un existing aerien
+            $shock = new Shock();
+            $shock->setIdOfSheet($data->idOfSheet);
+            $shock->setOperation($operation);
+        }
+        $shock->setLocalEmissionName($data->localEmissionName);
+        $shock->setLocalEmissionVolume($data->localEmissionVolume);
+
+        $shock->setLocalReceptionName($data->localReceptionName);
+        $shock->setLocalReceptionVolume($data->localReceptionVolume);
+
+        $shock->setSeparatingNatureFloor($data->separatingNatureFloor);
+        $shock->setSeparatingThicknessFloor($data->separatingThicknessFloor);
+
+        $shock->setFlooringNature($data->flooringNature);
+        $shock->setFlooringAcousticTreatment($data->flooringAcousticTreatment);
+
+        $shock->setTransmissionType($data->transmissionType);
+
+        $shock->setNbShockMachines($data->nbShockMachines);
+
+        $shock->setComment($data->comment);
+
+        $shock->setWeightedStandardizedShockNoise($data->weightedStandardizedShockNoise);
+        $shock->setObjectifRa1999($data->objectifRa1999);
+        $shock->setPassRa1999($data->PassRa1999);
+
+        $shock->setTestResult($data->testResult);
+        $shock->setData($data->data);
+
+        $this->entityManager->persist($shock);
+
+        return $shock;
     }
 
     /**
