@@ -32,6 +32,9 @@ class GenerateReport extends WordGenerator
         $this->fillTplOperation($templateProcessor,$operation);
         // Data from Results
         $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());
+        $AerienArray = $operation->getAerien();
+        $nbclone = count($AerienArray);
+        $templateProcessor->cloneBlock("BLOCK_A",$nbclone);
 
         $reportFilePath = $this->container->getParameter('path_document').'/report';
         $reportFilePath = realpath($reportFilePath);
