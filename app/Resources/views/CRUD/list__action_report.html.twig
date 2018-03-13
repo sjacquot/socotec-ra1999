@@ -1,6 +1,13 @@
 {% if object.document %}
-    <a href="{{ admin.generateObjectUrl('report', object) }}" class="btn btn-sm btn-default" title="Rapport de mesure détaillé">
-        <i class="fa fa-file" aria-hidden="true"></i>
-        Rapport
-    </a>
+    {% if object.reportReference %}
+        <a href="{{ path('admin_app_report_edit', {'id' : object.reportReference.id, 'operation' : object.id  }) }}" class="btn btn-sm btn-default" title="Rapport de mesure détaillé">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            Rapport
+        </a>
+    {% else %}
+        <a href="{{ path('admin_app_report_create', { 'operation' : object.id }) }}" class="btn btn-sm btn-default" title="Rapport de mesure détaillé">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            Rapport
+        </a>
+    {% endif %}
 {% endif %}
