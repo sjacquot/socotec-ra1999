@@ -92,13 +92,13 @@ class Operation
      *
      * @ORM\Column(name="operation_nb_flat", type="string", length=255, nullable=true)
      */
-    private $operationNbFlat;
+    private $operationNbFlat = '1';
     /**
      * @var string
      *
      * @ORM\Column(name="operation_nb_building", type="string", length=255, nullable=true)
      */
-    private $operationNbBuilding;
+    private $operationNbBuilding = '1';
 
     /**
      * @var boolean
@@ -231,6 +231,20 @@ class Operation
      * @ORM\Column(name="pc_current_phase", type="string", length=255, nullable=true)
      */
     private $pcCurrentPhase;
+    // Champs Calendar
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="cal_start_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $calStartDate;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="cal_end_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $calEndDate;
+
 
     // Utility fields / XLS Extract
     /**
@@ -741,6 +755,38 @@ class Operation
     public function setPcCurrentPhase($pcCurrentPhase)
     {
         $this->pcCurrentPhase = $pcCurrentPhase;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCalStartDate()
+    {
+        return $this->calStartDate;
+    }
+
+    /**
+     * @param \DateTime $calStartDate
+     */
+    public function setCalStartDate($calStartDate)
+    {
+        $this->calStartDate = $calStartDate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCalEndDate()
+    {
+        return $this->calEndDate;
+    }
+
+    /**
+     * @param \DateTime $calEndDate
+     */
+    public function setCalEndDate($calEndDate)
+    {
+        $this->calEndDate = $calEndDate;
     }
 
     /**
