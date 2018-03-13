@@ -45,24 +45,24 @@ class CRUDController extends Controller
      */
     public function ReportAction($id)
     {
-        $operation = $this->admin->getSubject();
-
-        if (!$operation) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
-        }
-        $em = $this->getDoctrine()->getManager();
-
-        //TODO: Finsh report generation
-        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
-        //TODO: get the report path
-
-        $document = $operation->getDocument();
-        $document->setPathReport($pathDocReport);
-
-        $em->persist($document);
-        $em->flush();
-
-
-        return new RedirectResponse('/uploads/media/documents/report/'.$pathDocReport);
+//        $operation = $this->admin->getSubject();
+//
+//        if (!$operation) {
+//            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+//        }
+//        $em = $this->getDoctrine()->getManager();
+//
+//        //TODO: Finsh report generation
+//        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
+//        //TODO: get the report path
+//
+//        $document = $operation->getDocument();
+//        $document->setPathReport($pathDocReport);
+//
+//        $em->persist($document);
+//        $em->flush();
+//
+//
+//        return new RedirectResponse('/uploads/media/documents/report/'.$pathDocReport);
     }
 }
