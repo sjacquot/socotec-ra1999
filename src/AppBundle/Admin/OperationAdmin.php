@@ -137,6 +137,20 @@ class OperationAdmin extends Admin
                 ->with('Permis de construire', array('class' => 'col-md-9'))
                 ->end()
                 ->with("Calendrier de construction", array('class' => 'col-md-9'))
+                ->add('calStartDate', DatePickerType::class, array(
+                    'required' => false,
+                    'label' => 'Date ouverture chantier',
+                    'dp_side_by_side' => true,
+                    'dp_use_current' => true,
+                    'format' => 'dd/MM/yyyy',
+                ))
+                ->add('calEndDate', DatePickerType::class, array(
+                    'required' => false,
+                    'label' => 'Date achèvement travaux',
+                    'dp_side_by_side' => true,
+                    'dp_use_current' => true,
+                    'format' => 'dd/MM/yyyy',
+                ))
                 ->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9'))
                 ->end();
