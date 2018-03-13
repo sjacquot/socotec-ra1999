@@ -132,6 +132,12 @@ class Operation
      * @ORM\Column(name="operation_zone_peb", type="string", length=255, nullable=true)
      */
     private $operationZonePEB = 'aucune';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_cp", type="string", length=255, nullable=true)
+     */
+    private $operationCP;
 
     /**
      * @var string
@@ -679,6 +685,22 @@ class Operation
     public function setOperationVMC($operationVMC)
     {
         $this->operationVMC = $operationVMC;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationCP()
+    {
+        return $this->operationCP;
+    }
+
+    /**
+     * @param string $operationCP
+     */
+    public function setOperationCP($operationCP)
+    {
+        $this->operationCP = $operationCP;
     }
 
     /**

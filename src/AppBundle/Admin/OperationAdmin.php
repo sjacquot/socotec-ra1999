@@ -21,6 +21,7 @@ use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Sonata\AdminBundle\Form\ChoiceList;
 
 
 /**
@@ -78,44 +79,84 @@ class OperationAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
 
-        $formMapper
-            ->with('Opération/Chantier', array('class' => 'col-md-9'))
-                ->add('caseReference',null,['label'=>'Référence dossier'])
-                ->add('reportReference',null,['label'=>'Référence rapport'])
-                ->add('document', EntityType::class, array(
+        if ($this->isCurrentRoute('create')) {
+            $formMapper
+                ->with('Opération/Chantier', array('class' => 'col-md-9'))
+                ->add('caseReference', null, ['label' => 'Référence dossier'])
+//                ->add('reportReference', null, ['label' => 'Référence rapport'])
+/*                ->add('document', EntityType::class, array(
                     'multiple' => false,
                     'required' => false,
                     'label' => 'Fiche de mesure (XLS)',
                     'class' => 'AppBundle\Entity\Document',
-                ))
+                ))*/
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
-            ->end();
+                ->end();
+        }
         if ($this->isCurrentRoute('edit')) {
             $formMapper
-                ->with('Metadata', array('class' => 'col-md-9'))
-                ->add('name', null, ['label'=>'Nom'])
-                ->add('status')
+                ->with('Opération/Chantier', array('class' => 'col-md-9'))
+                ->add('caseReference', null, ['label' => 'Référence dossier'])
+                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                ->add('name', null, ['label'=>"Nom de l'opération"])
+                ->add('operationAddress',null,['label'=>"Adresse de l'opération"])
+                ->add('operationCP',null,['label'=>"Code postal de l'opération"])
+                ->add('operationCity',null,['label'=>"Commune de l'opération"])
+                ->add('operationIndividuel',null,['label'=>'Logement individuel'])
+                ->add('operationCollectif',null,['label'=>'Logement collectif'])
+                ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
+                ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
+                ->add('operationRoute300',null,['label'=>'Classement de la ou des voies routières à moins de 300m'])
+                ->add('operationTrain300',null,['label'=>'Classement de la ou des voies ferrées à moins de 300m'])
+                ->add('operationZonePEB',null,['label'=>"Zone de bruit du PEB d'un aérodrome"])
+                ->add('operationLabel',null,['label'=>"Label, certification ou démarche qualité"])
+                ->add('operationVMC',null,array(
+                    /*'choices' => array(
+                    'Simple Flux' => 'Simple Flux',
+                    'Double Flux' => 'Double Flux'
+                ),*/'label'=>"VMC simple/ double flux"))
+
+                ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
+                ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
+                ->end()
+                ->with('SOCOTEC', array('class' => 'col-md-9'))
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
-                ->add('info',null,['label'=>'Informations'])
-                ->add('operationAddress',null,['label'=>'Adresse'])
-                ->add('operationCity',null,['label'=>'Ville'])
-                ->add('operationObjective',null,['label'=>'Objectif'])
-                ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
-                ->add('measureReport',null,['label'=>'Rapport de mesure détaillé'])
-                ->add('measureCert',null,['label'=>'Attestation de conformité'])
-                ->add('measureDate', DatePickerType::class, array(
-                    'required' => false,
-                    'label' => 'Date de la mesure',
-                    'dp_side_by_side' => true,
-                    'dp_use_current' => true,
-                    'format' => 'dd/MM/yyyy',
-                ))
+                ->end()
+                ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9'))
+                ->add("moName", null, ['label' => "Nom Maître d'Ouvrage"])
+                ->add("moDest", null, ['label' => "Destinataire Maître d'Ouvrage"])
+                ->add("moAddress", null, ['label' => "Adresse Maître d'Ouvrage"])
+                ->add("moAddressComp", null, ['label' => "Complément d'adresse Maître d'Ouvrage"])
+                ->add("moCP", null, ['label' => "Code postal Maître d'Ouvrage"])
+                ->add("moCity", null, ['label' => "Commune Maître d'Ouvrage"])
+                ->add("moTel", null, ['label' => "Tel Maître d'Ouvrage"])
+                ->add("moEmail", null, ['label' => "Email Maître d'Ouvrage"])
+                ->end()
+                ->with('Permis de construire', array('class' => 'col-md-9'))
+                ->end()
+                ->with("Calendrier de construction", array('class' => 'col-md-9'))
+                ->end()
+                ->with("Intervenants & Equipe", array('class' => 'col-md-9'))
                 ->end();
         }
 
 
     }
+    // - ZONE DEPOT CODE EN COURS DE REFONTE
+//                ->add('status')
+    //              ->add('info',null,['label'=>'Informations'])
+//                ->add('measureReport',null,['label'=>'Rapport de mesure détaillé'])
+//                ->add('measureCert',null,['label'=>'Attestation de conformité'])
+    /*                ->add('measureDate', DatePickerType::class, array(
+                        'required' => false,
+                        'label' => 'Date de la mesure',
+                        'dp_side_by_side' => true,
+                        'dp_use_current' => true,
+                        'format' => 'dd/MM/yyyy',
+                    ))*/
+    // - /ZONE DEPOT CODE EN COURS DE REFONTE
 
     /**
      * @param DatagridMapper $datagridMapper
