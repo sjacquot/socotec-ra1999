@@ -42,7 +42,7 @@ class Report
      */
     public function __toString()
     {
-        return $this->reportReference;
+        return ($this->reportReference) ? $this->reportReference: '';
     }
 
     /**

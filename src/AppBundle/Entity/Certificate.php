@@ -42,7 +42,7 @@ class Certificate
      */
     public function __toString()
     {
-        return $this->certifReference;
+        return ($this->certifReference) ? $this->certifReference: '';
     }
 
     /**
