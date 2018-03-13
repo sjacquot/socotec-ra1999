@@ -302,8 +302,7 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Report", inversedBy="operation")
-     * @ORM\JoinColumn(name="report_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="Report", mappedBy="operation")
      */
     private $reportReference;
 
