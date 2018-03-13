@@ -80,7 +80,7 @@ class OperationAdmin extends Admin
 
         $formMapper
             ->with('Opération/Chantier', array('class' => 'col-md-9'))
-                ->add('caseReferance',null,['label'=>'Référence dossier'])
+                ->add('caseReference',null,['label'=>'Référence dossier'])
                 ->add('reportReference',null,['label'=>'Référence rapport'])
                 ->add('document', EntityType::class, array(
                     'multiple' => false,
@@ -123,7 +123,7 @@ class OperationAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('name', null, ['global_search' => true, 'label'=> 'Nom']);
-        $datagridMapper->add('caseReferance', null, ['global_search' => true, 'label'=>'Référence dossier']);
+        $datagridMapper->add('caseReference', null, ['global_search' => true, 'label'=>'Référence dossier']);
         $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
         $datagridMapper->add('document', null, ['global_search' => true, 'label'=>'Fiche de mesure (XLS)']);
 
@@ -153,7 +153,7 @@ class OperationAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', null, ['label'=>'Nom'])
-                    ->add('caseReferance',null,['label'=>'Référence dossier'])
+                    ->add('caseReference',null,['label'=>'Référence dossier'])
                     ->add('reportReference',null,['label'=>'Référence rapport'])
                     ->add('measureAuthor',null,['label'=>'Auteur(s)'])
                     ->add('measureDate',null,['label'=>'Date de la mesure'])
@@ -181,7 +181,7 @@ class OperationAdmin extends Admin
         $showMapper
             ->tab('General') // the tab call is optional
                 ->add('name', null, ['label'=>'Nom'])
-                ->add('caseReferance',null,['label'=>'Référence dossier'])
+                ->add('caseReference',null,['label'=>'Référence dossier'])
                 ->add('reportReference', null,['label'=>'Référence Rapport'])
                 ->add('measureCompany', null,['label'=>'Société'])
                 ->add('measureAuthor', null,['label'=>'Auteur(s)'])
