@@ -1,6 +1,13 @@
 {% if object.document %}
-    <a href="{{ admin.generateObjectUrl('certificate', object) }}" class="btn btn-sm btn-default" title="Attestation">
-        <i class="fa fa-file" aria-hidden="true"></i>
-        Attestation
-    </a>
+    {% if object.certifReference %}
+        <a href="{{ path('admin_app_certificate_edit', {'id' : object.certifReference.id, 'operation' : object.id  }) }}" class="btn btn-sm btn-default" title="Attestation">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            Attestation
+        </a>
+    {% else %}
+        <a href="{{ path('admin_app_certificate_create', { 'operation' : object.id }) }}" class="btn btn-sm btn-default" title="Attestation">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            Attestation
+        </a>
+    {% endif %}
 {% endif %}

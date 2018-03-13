@@ -24,7 +24,7 @@ class Equipement
     /**
      * Many Equipement results have One Operation.
      * @ORM\ManyToOne(targetEntity="Operation", inversedBy="equipement")
-     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $operation;
 

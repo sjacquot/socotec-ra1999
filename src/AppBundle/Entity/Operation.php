@@ -302,16 +302,18 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\Column(name="report_reference", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Report", inversedBy="operation")
+     * @ORM\JoinColumn(name="report_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $reportReference;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="certif_reference", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Certificate", mappedBy="operation")
      */
-    private $CertifReference;
+    private $certifReference;
+
     // Champs Intervenants/Equipe
     /**
      * @var string
@@ -480,7 +482,7 @@ class Operation
     /**
      * One Product has One Shipment.
      * @ORM\OneToOne(targetEntity="Document")
-     * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $document;
 
@@ -527,20 +529,25 @@ class Operation
      */
     private $status = self::Draft;
 
+    public function __toString()
+    {
+        return $this->caseReference;
+    }
+
     /**
      * @return string
      */
     public function getCertifReference()
     {
-        return $this->CertifReference;
+        return $this->certifReference;
     }
 
     /**
-     * @param string $CertifReference
+     * @param string $certifReference
      */
-    public function setCertifReference($CertifReference)
+    public function setCertifReference($certifReference)
     {
-        $this->CertifReference = $CertifReference;
+        $this->certifReference = $certifReference;
     }
 
     /**

@@ -24,7 +24,7 @@ class Aae
     /**
      * Many AAE results have One Operation.
      * @ORM\ManyToOne(targetEntity="Operation", inversedBy="aae")
-     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $operation;
 

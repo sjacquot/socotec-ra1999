@@ -24,7 +24,7 @@ class Aerien
     /**
      * Many Aerien have One Operation.
      * @ORM\ManyToOne(targetEntity="Operation", inversedBy="aerien")
-     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $operation;
 
