@@ -530,7 +530,7 @@ class Operation
 
     public function __toString()
     {
-        return $this->caseReference;
+        return ($this->caseReference) ? $this->caseReference: '';
     }
 
     /**
