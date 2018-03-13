@@ -1,0 +1,7 @@
+services:
+    app.admin.certificate:
+        class: AppBundle\Admin\CertificateAdmin
+        arguments: [~, AppBundle\Entity\Certificate, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Certificate }
+        public: true
