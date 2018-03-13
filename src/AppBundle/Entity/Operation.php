@@ -86,12 +86,19 @@ class Operation
      * @ORM\Column(name="operation_city", type="string", length=255, nullable=true)
      */
     private $operationCity;
+
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="operation_nb_building", type="integer", length=255, nullable=true)
+     * @ORM\Column(name="operation_nb_flat", type="string", length=255, nullable=true)
      */
-    private $operationNbBuilding = 1;
+    private $operationNbFlat = '1';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_nb_building", type="string", length=255, nullable=true)
+     */
+    private $operationNbBuilding = '1';
 
     /**
      * @var boolean
@@ -106,19 +113,6 @@ class Operation
      * @ORM\Column(name="operation_collec", type="boolean", nullable=true)
      */
     private $operationCollectif;
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="operation_nb_indiv", type="integer", nullable=true)
-     */
-    private $operationNbIndividuel;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="operation_nb_collec", type="integer", nullable=true)
-     */
-    private $operationNbCollectif;
 
     /**
      * @var string
@@ -152,17 +146,11 @@ class Operation
      */
     private $operationLabel;
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="operation_vmc_simple", type="boolean", length=255, nullable=true)
+     * @ORM\Column(name="operation_vmc", type="string", length=255, nullable=true)
      */
-    private $operationVMCSimple;
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="operation_vmc_double", type="boolean", length=255, nullable=true)
-     */
-    private $operationVMCDouple;
+    private $operationVMC;
     // Champs MO
     /**
      * @var string
@@ -314,7 +302,8 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Report", mappedBy="operation")
+     * @ORM\OneToOne(targetEntity="Report", inversedBy="operation")
+     * @ORM\JoinColumn(name="report_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $reportReference;
 
@@ -542,7 +531,7 @@ class Operation
 
     public function __toString()
     {
-        return ($this->caseReference) ? $this->caseReference: '';
+        return $this->caseReference;
     }
 
     /**
@@ -591,6 +580,22 @@ class Operation
     public function setOperationCollectif($operationCollectif)
     {
         $this->operationCollectif = $operationCollectif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationNbFlat()
+    {
+        return $this->operationNbFlat;
+    }
+
+    /**
+     * @param string $operationNbFlat
+     */
+    public function setOperationNbFlat($operationNbFlat)
+    {
+        $this->operationNbFlat = $operationNbFlat;
     }
 
     /**
@@ -674,67 +679,19 @@ class Operation
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getOperationNbIndividuel()
+    public function getOperationVMC()
     {
-        return $this->operationNbIndividuel;
+        return $this->operationVMC;
     }
 
     /**
-     * @param int $operationNbIndividuel
+     * @param string $operationVMC
      */
-    public function setOperationNbIndividuel($operationNbIndividuel)
+    public function setOperationVMC($operationVMC)
     {
-        $this->operationNbIndividuel = $operationNbIndividuel;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOperationNbCollectif()
-    {
-        return $this->operationNbCollectif;
-    }
-
-    /**
-     * @param int $operationNbCollectif
-     */
-    public function setOperationNbCollectif($operationNbCollectif)
-    {
-        $this->operationNbCollectif = $operationNbCollectif;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isOperationVMCSimple()
-    {
-        return $this->operationVMCSimple;
-    }
-
-    /**
-     * @param bool $operationVMCSimple
-     */
-    public function setOperationVMCSimple($operationVMCSimple)
-    {
-        $this->operationVMCSimple = $operationVMCSimple;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isOperationVMCDouple()
-    {
-        return $this->operationVMCDouple;
-    }
-
-    /**
-     * @param bool $operationVMCDouple
-     */
-    public function setOperationVMCDouple($operationVMCDouple)
-    {
-        $this->operationVMCDouple = $operationVMCDouple;
+        $this->operationVMC = $operationVMC;
     }
 
     /**
@@ -1948,10 +1905,8 @@ class Operation
 
         $this->setMeasureCompany($workSheet->getCell("D6")->getCalculatedValue());
         $this->setMeasureAuthor($workSheet->getCell("D7")->getCalculatedValue());
-
-        $this->setMeasureDate($workSheet->getCell("D8")->getFormattedValue());
-        $this->setSheetDate($workSheet->getCell("D9")->getFormattedValue());
-
+        $this->setMeasureDate($workSheet->getCell("D8")->getCalculatedValue());
+        $this->setSheetDate($workSheet->getCell("D9")->getCalculatedValue());
         $this->setName($workSheet->getCell("D10")->getCalculatedValue());
         $this->setInfo($workSheet->getCell("D11")->getCalculatedValue());
 

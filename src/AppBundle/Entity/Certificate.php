@@ -38,14 +38,6 @@ class Certificate
     private $operation;
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return ($this->certifReference) ? $this->certifReference: '';
-    }
-
-    /**
      * @return int
      */
     public function getId()
