@@ -209,6 +209,19 @@ class OperationAdmin extends Admin
 
 
     }
+    // - ZONE DEPOT CODE EN COURS DE REFONTE
+//                ->add('status')
+    //              ->add('info',null,['label'=>'Informations'])
+//                ->add('measureReport',null,['label'=>'Rapport de mesure détaillé'])
+//                ->add('measureCert',null,['label'=>'Attestation de conformité'])
+    /*                ->add('measureDate', DatePickerType::class, array(
+                        'required' => false,
+                        'label' => 'Date de la mesure',
+                        'dp_side_by_side' => true,
+                        'dp_use_current' => true,
+                        'format' => 'dd/MM/yyyy',
+                    ))*/
+    // - /ZONE DEPOT CODE EN COURS DE REFONTE
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -344,36 +357,5 @@ class OperationAdmin extends Admin
         $this->container->get('app.extract_data')->extractData($operation);
     }
 
-    /**
-     * @param $operation
-     * @throws \Exception
-     */
-    public function preRemove($operation){
-        $operation->getDocument()->remove();
-        $operation->getResults()->remove();
-
-        $Arerien = $operation->getAerien();
-        foreach ($Arerien as $item){
-            $item->remove();
-        }
-        $Aae = $operation->getAae();
-        foreach ($Aae as $item){
-            $item->remove();
-        }
-        $EQ = $operation->getEquipements();
-        foreach ($EQ as $item){
-            $item->remove();
-        }
-        $Facade = $operation->getForeigner();
-        foreach ($Facade as $item){
-            $item->remove();
-        }
-        $Choc = $operation->getShoxk();
-        foreach ($Choc as $item){
-            $item->remove();
-        }
-
-        parent::preRemove($operation);
-    }
 
 }
