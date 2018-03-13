@@ -194,12 +194,6 @@ class Operation
      * @ORM\Column(name="mo_email", type="string", length=255, nullable=true)
      */
     private $moEmail;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="case_reference", type="string", length=255)
-     */
-    private $caseReference;
     // Champs PC
     /**
      * @var \DateTime
@@ -244,6 +238,61 @@ class Operation
      * @ORM\Column(name="cal_end_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $calEndDate;
+    // Champs SOCOTEC
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="case_reference", type="string", length=255)
+     */
+    private $caseReference;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="measure_author", type="string", length=255, nullable=true)
+     */
+    private $measureAuthor;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="measure_company", type="string", length=255, nullable=true)
+     */
+    private $measureCompany = 'SOCOTEC';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sheet_date", type="string", length=255, nullable=true)
+     */
+    private $sheetDate;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="doc_author", type="string", length=255, nullable=true)
+     */
+    private $DocAuthor;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="doc_author_email", type="string", length=255, nullable=true)
+     */
+    private $DocAuthorEmail;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="doc_chrono_ref", type="string", length=255, nullable=true)
+     */
+    private $DocChronoRef;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nb_measure", type="string", length=255, nullable=true)
+     */
+    private $NbMeasure;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company_speaker", type="string", length=255, nullable=true)
+     */
+    private $CompanySpeaker;
 
 
     // Utility fields / XLS Extract
@@ -253,6 +302,7 @@ class Operation
      * @ORM\Column(name="report_reference", type="string", length=255, nullable=true)
      */
     private $reportReference;
+
     /**
      * @var string
      *
@@ -260,31 +310,12 @@ class Operation
      */
     private $CertifReference;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sheet_date", type="string", length=255, nullable=true)
-     */
-    private $sheetDate;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="measure_company", type="string", length=255, nullable=true)
-     */
-    private $measureCompany;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="measure_author", type="string", length=255, nullable=true)
-     */
-    private $measureAuthor;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="measure_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     * @ORM\Column(name="measure_date", type="string", nullable=true)
      */
     private $measureDate;
 
@@ -787,6 +818,86 @@ class Operation
     public function setCalEndDate($calEndDate)
     {
         $this->calEndDate = $calEndDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocAuthor()
+    {
+        return $this->DocAuthor;
+    }
+
+    /**
+     * @param string $DocAuthor
+     */
+    public function setDocAuthor($DocAuthor)
+    {
+        $this->DocAuthor = $DocAuthor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocAuthorEmail()
+    {
+        return $this->DocAuthorEmail;
+    }
+
+    /**
+     * @param string $DocAuthorEmail
+     */
+    public function setDocAuthorEmail($DocAuthorEmail)
+    {
+        $this->DocAuthorEmail = $DocAuthorEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocChronoRef()
+    {
+        return $this->DocChronoRef;
+    }
+
+    /**
+     * @param string $DocChronoRef
+     */
+    public function setDocChronoRef($DocChronoRef)
+    {
+        $this->DocChronoRef = $DocChronoRef;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNbMeasure()
+    {
+        return $this->NbMeasure;
+    }
+
+    /**
+     * @param string $NbMeasure
+     */
+    public function setNbMeasure($NbMeasure)
+    {
+        $this->NbMeasure = $NbMeasure;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompanySpeaker()
+    {
+        return $this->CompanySpeaker;
+    }
+
+    /**
+     * @param string $CompanySpeaker
+     */
+    public function setCompanySpeaker($CompanySpeaker)
+    {
+        $this->CompanySpeaker = $CompanySpeaker;
     }
 
     /**
