@@ -121,17 +121,23 @@ class WordGenerator
      */
     protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
 
-        $templateProcessor->setValue('MO', "A AJOUTER A OPERATION");
+        $templateProcessor->setValue('MO', $operation->getMoName());
         $templateProcessor->setValue('OPENAME', $operation->getName());
         $templateProcessor->setValue('OPEINFO', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
+        $templateProcessor->setValue('OPEADDRESS',$operation->getOperationAddress());
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
         $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
         $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
+        // TODO: A revoir 2 Entrées dans template...
         $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
+        $templateProcessor->setValue('MEASUREAUTHOR', $operation->getMeasureAuthor());
+        // TODO: Revoir extract Date générale & Dates de chaque feuilles
+        $templateProcessor->setValue('MEASUREDATE', $operation->getSheetDate());
+        $templateProcessor->setValue('OPECITY', $operation->getOperationCity());
 
-}
+    }
     /**
      * @param TemplateProcessor $templateProcessor
      * @param $dataArray
