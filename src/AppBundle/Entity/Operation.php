@@ -293,9 +293,6 @@ class Operation
      * @ORM\Column(name="company_speaker", type="string", length=255, nullable=true)
      */
     private $CompanySpeaker;
-
-
-    // Utility fields / XLS Extract
     /**
      * @var string
      *
@@ -309,8 +306,112 @@ class Operation
      * @ORM\Column(name="certif_reference", type="string", length=255, nullable=true)
      */
     private $CertifReference;
+    // Champs Intervenants/Equipe
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="delegate_mo", type="string", length=255, nullable=true)
+     */
+    private $delegateMO;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="delegate_mo_address", type="string", length=255, nullable=true)
+     */
+    private $delegateMOAddress;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="me_name", type="string", length=255, nullable=true)
+     */
+    private $MEName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="me_address", type="string", length=255, nullable=true)
+     */
+    private $MEAddress;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="me_mission", type="string", length=255, nullable=true)
+     */
+    private $MEMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other_me_name", type="string", length=255, nullable=true)
+     */
+    private $OtherMEName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other_me_mission", type="string", length=255, nullable=true)
+     */
+    private $OtherMEMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_structure_name", type="string", length=255, nullable=true)
+     */
+    private $BETStructureName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_structure_mission", type="string", length=255, nullable=true)
+     */
+    private $BETStructureMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_fluid_name", type="string", length=255, nullable=true)
+     */
+    private $BETFluidName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_fluid_mission", type="string", length=255, nullable=true)
+     */
+    private $BETFluidMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_thermal_name", type="string", length=255, nullable=true)
+     */
+    private $BETThermalName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_thermal_mission", type="string", length=255, nullable=true)
+     */
+    private $BETThermalMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_audio_name", type="string", length=255, nullable=true)
+     */
+    private $BETAudioName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bet_audio_mission", type="string", length=255, nullable=true)
+     */
+    private $BETAudioMission;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other_bet_amo_name", type="string", length=255, nullable=true)
+     */
+    private $OtherBET_AMOName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other_bet_amo_mission", type="string", length=255, nullable=true)
+     */
+    private $OtherBET_AMOMission;
 
 
+    // Utility fields / XLS Extract
 
     /**
      * @var string
@@ -898,6 +999,278 @@ class Operation
     public function setCompanySpeaker($CompanySpeaker)
     {
         $this->CompanySpeaker = $CompanySpeaker;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDelegateMO()
+    {
+        return $this->delegateMO;
+    }
+
+    /**
+     * @param string $delegateMO
+     */
+    public function setDelegateMO($delegateMO)
+    {
+        $this->delegateMO = $delegateMO;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDelegateMOAddress()
+    {
+        return $this->delegateMOAddress;
+    }
+
+    /**
+     * @param string $delegateMOAddress
+     */
+    public function setDelegateMOAddress($delegateMOAddress)
+    {
+        $this->delegateMOAddress = $delegateMOAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMEName()
+    {
+        return $this->MEName;
+    }
+
+    /**
+     * @param string $MEName
+     */
+    public function setMEName($MEName)
+    {
+        $this->MEName = $MEName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMEAddress()
+    {
+        return $this->MEAddress;
+    }
+
+    /**
+     * @param string $MEAddress
+     */
+    public function setMEAddress($MEAddress)
+    {
+        $this->MEAddress = $MEAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMEMission()
+    {
+        return $this->MEMission;
+    }
+
+    /**
+     * @param string $MEMission
+     */
+    public function setMEMission($MEMission)
+    {
+        $this->MEMission = $MEMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherMEName()
+    {
+        return $this->OtherMEName;
+    }
+
+    /**
+     * @param string $OtherMEName
+     */
+    public function setOtherMEName($OtherMEName)
+    {
+        $this->OtherMEName = $OtherMEName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherMEMission()
+    {
+        return $this->OtherMEMission;
+    }
+
+    /**
+     * @param string $OtherMEMission
+     */
+    public function setOtherMEMission($OtherMEMission)
+    {
+        $this->OtherMEMission = $OtherMEMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETStructureName()
+    {
+        return $this->BETStructureName;
+    }
+
+    /**
+     * @param string $BETStructureName
+     */
+    public function setBETStructureName($BETStructureName)
+    {
+        $this->BETStructureName = $BETStructureName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETStructureMission()
+    {
+        return $this->BETStructureMission;
+    }
+
+    /**
+     * @param string $BETStructureMission
+     */
+    public function setBETStructureMission($BETStructureMission)
+    {
+        $this->BETStructureMission = $BETStructureMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETFluidName()
+    {
+        return $this->BETFluidName;
+    }
+
+    /**
+     * @param string $BETFluidName
+     */
+    public function setBETFluidName($BETFluidName)
+    {
+        $this->BETFluidName = $BETFluidName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETFluidMission()
+    {
+        return $this->BETFluidMission;
+    }
+
+    /**
+     * @param string $BETFluidMission
+     */
+    public function setBETFluidMission($BETFluidMission)
+    {
+        $this->BETFluidMission = $BETFluidMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETThermalName()
+    {
+        return $this->BETThermalName;
+    }
+
+    /**
+     * @param string $BETThermalName
+     */
+    public function setBETThermalName($BETThermalName)
+    {
+        $this->BETThermalName = $BETThermalName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETThermalMission()
+    {
+        return $this->BETThermalMission;
+    }
+
+    /**
+     * @param string $BETThermalMission
+     */
+    public function setBETThermalMission($BETThermalMission)
+    {
+        $this->BETThermalMission = $BETThermalMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETAudioName()
+    {
+        return $this->BETAudioName;
+    }
+
+    /**
+     * @param string $BETAudioName
+     */
+    public function setBETAudioName($BETAudioName)
+    {
+        $this->BETAudioName = $BETAudioName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBETAudioMission()
+    {
+        return $this->BETAudioMission;
+    }
+
+    /**
+     * @param string $BETAudioMission
+     */
+    public function setBETAudioMission($BETAudioMission)
+    {
+        $this->BETAudioMission = $BETAudioMission;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherBETAMOName()
+    {
+        return $this->OtherBET_AMOName;
+    }
+
+    /**
+     * @param string $OtherBET_AMOName
+     */
+    public function setOtherBETAMOName($OtherBET_AMOName)
+    {
+        $this->OtherBET_AMOName = $OtherBET_AMOName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherBETAMOMission()
+    {
+        return $this->OtherBET_AMOMission;
+    }
+
+    /**
+     * @param string $OtherBET_AMOMission
+     */
+    public function setOtherBETAMOMission($OtherBET_AMOMission)
+    {
+        $this->OtherBET_AMOMission = $OtherBET_AMOMission;
     }
 
     /**
