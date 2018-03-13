@@ -65,7 +65,7 @@ class Operation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    // Champs OPERATION
     /**
      * @var string
      *
@@ -76,16 +76,132 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\Column(name="case_referance", type="string", length=255)
+     * @ORM\Column(name="operation_address", type="text", nullable=true)
      */
-    private $caseReferance;
+    private $operationAddress;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_city", type="string", length=255, nullable=true)
+     */
+    private $operationCity;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="operation_indiv", type="boolean", nullable=true)
+     */
+    private $operationIndividuel;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="operation_collec", type="boolean", nullable=true)
+     */
+    private $operationCollectif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_route300", type="string", length=255, nullable=true)
+     */
+    private $operationRoute300 = 'aucune';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_train300", type="string", length=255, nullable=true)
+     */
+    private $operationTrain300 = 'aucune';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_zone_peb", type="string", length=255, nullable=true)
+     */
+    private $operationZonePEB = 'aucune';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_label", type="string", length=255, nullable=true)
+     */
+    private $operationLabel;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_vmc", type="string", length=255, nullable=true)
+     */
+    private $operationVMC;
+    // Champs MO
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_name", type="string", length=255, nullable=true)
+     */
+    private $moName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_dest", type="string", length=255, nullable=true)
+     */
+    private $moDest;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_address", type="string", length=255, nullable=true)
+     */
+    private $moAddress;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_address_comp", type="string", length=255, nullable=true)
+     */
+    private $moAddressComp;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_cp", type="string", length=255, nullable=true)
+     */
+    private $moCP;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_city", type="string", length=255, nullable=true)
+     */
+    private $moCity;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_tel", type="string", length=255, nullable=true)
+     */
+    private $moTel;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mo_email", type="string", length=255, nullable=true)
+     */
+    private $moEmail;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="case_reference", type="string", length=255)
+     */
+    private $caseReference;
+    // Champs MO
     /**
      * @var string
      *
      * @ORM\Column(name="report_reference", type="string", length=255, nullable=true)
      */
     private $reportReference;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="certif_reference", type="string", length=255, nullable=true)
+     */
+    private $CertifReference;
+
     /**
      * @var string
      *
@@ -120,20 +236,6 @@ class Operation
      * @ORM\Column(name="info", type="text", nullable=true)
      */
     private $info;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="operation_address", type="text", nullable=true)
-     */
-    private $operationAddress;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="operation_city", type="string", length=255, nullable=true)
-     */
-    private $operationCity;
 
     /**
      * @var string
@@ -230,6 +332,262 @@ class Operation
     private $status = self::Draft;
 
     /**
+     * @return string
+     */
+    public function getCertifReference()
+    {
+        return $this->CertifReference;
+    }
+
+    /**
+     * @param string $CertifReference
+     */
+    public function setCertifReference($CertifReference)
+    {
+        $this->CertifReference = $CertifReference;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOperationIndividuel()
+    {
+        return $this->operationIndividuel;
+    }
+
+    /**
+     * @param bool $operationIndividuel
+     */
+    public function setOperationIndividuel($operationIndividuel)
+    {
+        $this->operationIndividuel = $operationIndividuel;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOperationCollectif()
+    {
+        return $this->operationCollectif;
+    }
+
+    /**
+     * @param bool $operationCollectif
+     */
+    public function setOperationCollectif($operationCollectif)
+    {
+        $this->operationCollectif = $operationCollectif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationRoute300()
+    {
+        return $this->operationRoute300;
+    }
+
+    /**
+     * @param string $operationRoute300
+     */
+    public function setOperationRoute300($operationRoute300)
+    {
+        $this->operationRoute300 = $operationRoute300;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationTrain300()
+    {
+        return $this->operationTrain300;
+    }
+
+    /**
+     * @param string $operationTrain300
+     */
+    public function setOperationTrain300($operationTrain300)
+    {
+        $this->operationTrain300 = $operationTrain300;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationZonePEB()
+    {
+        return $this->operationZonePEB;
+    }
+
+    /**
+     * @param string $operationZonePEB
+     */
+    public function setOperationZonePEB($operationZonePEB)
+    {
+        $this->operationZonePEB = $operationZonePEB;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationLabel()
+    {
+        return $this->operationLabel;
+    }
+
+    /**
+     * @param string $operationLabel
+     */
+    public function setOperationLabel($operationLabel)
+    {
+        $this->operationLabel = $operationLabel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationVMC()
+    {
+        return $this->operationVMC;
+    }
+
+    /**
+     * @param string $operationVMC
+     */
+    public function setOperationVMC($operationVMC)
+    {
+        $this->operationVMC = $operationVMC;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoName()
+    {
+        return $this->moName;
+    }
+
+    /**
+     * @param string $moName
+     */
+    public function setMoName($moName)
+    {
+        $this->moName = $moName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoDest()
+    {
+        return $this->moDest;
+    }
+
+    /**
+     * @param string $moDest
+     */
+    public function setMoDest($moDest)
+    {
+        $this->moDest = $moDest;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoAddress()
+    {
+        return $this->moAddress;
+    }
+
+    /**
+     * @param string $moAddress
+     */
+    public function setMoAddress($moAddress)
+    {
+        $this->moAddress = $moAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoAddressComp()
+    {
+        return $this->moAddressComp;
+    }
+
+    /**
+     * @param string $moAddressComp
+     */
+    public function setMoAddressComp($moAddressComp)
+    {
+        $this->moAddressComp = $moAddressComp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoCP()
+    {
+        return $this->moCP;
+    }
+
+    /**
+     * @param string $moCP
+     */
+    public function setMoCP($moCP)
+    {
+        $this->moCP = $moCP;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoCity()
+    {
+        return $this->moCity;
+    }
+
+    /**
+     * @param string $moCity
+     */
+    public function setMoCity($moCity)
+    {
+        $this->moCity = $moCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoTel()
+    {
+        return $this->moTel;
+    }
+
+    /**
+     * @param string $moTel
+     */
+    public function setMoTel($moTel)
+    {
+        $this->moTel = $moTel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoEmail()
+    {
+        return $this->moEmail;
+    }
+
+    /**
+     * @param string $moEmail
+     */
+    public function setMoEmail($moEmail)
+    {
+        $this->moEmail = $moEmail;
+    }
+
+    /**
      * Operation constructor.
      */
     public function __construct()
@@ -277,27 +635,27 @@ class Operation
     }
 
     /**
-     * Set caseReferance
+     * Set caseReference
      *
-     * @param string $caseReferance
+     * @param string $caseReference
      *
      * @return Operation
      */
-    public function setCaseReferance($caseReferance)
+    public function setCaseReference($caseReference)
     {
-        $this->caseReferance = $caseReferance;
+        $this->caseReference = $caseReference;
 
         return $this;
     }
 
     /**
-     * Get caseReferance
+     * Get caseReference
      *
      * @return string
      */
-    public function getCaseReferance()
+    public function getCaseReference()
     {
-        return $this->caseReferance;
+        return $this->caseReference;
     }
 
     /**
@@ -672,7 +1030,7 @@ class Operation
     }
     /**
      * @param Foreigner $foreigner
-     * @return Aerien
+     * @return Foreigner
      */
     public function addForeigner(Foreigner $foreigner)
     {
@@ -836,10 +1194,8 @@ class Operation
         $this->setSheetDate($workSheet->getCell("D9")->getCalculatedValue());
         $this->setName($workSheet->getCell("D10")->getCalculatedValue());
         $this->setInfo($workSheet->getCell("D11")->getCalculatedValue());
-        $address = array();
-        $address[0] = $workSheet->getCell("D11")->getCalculatedValue();
-        $address[1] = $workSheet->getCell("D12")->getCalculatedValue();
-        $this->setOperationAddress(json_encode($address));
+
+        $this->setOperationAddress($workSheet->getCell("D12")->getCalculatedValue());
         $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());
         $this->setOperationObjective($workSheet->getCell("D15")->getCalculatedValue());
         $this->setOperationMeasureRef($workSheet->getCell("D16")->getCalculatedValue());

@@ -51,18 +51,46 @@ class IndexController extends Controller
 
         $spreadsheet = $reader->load($filePath);
 
-/*        $operation = new Operation();
-        $operation->readOperationData($spreadsheet);
-        $results = new ExtractResults();
-        $arrayResults = $results->readResults($spreadsheet); */
-        $Equip = new ExtractEquipments();
+        $matches  = preg_grep ('/^A\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+            // BAI
+            $extractBAI = new ExtractBAI();
+            $extractBAI->extractBAI($spreadSheet, $sheet);
+            echo $sheet."<br>";
+        }
+
+        $matches  = preg_grep ('/^F\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+            // BAE
+            $extractBAE = new ExtractBAE();
+            $extractBAE->extractBAE($spreadSheet, $sheet);
+            echo $sheet."<br>";
+
+        }
+
+        $matches  = preg_grep ('/^C\((\d+)\)/i', $SheetNames);
+        foreach ($matches as $sheet){
+            // BAE
+            $extractBC = new ExtractBC();
+            $extractBC->extractBC($spreadSheet, $sheet);
+            echo $sheet."<br>";
+
+        }
+
+
+
+        /*        $operation = new Operation();
+                $operation->readOperationData($spreadsheet);
+                $results = new ExtractResults();
+                $arrayResults = $results->readResults($spreadsheet); */
+        /*$Equip = new ExtractEquipments();
         $Equip->readEquipment($spreadsheet);
         echo "<pre>";
         //var_dump($Equip->type1);
         echo "<br>Ambiance 1= ".$Equip->type1AmbiantNoise."<hr>";
         //var_dump($Equip->type2);
         echo "<br>Ambiance 2= ".$Equip->type2AmbiantNoise."<hr>";
-        echo "</pre>";
+        echo "</pre>";*/
         die();
         return $this->render('Index/generate_report.html.twig', array(
             // ...

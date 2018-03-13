@@ -91,7 +91,6 @@ class ExtractData
                 $operation->addAerien($AerienEntity);
             }
         }
-
         $matches  = preg_grep ('/^F\((\d+)\)/i', $SheetNames);
         foreach ($matches as $sheet){
             // BAE

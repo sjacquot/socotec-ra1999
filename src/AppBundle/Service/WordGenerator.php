@@ -127,7 +127,7 @@ class WordGenerator
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
-        $templateProcessor->setValue('CASEREF', $operation->getCaseReferance());
+        $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
         $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
         $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
 
@@ -171,9 +171,11 @@ class WordGenerator
      * @param $value
      * @return mixed|string
      */
-    private function cleanValues($value){
+    protected function cleanValues($value){
         if(is_null($value)) return "";
         if(is_string($value) && ($value == "#REF!")) return "";
+        if(is_string($value) && ($value == "#VALUE!")) return "";
+        if(is_string($value) && ($value == "#NULL")) return "";
         return str_replace("<br>"," ", $value);
     }
 

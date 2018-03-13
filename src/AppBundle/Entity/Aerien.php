@@ -186,6 +186,15 @@ class Aerien
     private $objectifRa1999;
 
     /**
+     * Image du graphique
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $fileNameChart;
+
+    /**
      * a json of all the line of the resultats de l'essai table
      *
      * @var json
@@ -515,7 +524,7 @@ class Aerien
      */
     public function getTestResult()
     {
-        return json_decode($this->testResult);
+        return json_decode($this->testResult,true);
     }
 
     /**
@@ -525,7 +534,6 @@ class Aerien
     {
         $this->testResult = json_encode($testResult);
     }
-
     /**
      * @return text
      */
@@ -557,4 +565,21 @@ class Aerien
     {
         $this->data = json_encode($data);
     }
+
+    /**
+     * @return string
+     */
+    public function getFileNameChart()
+    {
+        return $this->fileNameChart;
+    }
+
+    /**
+     * @param string $fileNameChart
+     */
+    public function setFileNameChart($fileNameChart)
+    {
+        $this->fileNameChart = $fileNameChart;
+    }
+
 }

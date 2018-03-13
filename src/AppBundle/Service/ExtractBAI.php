@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -178,6 +179,14 @@ class ExtractBAI
      *
      */
     public $data;
+    /**
+     * Image du graphique
+     *
+     * @var string
+     *
+     */
+    public $fileNameChart;
+
 
     public function extractBAI(Spreadsheet $xlsReader, $sheetName){
 
@@ -208,15 +217,17 @@ class ExtractBAI
         $this->localReceptionSurface = $worksheet->getCell('Q20')->getCalculatedValue();
         $this->comment = $worksheet->getCell('Q23')->getCalculatedValue();
 
-        $this->weightedStandardizedAcousticIsolation = $worksheet->getCell('L46')->getCalculatedValue();
-        $this->objectifRa1999 = $worksheet->getCell('L47')->getCalculatedValue();
+        $this->weightedStandardizedAcousticIsolation = $worksheet->getCell('H46')->getCalculatedValue();
+        $this->objectifRa1999 = $worksheet->getCell('H51')->getCalculatedValue();
 
         $this->testResult = $worksheet->rangeToArray('B40:L45', '', true, true, true);
 
         $this->PassRa1999  = $worksheet->getCell('D52')->getCalculatedValue();
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
-        return true;
+
+       return true;
+
 
     }
 
