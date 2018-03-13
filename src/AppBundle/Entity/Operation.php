@@ -87,6 +87,18 @@ class Operation
      */
     private $operationCity;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_nb_flat", type="string", length=255, nullable=true)
+     */
+    private $operationNbFlat;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operation_nb_building", type="string", length=255, nullable=true)
+     */
+    private $operationNbBuilding;
 
     /**
      * @var boolean
@@ -188,7 +200,39 @@ class Operation
      * @ORM\Column(name="case_reference", type="string", length=255)
      */
     private $caseReference;
-    // Champs MO
+    // Champs PC
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pc_request_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $pcRequestDate;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pc_reference", type="string", length=255, nullable=true)
+     */
+    private $pcReference;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pc_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $pcDate;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pc_nb_phase", type="string", length=255, nullable=true)
+     */
+    private $pcNbPhase;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pc_current_phase", type="string", length=255, nullable=true)
+     */
+    private $pcCurrentPhase;
+
+    // Utility fields / XLS Extract
     /**
      * @var string
      *
@@ -377,6 +421,38 @@ class Operation
     public function setOperationCollectif($operationCollectif)
     {
         $this->operationCollectif = $operationCollectif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationNbFlat()
+    {
+        return $this->operationNbFlat;
+    }
+
+    /**
+     * @param string $operationNbFlat
+     */
+    public function setOperationNbFlat($operationNbFlat)
+    {
+        $this->operationNbFlat = $operationNbFlat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperationNbBuilding()
+    {
+        return $this->operationNbBuilding;
+    }
+
+    /**
+     * @param string $operationNbBuilding
+     */
+    public function setOperationNbBuilding($operationNbBuilding)
+    {
+        $this->operationNbBuilding = $operationNbBuilding;
     }
 
     /**
@@ -585,6 +661,86 @@ class Operation
     public function setMoEmail($moEmail)
     {
         $this->moEmail = $moEmail;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPcRequestDate()
+    {
+        return $this->pcRequestDate;
+    }
+
+    /**
+     * @param \DateTime $pcRequestDate
+     */
+    public function setPcRequestDate($pcRequestDate)
+    {
+        $this->pcRequestDate = $pcRequestDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPcReference()
+    {
+        return $this->pcReference;
+    }
+
+    /**
+     * @param string $pcReference
+     */
+    public function setPcReference($pcReference)
+    {
+        $this->pcReference = $pcReference;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPcDate()
+    {
+        return $this->pcDate;
+    }
+
+    /**
+     * @param \DateTime $pcDate
+     */
+    public function setPcDate($pcDate)
+    {
+        $this->pcDate = $pcDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPcNbPhase()
+    {
+        return $this->pcNbPhase;
+    }
+
+    /**
+     * @param string $pcNbPhase
+     */
+    public function setPcNbPhase($pcNbPhase)
+    {
+        $this->pcNbPhase = $pcNbPhase;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPcCurrentPhase()
+    {
+        return $this->pcCurrentPhase;
+    }
+
+    /**
+     * @param string $pcCurrentPhase
+     */
+    public function setPcCurrentPhase($pcCurrentPhase)
+    {
+        $this->pcCurrentPhase = $pcCurrentPhase;
     }
 
     /**
