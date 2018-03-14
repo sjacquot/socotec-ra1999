@@ -95,7 +95,8 @@ class OperationAdmin extends Admin
         }
         if ($this->isCurrentRoute('edit')) {
             $formMapper
-                ->with('Opération/Chantier', array('class' => 'col-md-9', 'tab'=>true))
+                ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
+                ->with('Opération/Chantier')
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
@@ -121,10 +122,12 @@ class OperationAdmin extends Admin
                 ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
                 ->end()->end()
                 ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
+                ->with('Opération/SOCOTEC')
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
                 ->end()->end()
                 ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9', 'tab'=>true))
+                ->with("Opération/Maîtrise d'Ouvrage")
                 ->add("moName", null, ['label' => "Nom Maître d'Ouvrage"])
                 ->add("moDest", null, ['label' => "Destinataire Maître d'Ouvrage"])
                 ->add("moAddress", null, ['label' => "Adresse Maître d'Ouvrage"])
@@ -135,8 +138,27 @@ class OperationAdmin extends Admin
                 ->add("moEmail", null, ['label' => "Email Maître d'Ouvrage"])
                 ->end()->end()
                 ->with('Permis de construire', array('class' => 'col-md-9', 'tab'=>true))
-                ->end()
+                ->with('Opération/Permis de construire')
+                ->add("pcRequestDate", DatePickerType::class, array(
+                    'required' => false,
+                    'label' => 'Date dépôt demande du permis de construire',
+                    'dp_side_by_side' => true,
+                    'dp_use_current' => true,
+                    'format' => 'dd/MM/yyyy',
+                ))
+                ->add("pcReference", null, ['label' => "Numéro de permis de construire"])
+                ->add("pcDate", DatePickerType::class, array(
+                    'required' => false,
+                    'label' => 'Date de délivrance du permis de construire',
+                    'dp_side_by_side' => true,
+                    'dp_use_current' => true,
+                    'format' => 'dd/MM/yyyy',
+                ))
+                ->add("pcNbPhase", null, ['label' => "Nombre de tranches de l'opération"])
+                ->add("pcCurrentPhase", null, ['label' => "Numéro de tranche"])
+                ->end()->end()
                 ->with("Calendrier de construction", array('class' => 'col-md-9', 'tab'=>true))
+                ->with("Opération/Calendrier de construction")
                 ->add('calStartDate', DatePickerType::class, array(
                     'required' => false,
                     'label' => 'Date ouverture chantier',
@@ -153,7 +175,9 @@ class OperationAdmin extends Admin
                 ))
                 ->end()->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
-                ->end();
+                ->with("Opération/Intervenants & Equipe")
+                ->end()
+            ->end();
         }
 
 
