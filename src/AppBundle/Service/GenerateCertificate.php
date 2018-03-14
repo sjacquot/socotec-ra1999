@@ -30,7 +30,6 @@ class GenerateCertificate extends WordGenerator
 
         $templateFile = $this->container->getParameter('path_template_certificate');
         $templateFile = realpath($templateFile);
-
         $templateProcessor = new TemplateProcessor($templateFile);
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);

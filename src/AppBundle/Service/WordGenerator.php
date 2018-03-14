@@ -30,7 +30,12 @@ class WordGenerator
     const BEIIL = "Bruit des Equipements Individuels de chauffage, climatisation ou de production d'ECS Intérieurs au Logement contrôlé";
     const BEC = "Bruit des Equipements Collectifs (hors VMC)";
     const AAE = "Aire d'Absorption Equivalente";
-
+    /**
+     * CONST FOR TEMPLATE UPDATE
+     */
+    const WORDLINEBR = '<w:br/>';
+    const cbChecked = '<w:sym w:font="Wingdings" w:char="F0FE"/>';
+    const cbUnchecked = '<w:sym w:font="Wingdings" w:char="F0A8"/>';
     /**
      * @var
      */
@@ -121,15 +126,60 @@ class WordGenerator
      */
     protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
 
-        $templateProcessor->setValue('MO', "A AJOUTER A OPERATION");
+        // MO
+        $templateProcessor->setValue('MO', $operation->getMoName());
+        $templateProcessor->setValue('MOADDR', $operation->getMoAddress());
+        $templateProcessor->setValue('MOADDRCOMP', $operation->getMoAddressComp());
+        $templateProcessor->setValue('MOCITY', $operation->getMoCity());
+        $templateProcessor->setValue('MOCP', $operation->getMoCP());
+        $templateProcessor->setValue('MODEST', $operation->getMoDest());
+        $templateProcessor->setValue('MOEMAIL', $operation->getMoEmail());
+        $templateProcessor->setValue('MOTEL', $operation->getMoTel());
+        // OPE + UTILS
         $templateProcessor->setValue('OPENAME', $operation->getName());
         $templateProcessor->setValue('OPEINFO', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
+        $templateProcessor->setValue('OPENBFLAT', $operation->getOperationNbFlat());
+        $templateProcessor->setValue('OPENBBAT', $operation->getOperationNbBuilding());
+        if($operation->isOperationCollectif()){
+            $templateProcessor->setValue('OPISCOL', self::cbChecked);
+        }else{
+            $templateProcessor->setValue('OPISCOL', self::cbUnchecked);
+        }
+        if($operation->isOperationIndividuel()){
+            $templateProcessor->setValue('OPISIND', self::cbChecked);
+        }else{
+            $templateProcessor->setValue('OPISIND', self::cbUnchecked);
+        }
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
         $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
         $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
+        // TODO: Unification des Balises AUTHOR
         $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
+        $templateProcessor->setValue('MEASUREAUTHOR', $operation->getMeasureAuthor());
+        $templateProcessor->setValue('OPECITY', $operation->getOperationCity());
+        $templateProcessor->setValue('OPEADDR', $operation->getOperationAddress());
+        $templateProcessor->setValue('OPECP', $operation->getOperationCP());
+        // BET
+        $templateProcessor->setValue('BETAM', $operation->getBETAudioMission());
+        $templateProcessor->setValue('BETAN', $operation->getBETAudioName());
+        $templateProcessor->setValue('BETSM', $operation->getBETStructureMission());
+        $templateProcessor->setValue('BETSN', $operation->getBETStructureName());
+        $templateProcessor->setValue('BETFM', $operation->getBETFluidMission());
+        $templateProcessor->setValue('BETFN', $operation->getBETFluidName());
+        $templateProcessor->setValue('BETTM', $operation->getBETThermalMission());
+        $templateProcessor->setValue('BETTN', $operation->getBETThermalName());
+        $templateProcessor->setValue('BETOAMOM', $operation->getOtherBETAMOMission());
+        $templateProcessor->setValue('BETOAMON', $operation->getOtherBETAMOName());
+        // PC
+        $templateProcessor->setValue('PCRDATE', $operation->getPcRequestDate());
+        $templateProcessor->setValue('PCCURPHASE', $operation->getPcCurrentPhase());
+        $templateProcessor->setValue('PCREF', $operation->getPcReference());
+        $templateProcessor->setValue('PCNBPHASE', $operation->getPcNbPhase());
+        $templateProcessor->setValue('PCDATE', $operation->getPcDate());
+
+
 
 }
     /**
@@ -176,7 +226,7 @@ class WordGenerator
         if(is_string($value) && ($value == "#REF!")) return "";
         if(is_string($value) && ($value == "#VALUE!")) return "";
         if(is_string($value) && ($value == "#NULL")) return "";
-        return str_replace("<br>"," ", $value);
+        return str_replace("<br>",self::WORDLINEBR, $value);
     }
 
 }

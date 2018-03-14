@@ -69,7 +69,7 @@ class GenerateReport extends WordGenerator
             $templateProcessor->cloneBlock("BLOCK_C", $nbclone);
             $index = 1;
             foreach ($ShockArray->toArray() as $Choc){
-                $this->tplGenerateC($templateProcessor,$Choc,$index);
+               $this->tplGenerateC($templateProcessor,$Choc,$index);
                 $index++;
             }
         } else {

@@ -95,7 +95,7 @@ class OperationAdmin extends Admin
         }
         if ($this->isCurrentRoute('edit')) {
             $formMapper
-                ->with('Opération/Chantier', array('class' => 'col-md-9'))
+                ->with('Opération/Chantier', array('class' => 'col-md-9', 'tab'=>true))
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
@@ -119,12 +119,12 @@ class OperationAdmin extends Admin
 
                 ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
                 ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
-                ->end()
-                ->with('SOCOTEC', array('class' => 'col-md-9'))
+                ->end()->end()
+                ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
-                ->end()
-                ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9'))
+                ->end()->end()
+                ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9', 'tab'=>true))
                 ->add("moName", null, ['label' => "Nom Maître d'Ouvrage"])
                 ->add("moDest", null, ['label' => "Destinataire Maître d'Ouvrage"])
                 ->add("moAddress", null, ['label' => "Adresse Maître d'Ouvrage"])
@@ -133,10 +133,10 @@ class OperationAdmin extends Admin
                 ->add("moCity", null, ['label' => "Commune Maître d'Ouvrage"])
                 ->add("moTel", null, ['label' => "Tel Maître d'Ouvrage"])
                 ->add("moEmail", null, ['label' => "Email Maître d'Ouvrage"])
+                ->end()->end()
+                ->with('Permis de construire', array('class' => 'col-md-9', 'tab'=>true))
                 ->end()
-                ->with('Permis de construire', array('class' => 'col-md-9'))
-                ->end()
-                ->with("Calendrier de construction", array('class' => 'col-md-9'))
+                ->with("Calendrier de construction", array('class' => 'col-md-9', 'tab'=>true))
                 ->add('calStartDate', DatePickerType::class, array(
                     'required' => false,
                     'label' => 'Date ouverture chantier',
@@ -151,8 +151,8 @@ class OperationAdmin extends Admin
                     'dp_use_current' => true,
                     'format' => 'dd/MM/yyyy',
                 ))
-                ->end()
-                ->with("Intervenants & Equipe", array('class' => 'col-md-9'))
+                ->end()->end()
+                ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
                 ->end();
         }
 
@@ -306,5 +306,36 @@ class OperationAdmin extends Admin
         $this->container->get('app.extract_data')->extractData($operation);
     }
 
+    /**
+     * @param $operation
+     * @throws \Exception
+     */
+    public function preRemove($operation){
+        $operation->getDocument()->remove();
+        $operation->getResults()->remove();
+
+        $Arerien = $operation->getAerien();
+        foreach ($Arerien as $item){
+            $item->remove();
+        }
+        $Aae = $operation->getAae();
+        foreach ($Aae as $item){
+            $item->remove();
+        }
+        $EQ = $operation->getEquipements();
+        foreach ($EQ as $item){
+            $item->remove();
+        }
+        $Facade = $operation->getForeigner();
+        foreach ($Facade as $item){
+            $item->remove();
+        }
+        $Choc = $operation->getShoxk();
+        foreach ($Choc as $item){
+            $item->remove();
+        }
+
+        parent::preRemove($operation);
+    }
 
 }

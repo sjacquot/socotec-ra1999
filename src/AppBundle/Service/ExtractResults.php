@@ -31,6 +31,8 @@ class ExtractResults
     const BEC = "Bruit des Equipements Collectifs (hors VMC)";
     const AAE = "Aire d'Absorption Equivalente";
 
+    const WORDLINEBR = "<w:br/>";
+
     /**
      * Read Results from file
      * @param $xlsReader
@@ -96,7 +98,10 @@ class ExtractResults
                             $data[] = $Celldata;
                         }
                     }
-                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, $row++)->getCalculatedValue();
+                    $Celldata = $worksheet->getCellByColumnAndRow(4, ++$row)->getCalculatedValue();
+                    if($Celldata !== null){
+                        $data[1] = $data[1].self::WORDLINEBR.$Celldata;
+                    }
                     if(strlen($data[0])>0){
                         $resultsArray[self::BEVMC][] = $data;
                     }
@@ -113,7 +118,10 @@ class ExtractResults
                             $data[] = $Celldata;
                         }
                     }
-                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    $Celldata = $worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if($Celldata !== null){
+                        $data[1] = $data[1].self::WORDLINEBR.$Celldata;
+                    }
                     if(strlen($data[0])>0){
                         $resultsArray[self::BEIEL][] = $data;
                     }
@@ -130,7 +138,10 @@ class ExtractResults
                             $data[] = $Celldata;
                         }
                     }
-                    $data[1] = $data[1].'<br>'.$worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    $Celldata = $worksheet->getCellByColumnAndRow(4 /* col D */, ++$row)->getCalculatedValue();
+                    if($Celldata !== null){
+                        $data[1] = $data[1].self::WORDLINEBR.$Celldata;
+                    }
                     if(strlen($data[0])>0){
                         $resultsArray[self::BEIIL][] = $data;
                     }
