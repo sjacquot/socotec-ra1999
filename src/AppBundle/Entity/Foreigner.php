@@ -254,6 +254,13 @@ class Foreigner
      */
     private $data;
 
+    /**
+     * fichier image du graph de la mesure
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $fileChart;
 
     /**
      * Get id.
@@ -679,6 +686,22 @@ class Foreigner
     public function setPassRa1999($PassRa1999)
     {
         $this->PassRa1999 = $PassRa1999;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileChart()
+    {
+        return $this->fileChart;
+    }
+
+    /**
+     * @param string $fileChart
+     */
+    public function setFileChart($fileChart)
+    {
+        $this->fileChart = $fileChart;
     }
 
 }

@@ -97,8 +97,6 @@ class OperationAdmin extends Admin
             $formMapper
                 ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/Chantier')
-                ->add('caseReference', null, ['label' => 'Référence dossier'])
-                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->add('name', null, ['label'=>"Nom de l'opération"])
                 ->add('operationAddress',null,['label'=>"Adresse de l'opération"])
@@ -120,12 +118,22 @@ class OperationAdmin extends Admin
 
                 ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
                 ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
-                ->end()->end()
+                ->end()
+                ->end()
                 ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/SOCOTEC')
+                ->add('caseReference', null, ['label' => 'Référence dossier'])
+                ->add('DocChronoRef', null, ['label' => 'Numéro de chrono du dossier'])
+                ->add('reportReference', null, ['label' => 'Référence du rapport de mesures détaillées'])
+                ->add('CertifReference', null, ['label' => "Référence de l'attestation RA1999"])
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
-                ->end()->end()
+                ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
+                ->add('DocAuthor', null, ['label' => "Nom auteur document"])
+                ->add('DocAuthorEmail', null, ['label' => "Email auteur document"])
+                ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
+                ->end()
+                ->end()
                 ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9', 'tab'=>true))
                 ->with("Opération/Maîtrise d'Ouvrage")
                 ->add("moName", null, ['label' => "Nom Maître d'Ouvrage"])
@@ -176,25 +184,29 @@ class OperationAdmin extends Admin
                 ->end()->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
                 ->with("Opération/Intervenants & Equipe")
+                ->add("delegateMO", null, ['label' => "Maître d'ouvrage délégué (le cas échéant)"])
+                ->add("delegateMOAddress", null, ['label' => "Adresse Maître d'ouvrage délégué"])
+                ->add("MEName", null, ['label' => "Nom du maître d'oeuvre"])
+                ->add("MEAddress", null, ['label' => "Adresse du maître d'œuvre"])
+                ->add("MEMission", null, ['label' => "Mission du maître d'œuvre"])
+                ->add("OtherMEName", null, ['label' => "Nom autre maître d'œuvre"])
+                ->add("OtherMEMission", null, ['label' => "Mission autre maître d'œuvre"])
+                ->add("BETStructureName", null, ['label' => "Nom BET Structure"])
+                ->add("BETStructureMission", null, ['label' => "Mission BET Structure"])
+                ->add("BETFluidName", null, ['label' => "Nom BET Fluides"])
+                ->add("BETFluidMission", null, ['label' => "Mission BET Fluides"])
+                ->add("BETThermalName", null, ['label' => "Nom BET Thermique"])
+                ->add("BETThermalMission", null, ['label' => "Mission BET Thermique"])
+                ->add("BETAudioName", null, ['label' => "Nom BET Acoustique"])
+                ->add("BETAudioMission", null, ['label' => "Mission BET acoustique"])
+                ->add("OtherBET_AMOName", null, ['label' => "Nom autre BET ou AMO"])
+                ->add("OtherBET_AMOMission", null, ['label' => "Mission autre BET ou AMO"])
                 ->end()
             ->end();
         }
 
 
     }
-    // - ZONE DEPOT CODE EN COURS DE REFONTE
-//                ->add('status')
-    //              ->add('info',null,['label'=>'Informations'])
-//                ->add('measureReport',null,['label'=>'Rapport de mesure détaillé'])
-//                ->add('measureCert',null,['label'=>'Attestation de conformité'])
-    /*                ->add('measureDate', DatePickerType::class, array(
-                        'required' => false,
-                        'label' => 'Date de la mesure',
-                        'dp_side_by_side' => true,
-                        'dp_use_current' => true,
-                        'format' => 'dd/MM/yyyy',
-                    ))*/
-    // - /ZONE DEPOT CODE EN COURS DE REFONTE
 
     /**
      * @param DatagridMapper $datagridMapper

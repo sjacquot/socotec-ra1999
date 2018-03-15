@@ -186,15 +186,6 @@ class Aerien
     private $objectifRa1999;
 
     /**
-     * Image du graphique
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $fileNameChart;
-
-    /**
      * a json of all the line of the resultats de l'essai table
      *
      * @var json
@@ -220,6 +211,13 @@ class Aerien
      * @ORM\Column(type="json", nullable=true)
      */
     private $data;
+    /**
+     * fichier image du graph de la mesure
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $fileChart;
 
     /**
      * Get id.
@@ -569,17 +567,18 @@ class Aerien
     /**
      * @return string
      */
-    public function getFileNameChart()
+    public function getFileChart()
     {
-        return $this->fileNameChart;
+        return $this->fileChart;
     }
 
     /**
-     * @param string $fileNameChart
+     * @param string $fileChart
      */
-    public function setFileNameChart($fileNameChart)
+    public function setFileChart($fileChart)
     {
-        $this->fileNameChart = $fileNameChart;
+        $this->fileChart = $fileChart;
     }
+
 
 }

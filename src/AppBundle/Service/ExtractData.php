@@ -31,6 +31,10 @@ class ExtractData
      */
     private $container;
     /**
+     * @var
+     */
+    private $pathCharts;
+    /**
      * @var EntityManager
      */
     private $entityManager;
@@ -43,6 +47,7 @@ class ExtractData
     public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager)
     {
         $this->container = $container;
+        $this->pathCharts = $this->container->getParameter("path_document")."/charts/";
         $this->entityManager = $entityManager;
     }
 
@@ -85,7 +90,7 @@ class ExtractData
         foreach ($matches as $sheet){
                 // BAI
             $extractBAI = new ExtractBAI();
-            $extractBAI->extractBAI($spreadSheet, $sheet);
+            $extractBAI->extractBAI($spreadSheet, $sheet,$this->pathCharts);
             if(!is_null($extractBAI->idOfSheet)){
                 $AerienEntity = $this->UploadAerien($operation, $extractBAI);
                 $operation->addAerien($AerienEntity);
@@ -95,7 +100,7 @@ class ExtractData
         foreach ($matches as $sheet){
             // BAE
             $extractBAE = new ExtractBAE();
-            $extractBAE->extractBAE($spreadSheet, $sheet);
+            $extractBAE->extractBAE($spreadSheet, $sheet,$this->pathCharts);
             if(!is_null($extractBAE->idOfSheet)){
                 $ForeignEntity = $this->UploadForeigner($operation, $extractBAE);
                 $operation->addForeigner($ForeignEntity);
@@ -106,7 +111,7 @@ class ExtractData
         foreach ($matches as $sheet){
             // BAE
             $extractBC = new ExtractBC();
-            $extractBC->extractBC($spreadSheet, $sheet);
+            $extractBC->extractBC($spreadSheet, $sheet,$this->pathCharts);
             if(!is_null($extractBC->idOfSheet)){
                 $ShockEntity = $this->UploadShock($operation, $extractBC);
                 $operation->addShock($ShockEntity);
@@ -221,7 +226,7 @@ class ExtractData
 
         $aerien->setPassRa1999($data->PassRa1999);
         $aerien->setData($data->data);
-
+        $aerien->setFileChart($data->fileChart);
         $this->entityManager->persist($aerien);
 
         return $aerien;
@@ -277,7 +282,7 @@ class ExtractData
 
         $foreigner->setData($data->data);
 
-
+        $foreigner->setFileChart($data->fileChart);
         $this->entityManager->persist($foreigner);
 
         return $foreigner;
@@ -324,6 +329,7 @@ class ExtractData
 
         $shock->setTestResult($data->testResult);
         $shock->setData($data->data);
+        $shock->setFileChart($data->fileChart);
 
         $this->entityManager->persist($shock);
 

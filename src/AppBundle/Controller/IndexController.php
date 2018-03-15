@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\GraphRA1999;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Results;
 use AppBundle\Service\ExtractEquipments;
@@ -102,6 +103,14 @@ class IndexController extends Controller
      */
     public function generateCertAction()
     {
+        $path = $this->container->getParameter("path_document").'/charts/';
+        $test = new GraphRA1999($path);
+        $test->createA();
+        echo "<pre>";
+        var_dump($test);
+        echo "</pre>";
+        die();
+
         return $this->render('Index/generate_cert.html.twig', array(
             // ...
         ));

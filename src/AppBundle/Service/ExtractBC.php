@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -179,7 +180,14 @@ class ExtractBC
      */
     public $data;
 
-    public function extractBC(Spreadsheet $xlsReader, $sheetName){
+    /**
+     * fichier image du graph de la mesure
+     *
+     * @var string(type="string", nullable=true)
+     */
+    public $fileChart;
+
+    public function extractBC(Spreadsheet $xlsReader, $sheetName, $pathCharts){
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $this->idOfSheet = $sheetName;
@@ -210,6 +218,17 @@ class ExtractBC
 
         $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
         $this->data = $worksheet->rangeToArray('N2:S17', '', true, true, true);
+
+        $chart = new GraphRA1999($pathCharts);
+
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+
+        $data =  [];
+        foreach ($dataTest as $item)
+        {
+            $data[] = floatval($item[0]);
+        }
+        $this->fileChart = $chart->createC($data);
         return true;
 
     }

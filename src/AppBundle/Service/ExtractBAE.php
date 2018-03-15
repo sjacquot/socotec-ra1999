@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -195,7 +196,14 @@ class ExtractBAE
      */
     public $PassRa1999;
 
-    public function extractBAE(Spreadsheet $xlsReader, $sheetName){
+    /**
+     * fichier image du graph de la mesure
+     *
+     * @var string(type="string", nullable=true)
+     */
+    public $fileChart;
+
+    public function extractBAE(Spreadsheet $xlsReader, $sheetName,$pathCharts){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
@@ -233,6 +241,17 @@ class ExtractBAE
         $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
+        $chart = new GraphRA1999($pathCharts);
+
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+
+        $data =  [];
+        foreach ($dataTest as $item)
+        {
+            $data[] = floatval($item[0]);
+        }
+        $this->fileChart =  $chart->createF($data);
+
         return true;
 
     }

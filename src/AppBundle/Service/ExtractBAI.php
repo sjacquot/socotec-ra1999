@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -180,15 +181,14 @@ class ExtractBAI
      */
     public $data;
     /**
-     * Image du graphique
+     * fichier image du graph de la mesure
      *
-     * @var string
-     *
+     * @var string(type="string", nullable=true)
      */
-    public $fileNameChart;
+    public $fileChart;
 
 
-    public function extractBAI(Spreadsheet $xlsReader, $sheetName){
+    public function extractBAI(Spreadsheet $xlsReader, $sheetName, $pathCharts){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
@@ -226,6 +226,16 @@ class ExtractBAI
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
 
+        $chart = new GraphRA1999($pathCharts);
+
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+
+        $data =  [];
+        foreach ($dataTest as $item)
+        {
+           $data[] = floatval($item[0]);
+        }
+        $this->fileChart = $chart->createA($data);
        return true;
 
 

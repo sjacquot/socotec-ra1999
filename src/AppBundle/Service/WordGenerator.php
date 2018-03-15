@@ -173,15 +173,23 @@ class WordGenerator
         $templateProcessor->setValue('BETOAMOM', $operation->getOtherBETAMOMission());
         $templateProcessor->setValue('BETOAMON', $operation->getOtherBETAMOName());
         // PC
-        $templateProcessor->setValue('PCRDATE', $operation->getPcRequestDate());
+        $date = (!is_null($operation->getPcRequestDate()))? $operation->getPcRequestDate()->format("d/m/Y"):"";
+        $templateProcessor->setValue('PCRDATE', $date);
         $templateProcessor->setValue('PCCURPHASE', $operation->getPcCurrentPhase());
         $templateProcessor->setValue('PCREF', $operation->getPcReference());
         $templateProcessor->setValue('PCNBPHASE', $operation->getPcNbPhase());
-        $templateProcessor->setValue('PCDATE', $operation->getPcDate());
+        $date = (!is_null($operation->getPcDate()))? $operation->getPcDate()->format("d/m/Y"):"";
+        $templateProcessor->setValue('PCDATE', $date);
+        // Cal
+        $date = (!is_null($operation->getCalStartDate()))? $operation->getCalStartDate()->format("d/m/Y"):"";
+        $templateProcessor->setValue('CALSTARTDATE', $date);
+        $date = (!is_null($operation->getCalEndDate()))? $operation->getCalEndDate()->format("d/m/Y"):"";
+        $templateProcessor->setValue('CALENDDATE', $date);
 
 
 
-}
+
+    }
     /**
      * @param TemplateProcessor $templateProcessor
      * @param $dataArray
