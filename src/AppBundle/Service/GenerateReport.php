@@ -12,6 +12,9 @@ use AppBundle\Entity\Aerien;
 use AppBundle\Entity\Foreigner;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Shock;
+use AppBundle\Entity\Equipement;
+use AppBundle\Entity\Aae;
+
 use PhpOffice\PhpWord\TemplateProcessor;
 
 
@@ -76,7 +79,15 @@ class GenerateReport extends WordGenerator
             $templateProcessor->deleteBlock("BLOCK_C");
         }
 
+        $equipmentArray = $operation->getEquipement();
+        if(count($equipmentArray) > 0){
+            // Un seul... mais bon au cas où... ou a revoir / factoriser
+            foreach ($equipmentArray->toArray() as $equipment){
+                $this->tplGenerateEquipment($templateProcessor,$equipment);
+            }
+        }
         $reportFilePath = $this->container->getParameter('path_document').'/report';
+
         $reportFilePath = realpath($reportFilePath);
         $date = date ( "Y-m-d_His");
         $reportFileName = "Rapport-".$operation->getName().'-'.$operation->getReportReference()."-".$operation->getCaseReference()."-".$date.".docx";
@@ -86,6 +97,77 @@ class GenerateReport extends WordGenerator
         return $reportFileName;
     }
 
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Equipement $equipement
+     */
+    private function tplGenerateEquipment(TemplateProcessor $templateProcessor, Equipement $equipement){
+        $data = $equipement->getType1();
+        $nbLigne = count($data);
+        if ($nbLigne>0){
+            $templateProcessor->cloneRow('EQ1B', $nbLigne);
+            for ($index = 0; $index < $nbLigne; $index++){
+                $row = $index+1;
+                $templateProcessor->setValue('EQ1B#'.$row, $data[$index][0][0]);
+
+                $templateProcessor->setValue('EQ1C#'.$row,$data[$index][0][1]);
+                $templateProcessor->setValue('EQ1D#'.$row,$data[$index][0][2]);
+                $templateProcessor->setValue('EQ1E#'.$row,$data[$index][0][3]);
+                $templateProcessor->setValue('EQ1F#'.$row,$data[$index][0][4]);
+                $templateProcessor->setValue('EQ1G#'.$row,$data[$index][0][5]);
+                $templateProcessor->setValue('EQ1H#'.$row,$data[$index][0][6]);
+                $templateProcessor->setValue('EQ1I#'.$row,$data[$index][0][7]);
+                $templateProcessor->setValue('EQ1J#'.$row,$data[$index][0][8]);
+                $templateProcessor->setValue('EQ1K#'.$row,$data[$index][0][9]);
+                //$templateProcessor->setValue('EQ1L#'.$row,$data[$index][0][10]);
+                $templateProcessor->setValue('EQ1M#'.$row,$data[$index][0][11]);
+                $templateProcessor->setValue('EQ1N#'.$row, $data[$index][0][12]);
+                $templateProcessor->setValue('EQ1O#'.$row,$data[$index][0][13]);
+                $templateProcessor->setValue('EQ1P#'.$row,$data[$index][0][14]);
+                $templateProcessor->setValue('EQ1Q#'.$row,$data[$index][0][15]);
+                $templateProcessor->setValue('EQ1V#'.$row,$data[$index][0][20]);
+                $templateProcessor->setValue('EQ1W#'.$row,$data[$index][0][21]);
+            }
+
+        } else{
+            $this->fillArrayOfValues($templateProcessor,
+                ['EQ1B', 'EQ1C', 'EQ1D',	'EQ1E',	'EQ1F',	'EQ1G',	'EQ1H', 'EQ1I',	'EQ1J', 'EQ1K', 'EQ1M',	'EQ1N',	'EQ1O',	'EQ1P',	'EQ1Q',	'EQ1V',	'EQ1W'],
+                ['NA']);
+        }
+        $templateProcessor->setValue('EQ1Ambiant',$equipement->getType1AmbiantNoise());
+        $data = $equipement->getType2();
+        $nbLigne = count($data);
+        if ($nbLigne>0){
+            $templateProcessor->cloneRow('EQ2B', $nbLigne);
+            for ($index = 0; $index < $nbLigne; $index++){
+                $row = $index+1;
+                $templateProcessor->setValue('EQ2B#'.$row, $data[$index][0][0]);
+                $templateProcessor->setValue('EQ2C#'.$row,$data[$index][0][1]);
+                $templateProcessor->setValue('EQ2D#'.$row,$data[$index][0][2]);
+                $templateProcessor->setValue('EQ2E#'.$row,$data[$index][0][3]);
+                $templateProcessor->setValue('EQ2F#'.$row,$data[$index][0][4]);
+                //$templateProcessor->setValue('EQ2G#'.$row,$data[$index][0][5]);
+                //$templateProcessor->setValue('EQ2H#'.$row,$data[$index][0][6]);
+                $templateProcessor->setValue('EQ2I#'.$row,$data[$index][0][7]);
+                $templateProcessor->setValue('EQ2J#'.$row,$data[$index][0][8]);
+                $templateProcessor->setValue('EQ2K#'.$row,$data[$index][0][9]);
+                //$templateProcessor->setValue('EQ2L#'.$row,$data[$index][0][10]);
+                $templateProcessor->setValue('EQ2M#'.$row,$data[$index][0][11]);
+                $templateProcessor->setValue('EQ2N#'.$row, $data[$index][0][12]);
+                $templateProcessor->setValue('EQ2O#'.$row,$data[$index][0][13]);
+                $templateProcessor->setValue('EQ2P#'.$row,$data[$index][0][14]);
+                $templateProcessor->setValue('EQ2Q#'.$row,$data[$index][0][15]);
+                $templateProcessor->setValue('EQ2V#'.$row,$data[$index][0][20]);
+                $templateProcessor->setValue('EQ2W#'.$row,$data[$index][0][21]);
+            }
+
+        } else{
+            $this->fillArrayOfValues($templateProcessor,
+                ['EQ2B', 'EQ12', 'EQ2D',	'EQ2E',	'EQ2F', 'EQ2I',	'EQ2J', 'EQ2K', 'EQ2M',	'EQ2N',	'EQ2O',	'EQ2P',	'EQ2Q',	'EQ2V',	'EQ2W'],
+                ['NA']);
+        }
+        $templateProcessor->setValue('EQ2Ambiant',$equipement->getType2AmbiantNoise());
+    }
     /**
      * @param TemplateProcessor $templateProcessor
      * @param Aerien $Aerial
