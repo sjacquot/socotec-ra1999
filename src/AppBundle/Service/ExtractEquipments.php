@@ -22,6 +22,7 @@ class ExtractEquipments
     const sheetName = "EQUIPEMENTS";
     const Mark1 = "type 1";
     const Mark2 = "type 2";
+    const MarkV = "Version";
 
     private $worksheet;
     private $highestRow;
@@ -38,12 +39,14 @@ class ExtractEquipments
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
         $this->worksheet = $xlsReader->getActiveSheet();
         $this->highestRow = $this->worksheet->getHighestRow();
-
         $index = 1;
+        //$value = $this->worksheet->getCellByColumnAndRow(2, $index)->getCalculatedValue();
+
         for ($index; $index <= $this->highestRow; $index++) {
             // Search in column D of worksheet to find "Type 1"
             $value = $this->worksheet->getCellByColumnAndRow(4, $index)->getCalculatedValue();
             if (strpos($value, self::Mark1) !== false) {
+                echo "TYPE 1<br/>";
                 $index += 3;
                 $this->type1 = $DataArray[self::Mark1] = $this->readTypeLine($index);
                 $bottom = $index + count($DataArray[self::Mark1]);
@@ -52,6 +55,7 @@ class ExtractEquipments
                 $this->type1AmbiantNoise = $this->getAmbiantNote($index);
             }
             if (strpos($value, self::Mark2) !== false) {
+                echo "TYPE 2<br/>";
                 $index += 3;
                 $this->type2 = $DataArray[self::Mark2] = $this->readTypeLine($index);
                 $bottom = $index + count($DataArray[self::Mark1]);

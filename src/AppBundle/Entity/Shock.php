@@ -191,6 +191,22 @@ class Shock
     public $fileChart;
 
     /**
+     * Date de mesure
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $MeasureDate;
+    /**
+     * Date d'analyse
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $MeasureTTX;
+
+
+    /**
      * Get id.
      *
      * @return int
@@ -502,6 +518,38 @@ class Shock
     public function setFileChart($fileChart)
     {
         $this->fileChart = $fileChart;
+    }
+
+    /**
+     * @return date
+     */
+    public function getMeasureDate()
+    {
+        return $this->MeasureDate;
+    }
+
+    /**
+     * @param date $MeasureDate
+     */
+    public function setMeasureDate($MeasureDate)
+    {
+        $this->MeasureDate = $MeasureDate;
+    }
+
+    /**
+     * @return date
+     */
+    public function getMeasureTTX()
+    {
+        return $this->MeasureTTX;
+    }
+
+    /**
+     * @param date $MeasureTTX
+     */
+    public function setMeasureTTX($MeasureTTX)
+    {
+        $this->MeasureTTX = $MeasureTTX;
     }
 
 }

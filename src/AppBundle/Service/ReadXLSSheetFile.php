@@ -36,6 +36,11 @@ class ReadXLSSheetFile
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function readXLSSheetFile(Operation $operation){
+
+        $locale = 'fr';
+        $validLocale = \PhpOffice\PhpSpreadsheet\Settings::setLocale($locale);
+        setlocale(LC_ALL, "fr_FR");
+
         $doc = $operation->getDocument();
         if(isset($doc)){
             $inputFileName = $this->container->getParameter('path_document').'/'.$operation->getDocument()->getPathDocXml();

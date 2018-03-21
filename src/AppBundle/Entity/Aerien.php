@@ -218,6 +218,20 @@ class Aerien
      * @ORM\Column(type="string", nullable=true)
      */
     public $fileChart;
+    /**
+     * Date de mesure
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $MeasureDate;
+    /**
+     * Date d'analyse
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $MeasureTTX;
 
     /**
      * Get id.
@@ -579,6 +593,39 @@ class Aerien
     {
         $this->fileChart = $fileChart;
     }
+
+    /**
+     * @return date
+     */
+    public function getMeasureDate()
+    {
+        return $this->MeasureDate;
+    }
+
+    /**
+     * @param date $MeasureDate
+     */
+    public function setMeasureDate($MeasureDate)
+    {
+        $this->MeasureDate = $MeasureDate;
+    }
+
+    /**
+     * @return date
+     */
+    public function getMeasureTTX()
+    {
+        return $this->MeasureTTX;
+    }
+
+    /**
+     * @param date $MeasureTTX
+     */
+    public function setMeasureTTX($MeasureTTX)
+    {
+        $this->MeasureTTX = $MeasureTTX;
+    }
+
 
 
 }

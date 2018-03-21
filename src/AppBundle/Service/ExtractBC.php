@@ -186,6 +186,17 @@ class ExtractBC
      * @var string(type="string", nullable=true)
      */
     public $fileChart;
+    /* Date de mesure
+    *
+    * @var date
+    */
+    public $MeasureDate;
+    /**
+     * Date d'analyse
+     *
+     * @var date
+     */
+    public $MeasureTTX;
 
     public function extractBC(Spreadsheet $xlsReader, $sheetName, $pathCharts){
         $xlsReader->setActiveSheetIndexByName($sheetName);
@@ -193,6 +204,12 @@ class ExtractBC
         $this->idOfSheet = $sheetName;
 //        $title = $worksheet->getCell('D2')->getCalculatedValue();
 //        $this->idOfSheet = str_replace("#VALUE!", $sheetName,$title);
+
+        $dateUS = $worksheet->getCell("I7")->getFormattedValue();
+        $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
+
+        $dateUS = $worksheet->getCell("L7")->getFormattedValue();
+        $this->MeasureTTX = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
         $this->localEmissionName = $worksheet->getCell('I15')->getCalculatedValue();
         $this->localEmissionVolume = $worksheet->getCell('I16')->getCalculatedValue();

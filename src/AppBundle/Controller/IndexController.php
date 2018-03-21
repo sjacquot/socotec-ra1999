@@ -41,7 +41,7 @@ class IndexController extends Controller
      */
     public function generateReportAction($file)
     {
-        $inputFileType = 'Xls';
+/*        $inputFileType = 'Xls';
         $reader = IOFactory::createReader($inputFileType);
         $path = realpath($this->container->getParameter('kernel.root_dir')."/../web/uploads/test/".$file);
         if($path == false){
@@ -78,21 +78,7 @@ class IndexController extends Controller
 
         }
 
-
-
-        /*        $operation = new Operation();
-                $operation->readOperationData($spreadsheet);
-                $results = new ExtractResults();
-                $arrayResults = $results->readResults($spreadsheet); */
-        /*$Equip = new ExtractEquipments();
-        $Equip->readEquipment($spreadsheet);
-        echo "<pre>";
-        //var_dump($Equip->type1);
-        echo "<br>Ambiance 1= ".$Equip->type1AmbiantNoise."<hr>";
-        //var_dump($Equip->type2);
-        echo "<br>Ambiance 2= ".$Equip->type2AmbiantNoise."<hr>";
-        echo "</pre>";*/
-        die();
+*/
         return $this->render('Index/generate_report.html.twig', array(
             // ...
         ));
@@ -103,13 +89,6 @@ class IndexController extends Controller
      */
     public function generateCertAction()
     {
-        $path = $this->container->getParameter("path_document").'/charts/';
-        $test = new GraphRA1999($path);
-        $test->createA();
-        echo "<pre>";
-        var_dump($test);
-        echo "</pre>";
-        die();
 
         return $this->render('Index/generate_cert.html.twig', array(
             // ...

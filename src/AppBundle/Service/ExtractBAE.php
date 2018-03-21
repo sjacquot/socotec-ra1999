@@ -202,12 +202,29 @@ class ExtractBAE
      * @var string(type="string", nullable=true)
      */
     public $fileChart;
+    /* Date de mesure
+    *
+    * @var date
+    */
+    public $MeasureDate;
+    /**
+     * Date d'analyse
+     *
+     * @var date
+     */
+    public $MeasureTTX;
 
     public function extractBAE(Spreadsheet $xlsReader, $sheetName,$pathCharts){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $this->idOfSheet = $sheetName;
+
+        $dateUS = $worksheet->getCell("I7")->getFormattedValue();
+        $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
+
+        $dateUS = $worksheet->getCell("L7")->getFormattedValue();
+        $this->MeasureTTX = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
 
         $this->localEmissionName = $worksheet->getCell('I14')->getCalculatedValue();

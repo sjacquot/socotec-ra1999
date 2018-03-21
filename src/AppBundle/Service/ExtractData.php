@@ -227,6 +227,10 @@ class ExtractData
         $aerien->setPassRa1999($data->PassRa1999);
         $aerien->setData($data->data);
         $aerien->setFileChart($data->fileChart);
+
+        $aerien->setMeasureDate($data->MeasureDate);
+        $aerien->setMeasureTTX($data->MeasureTTX);
+
         $this->entityManager->persist($aerien);
 
         return $aerien;
@@ -277,6 +281,8 @@ class ExtractData
         $foreigner->setWeightedStandardizedAcousticIsolation($data->weightedStandardizedAcousticIsolation);
         $foreigner->setObjectifRa1999($data->objectifRa1999);
         $foreigner->setPassRa1999($data->PassRa1999);
+        $foreigner->setMeasureDate($data->MeasureDate);
+        $foreigner->setMeasureTTX($data->MeasureTTX);
 
         $foreigner->setTestResult($data->testResult);
 
@@ -330,6 +336,9 @@ class ExtractData
         $shock->setTestResult($data->testResult);
         $shock->setData($data->data);
         $shock->setFileChart($data->fileChart);
+
+        $shock->setMeasureDate($data->MeasureDate);
+        $shock->setMeasureTTX($data->MeasureTTX);
 
         $this->entityManager->persist($shock);
 

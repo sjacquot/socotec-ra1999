@@ -104,17 +104,20 @@ class OperationAdmin extends Admin
                 ->add('operationCity',null,['label'=>"Commune de l'opération"])
                 ->add('operationIndividuel',null,['label'=>'Logement individuel'])
                 ->add('operationCollectif',null,['label'=>'Logement collectif'])
+
+                ->add('operationNbIndividuel',null,['label'=>'Nombre de Logements individuels'])
+                ->add('operationNbCollectif',null,['label'=>'Nombre de Logements collectifs'])
+
                 ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
                 ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
+
+                ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
                 ->add('operationRoute300',null,['label'=>'Classement de la ou des voies routières à moins de 300m'])
                 ->add('operationTrain300',null,['label'=>'Classement de la ou des voies ferrées à moins de 300m'])
                 ->add('operationZonePEB',null,['label'=>"Zone de bruit du PEB d'un aérodrome"])
                 ->add('operationLabel',null,['label'=>"Label, certification ou démarche qualité"])
-                ->add('operationVMC',null,array(
-                    /*'choices' => array(
-                    'Simple Flux' => 'Simple Flux',
-                    'Double Flux' => 'Double Flux'
-                ),*/'label'=>"VMC simple/ double flux"))
+                ->add('operationVMCSimple',null,array('label'=>"VMC simple flux"))
+                ->add('operationVMCDouple',null,array('label'=>"VMC double flux"))
 
                 ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
                 ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
@@ -129,9 +132,8 @@ class OperationAdmin extends Admin
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
                 ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
-                ->add('DocAuthor', null, ['label' => "Nom auteur document"])
-                ->add('DocAuthorEmail', null, ['label' => "Email auteur document"])
-                ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
+                ->add('DocAuthor', null, ['label' => "Nom auteur de l'attestation"])
+                ->add('DocAuthorEmail', null, ['label' => "Email auteur de l'attestation"])
                 ->end()
                 ->end()
                 ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9', 'tab'=>true))

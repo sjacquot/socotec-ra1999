@@ -40,8 +40,11 @@ class GenerateReport extends WordGenerator
         $templateProcessor = new TemplateProcessor($templateFile);
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);
+        $templateProcessor->setValue('DOCAUTHOR',$operation->getDocAuthor());
+        $templateProcessor->setValue('DOCAUTHORMAIL',$operation->getDocAuthorEmail());
         // Data from Results
         $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());
+        $templateProcessor->setValue('COUNTMEASURE',$this->countMeasure);
         $AerienArray = $operation->getAerien();
         $nbclone = count($AerienArray);
         if($nbclone > 0){
@@ -175,6 +178,10 @@ class GenerateReport extends WordGenerator
      */
     private function tplGenerateA(TemplateProcessor $templateProcessor, Aerien $Aerial, $index){
         $templateProcessor->setValue('A#'.$index, $Aerial->getIdOfSheet());
+
+        $templateProcessor->setValue('AMEASUREDATE#'.$index, $Aerial->getMeasureDate());
+        $templateProcessor->setValue('AMEASURETTXDATE#'.$index, $Aerial->getMeasureTTX());
+
         $templateProcessor->setValue('ALocEmit-Name#'.$index, $Aerial->getLocalEmissionName());
         $templateProcessor->setValue('ALocEmit-Vol#'.$index, $Aerial->getLocalEmissionVolume());
         $templateProcessor->setValue('ALocRecieve-Name#'.$index, $Aerial->getLocalReceptionName());
@@ -207,6 +214,12 @@ class GenerateReport extends WordGenerator
             $templateProcessor->setValue('ATest_H'.$idLigne.'#'.$index, $line["H"]);
             $idLigne++;
         }
+
+        $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
+        $Chartfilename = $ChartsFilePath.$Aerial->getFileChart();
+        if(realpath($Chartfilename)){
+            $templateProcessor->setImg('ACHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+        }
     }
 
     /**
@@ -217,6 +230,10 @@ class GenerateReport extends WordGenerator
     private function tplGenerateF(TemplateProcessor $templateProcessor, Foreigner $foreigner, $index)
     {
         $templateProcessor->setValue('F#'.$index, $foreigner->getIdOfSheet());
+
+        $templateProcessor->setValue('FMEASUREDATE#'.$index, $foreigner->getMeasureDate());
+        $templateProcessor->setValue('FMEASURETTXDATE#'.$index, $foreigner->getMeasureTTX());
+
         $templateProcessor->setValue('FEmitName#'.$index, $foreigner->getLocalEmissionName());
         $templateProcessor->setValue('FEmitType#'.$index, $foreigner->getLocalEmissionType());
         $templateProcessor->setValue('FRecieveName#'.$index, $foreigner->getLocalReceptionName());
@@ -253,6 +270,12 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('FObj#'.$index, $foreigner->getObjectifRa1999());
         $templateProcessor->setValue('FPassRa1999#'.$index, $foreigner->getPassRa1999());
 
+        $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
+        $Chartfilename = $ChartsFilePath.$foreigner->getFileChart();
+        if(realpath($Chartfilename)){
+            $templateProcessor->setImg('FCHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+        }
+
     }
 
     /**
@@ -263,6 +286,9 @@ class GenerateReport extends WordGenerator
     private function tplGenerateC(TemplateProcessor $templateProcessor, Shock $choc, $index)
     {
         $templateProcessor->setValue('C#'.$index, $choc->getIdOfSheet());
+        $templateProcessor->setValue('CMEASUREDATE#'.$index, $choc->getMeasureDate());
+        $templateProcessor->setValue('CMEASURETTXDATE#'.$index, $choc->getMeasureTTX());
+
         $templateProcessor->setValue('CLocEmit-Name#'.$index, $choc->getLocalEmissionName());
         $templateProcessor->setValue('CLocEmit-Vol#'.$index, $choc->getLocalEmissionVolume());
         $templateProcessor->setValue('CLocRecieve-Name#'.$index, $choc->getLocalReceptionName());
@@ -293,6 +319,12 @@ class GenerateReport extends WordGenerator
             $templateProcessor->setValue('CTest_H'.$idLigne.'#'.$index, $line["H"]);
             $idLigne++;
         }
+        $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
+        $Chartfilename = $ChartsFilePath.$choc->getFileChart();
+        if(realpath($Chartfilename)){
+            $templateProcessor->setImg('CCHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+        }
+
     }
 
 
