@@ -41,6 +41,7 @@ class GenerateCertificate extends WordGenerator
 
         $date = date ( "Y-m-d_His");
         $certFileName = "Attestation-".$operation->getName().'-'.$operation->getReportReference()."-".$operation->getCaseReference()."-".$date.".docx";
+        $certFileName = $this->sanitize($certFileName,true);
         $certFilePath .= "/".$certFileName;
         $templateProcessor->saveAs($certFilePath);
         return $certFileName;

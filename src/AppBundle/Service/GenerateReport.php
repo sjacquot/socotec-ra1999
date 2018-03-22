@@ -102,6 +102,8 @@ class GenerateReport extends WordGenerator
         $reportFilePath = realpath($reportFilePath);
         $date = date ( "Y-m-d_His");
         $reportFileName = "Rapport-".$operation->getName().'-'.$operation->getReportReference()."-".$operation->getCaseReference()."-".$date.".docx";
+        $reportFileName = $this->sanitize($reportFileName,true);
+
         $reportFilePath .= '/'.$reportFileName;
 
         $templateProcessor->saveAs($reportFilePath);

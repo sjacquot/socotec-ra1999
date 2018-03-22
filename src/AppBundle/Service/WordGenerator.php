@@ -326,4 +326,18 @@ class WordGenerator
         return str_replace(".",",", $value);
     }
 
+    /**
+     * @param string $string
+     * @param bool $is_filename
+     * @return mixed|null|string|string[]
+     */
+
+    function sanitize($string = '', $is_filename = FALSE)
+    {
+        // Replace all weird characters with dashes
+        $string = preg_replace('/[^\w\-'. ($is_filename ? '~_\.' : ''). ']+/u', '-', $string);
+
+        // Only allow one dash separator at a time (and make string lowercase)
+        return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
+    }
 }
