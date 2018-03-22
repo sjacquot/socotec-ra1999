@@ -341,37 +341,42 @@ class GenerateReport extends WordGenerator
     private function tplGenerateAAE(TemplateProcessor $templateProcessor, Aae $aae){
         $data = $aae->getData();
         $data = $data[0];
-        $nbLigne = count($data);
+        if (is_array($data)){
+            $nbLigne = count($data);
+            if ($nbLigne>0){
+                $templateProcessor->cloneRow('AAE', (int) ($nbLigne/3));
+                for ($index = 0; $index < $nbLigne; $index++){
+                    $row = $index+1;
+                    $templateProcessor->setValue('AAE#'.$row, $data[$index][0]);
 
-        if ($nbLigne>0){
-            $templateProcessor->cloneRow('AAE', (int) ($nbLigne/3));
-            for ($index = 0; $index < $nbLigne; $index++){
-                $row = $index+1;
-                $templateProcessor->setValue('AAE#'.$row, $data[$index][0]);
-
-                $templateProcessor->setValue('AAE1#'.$row,$data[$index][1]);
-                $templateProcessor->setValue('AAE3-1#'.$row,$data[$index][3]);
-                $templateProcessor->setValue('AAE5-1#'.$row,$data[$index][5]);
-                $templateProcessor->setValue('AAE7-1#'.$row,$data[$index][7]);
-                $templateProcessor->setValue('AAE8#'.$row,$data[$index][8]);
-                $templateProcessor->setValue('AAE9#'.$row,$data[$index][9]);
-                $templateProcessor->setValue('AAE10#'.$row,$data[$index][14]);
-                $templateProcessor->setValue('AAE11#'.$row,$data[$index][15]);
-                $index++;
-                if ($index < $nbLigne){
-                    $templateProcessor->setValue('AAE3-2#'.$row,$data[$index][3]);
-                    $templateProcessor->setValue('AAE5-2#'.$row,$data[$index][5]);
-                    $templateProcessor->setValue('AAE7-2#'.$row,$data[$index][7]);
+                    $templateProcessor->setValue('AAE1#'.$row,$data[$index][1]);
+                    $templateProcessor->setValue('AAE3-1#'.$row,$data[$index][3]);
+                    $templateProcessor->setValue('AAE5-1#'.$row,$data[$index][5]);
+                    $templateProcessor->setValue('AAE7-1#'.$row,$data[$index][7]);
+                    $templateProcessor->setValue('AAE8#'.$row,$data[$index][8]);
+                    $templateProcessor->setValue('AAE9#'.$row,$data[$index][9]);
+                    $templateProcessor->setValue('AAE10#'.$row,$data[$index][14]);
+                    $templateProcessor->setValue('AAE11#'.$row,$data[$index][15]);
                     $index++;
                     if ($index < $nbLigne){
-                        $templateProcessor->setValue('AAE3-3#'.$row,$data[$index][3]);
-                        $templateProcessor->setValue('AAE5-3#'.$row,$data[$index][5]);
-                        $templateProcessor->setValue('AAE7-3#'.$row,$data[$index][7]);
+                        $templateProcessor->setValue('AAE3-2#'.$row,$data[$index][3]);
+                        $templateProcessor->setValue('AAE5-2#'.$row,$data[$index][5]);
+                        $templateProcessor->setValue('AAE7-2#'.$row,$data[$index][7]);
+                        $index++;
+                        if ($index < $nbLigne){
+                            $templateProcessor->setValue('AAE3-3#'.$row,$data[$index][3]);
+                            $templateProcessor->setValue('AAE5-3#'.$row,$data[$index][5]);
+                            $templateProcessor->setValue('AAE7-3#'.$row,$data[$index][7]);
+                        }
                     }
                 }
-            }
 
-        } else{
+            } else{
+                $this->fillArrayOfValues($templateProcessor,
+                    ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
+                    ['NA']);
+            }
+        }else{
             $this->fillArrayOfValues($templateProcessor,
                 ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
                 ['NA']);
