@@ -24,6 +24,8 @@ use PhpOffice\PhpWord\TemplateProcessor;
  */
 class GenerateReport extends WordGenerator
 {
+    private $ressourcepath;
+
     /**
      * @param Operation $operation
      * @return string
@@ -37,6 +39,7 @@ class GenerateReport extends WordGenerator
         $templateFile = $this->container->getParameter('path_template_report');
         $templateFile = realpath($templateFile);
 
+        $this->ressourcepath = dirname($templateFile);
         $templateProcessor = new TemplateProcessor($templateFile);
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);
@@ -228,7 +231,8 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$Aerial->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('ACHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+            $templateProcessor->setImg('ACHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('CHARTLEGENDA#'.$index,['src'=>$this->ressourcepath."/legendeA.jpg"]);
         }
     }
 
@@ -283,7 +287,8 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$foreigner->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('FCHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+            $templateProcessor->setImg('FCHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('CHARTLEGENDF#'.$index,['src'=>$this->ressourcepath."/legendeF.jpg"]);
         }
 
     }
@@ -332,7 +337,8 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$choc->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('CCHART#'.$index,['src'=>$Chartfilename,'swh'=>624]);
+            $templateProcessor->setImg('CCHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('CHARTLEGENDC#'.$index,['src'=>$this->ressourcepath."/legendeC.jpg"]);
         }
 
     }

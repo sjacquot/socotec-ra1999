@@ -198,6 +198,10 @@ class ExtractBAI
      */
     public $MeasureTTX;
 
+    /**
+     * @var json(type="json", nullable=true)
+     */
+    public $testTemplateCurve;
 
     public function extractBAI(Spreadsheet $xlsReader, $sheetName, $pathCharts){
 
@@ -246,16 +250,28 @@ class ExtractBAI
         $chart = new GraphRA1999($pathCharts);
 
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
-        $data =  [];
+/*        $data =  [];
         foreach ($dataTest as $item)
         {
            $data[] = floatval($item[0]);
         }
+        $this->fileChart = $chart->createA($data);*/
+        $data["TEST"] = $this->ArrayToFloat($dataTest);
+        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
         $this->fileChart = $chart->createA($data);
+
        return true;
 
 
+    }
+    private function ArrayToFloat($dataXLS){
+        foreach ($dataXLS as $item)
+        {
+            $data[] = floatval($item[0]);
+        }
+        return $data;
     }
 
 }

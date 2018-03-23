@@ -230,11 +230,22 @@ class Foreigner
     private $objectifRa1999;
 
     /**
+     * a json of all the lines of the acoustic test table
+     *
      * @var json
      *
      * @ORM\Column(type="json", nullable=true)
      */
     private $testResult;
+
+    /**
+     * a json of all the values of temptlate line of chart
+     *
+     * @var json
+     *
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $testTemplateCurve;
 
     /**
      * Appreciation de la mesure
@@ -749,6 +760,22 @@ class Foreigner
     public function setMeasureTTX($MeasureTTX)
     {
         $this->MeasureTTX = $MeasureTTX;
+    }
+
+    /**
+     * @return json
+     */
+    public function getTestTemplateCurve()
+    {
+        return $this->testTemplateCurve;
+    }
+
+    /**
+     * @param json $testTemplateCurve
+     */
+    public function setTestTemplateCurve($testTemplateCurve)
+    {
+        $this->testTemplateCurve = $testTemplateCurve;
     }
 
 }

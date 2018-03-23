@@ -197,6 +197,10 @@ class ExtractBC
      * @var date
      */
     public $MeasureTTX;
+    /**
+     * @var json(type="json", nullable=true)
+     */
+    public $testTemplateCurve;
 
     public function extractBC(Spreadsheet $xlsReader, $sheetName, $pathCharts){
         $xlsReader->setActiveSheetIndexByName($sheetName);
@@ -239,15 +243,27 @@ class ExtractBC
         $chart = new GraphRA1999($pathCharts);
 
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
-        $data =  [];
-        foreach ($dataTest as $item)
+        /*        $data =  [];
+                foreach ($dataTest as $item)
+                {
+                    $data[] = floatval($item[0]);
+                }
+                $this->fileChart = $chart->createC($data);*/
+        $data["TEST"] = $this->ArrayToFloat($dataTest);
+        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+        $this->fileChart = $chart->createC($data);
+
+        return true;
+
+    }
+    private function ArrayToFloat($dataXLS){
+        foreach ($dataXLS as $item)
         {
             $data[] = floatval($item[0]);
         }
-        $this->fileChart = $chart->createC($data);
-        return true;
-
+        return $data;
     }
 
 }

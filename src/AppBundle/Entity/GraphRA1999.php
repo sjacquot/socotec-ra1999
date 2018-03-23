@@ -74,7 +74,7 @@ class GraphRA1999
         $this->Graph->SetTheme($theme_class);
 
         $this->Graph->img->SetAntiAliasing(false);
-        $this->Graph->SetMargin(40,40,40,40);
+        $this->Graph->SetMargin(40,25,25,40);
 
 
         $this->Graph->title->Set($SettingsGraph["title"]);
@@ -99,23 +99,24 @@ class GraphRA1999
 
 
         // Create the Template line
-        $p1 = new \LinePlot($SettingsGraph["Gabarit"]['serie']);
+        $p1 = new \LinePlot($data["TEMPLATE"]);
         $this->Graph->Add($p1);
         $p1->SetColor('red');
-        $p1->SetStyle("dotted");
+        $p1->SetStyle('solid');
         $p1->SetLineWeight(1);
-        $p1->SetLegend($SettingsGraph["Gabarit"]['title']);
+        //$p1->SetLegend($SettingsGraph["Gabarit"]['title']);
 
-        $p2 = new \LinePlot($data);
+        $p2 = new \LinePlot($data["TEST"]);
         $this->Graph->Add($p2);
         $p2->SetColor('blue');
         $p2->SetStyle("solid");
         $p2->SetLineWeight(2);
-        $p2->SetLegend("Resultats de l'essai");
+        //$p2->SetLegend("Resultats de l'essai");
 
-        $this->Graph->legend->SetFrameWeight(2);
-        $this->Graph->legend->SetLineWeight(2);
-
+        //$this->Graph->legend->SetFrameWeight(1);
+        //$this->Graph->legend->SetLineWeight(2);
+        //$this->Graph->legend->SetLayout(0.5,0.8,'center','bottom');
+        $this->Graph->legend->Hide();
         $time = date("Ymd-His");
 
         //$filepath = "/Users/pullmedia/Sites/socotec-ra1999/web/uploads/";

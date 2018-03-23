@@ -223,6 +223,7 @@ class ExtractData
         $aerien->setObjectifRa1999($data->objectifRa1999);
 
         $aerien->setTestResult($data->testResult);
+        $aerien->setTestTemplateCurve($data->testTemplateCurve);
 
         $aerien->setPassRa1999($data->PassRa1999);
         $aerien->setData($data->data);
@@ -285,6 +286,7 @@ class ExtractData
         $foreigner->setMeasureTTX($data->MeasureTTX);
 
         $foreigner->setTestResult($data->testResult);
+        $foreigner->setTestTemplateCurve($data->testTemplateCurve);
 
         $foreigner->setData($data->data);
 
@@ -339,6 +341,7 @@ class ExtractData
 
         $shock->setMeasureDate($data->MeasureDate);
         $shock->setMeasureTTX($data->MeasureTTX);
+        $shock->setTestTemplateCurve($data->testTemplateCurve);
 
         $this->entityManager->persist($shock);
 

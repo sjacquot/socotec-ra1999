@@ -166,12 +166,22 @@ class Shock
     private $PassRa1999;
 
     /**
-     * Tableau Résultats de l'essai
+     * a json of all the lines of the acoustic test table
+     *
      * @var json
      *
      * @ORM\Column(type="json", nullable=true)
      */
     private $testResult;
+
+    /**
+     * a json of all the values of temptlate line of chart
+     *
+     * @var json
+     *
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $testTemplateCurve;
 
     /**
      * a json of all the line of the resultats de l'essai table
@@ -550,6 +560,22 @@ class Shock
     public function setMeasureTTX($MeasureTTX)
     {
         $this->MeasureTTX = $MeasureTTX;
+    }
+
+    /**
+     * @return json
+     */
+    public function getTestTemplateCurve()
+    {
+        return $this->testTemplateCurve;
+    }
+
+    /**
+     * @param json $testTemplateCurve
+     */
+    public function setTestTemplateCurve($testTemplateCurve)
+    {
+        $this->testTemplateCurve = $testTemplateCurve;
     }
 
 }

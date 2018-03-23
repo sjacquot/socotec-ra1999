@@ -183,6 +183,11 @@ class ExtractBAE
     public $testResult;
 
     /**
+     * @var json(type="json", nullable=true)
+     */
+    public $testTemplateCurve;
+
+    /**
      * a json of all the line of the resultats de l'essai table
      *
      * @var json(type="json", nullable=true)
@@ -258,19 +263,30 @@ class ExtractBAE
         $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
+
         $chart = new GraphRA1999($pathCharts);
 
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
-        $data =  [];
+/*        $data =  [];
         foreach ($dataTest as $item)
         {
             $data[] = floatval($item[0]);
         }
-        $this->fileChart =  $chart->createF($data);
-
+        $this->fileChart =  $chart->createF($data);*/
+        $data["TEST"] = $this->ArrayToFloat($dataTest);
+        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+        $this->fileChart = $chart->createF($data);
         return true;
 
+    }
+    private function ArrayToFloat($dataXLS){
+        foreach ($dataXLS as $item)
+        {
+            $data[] = floatval($item[0]);
+        }
+        return $data;
     }
 
 }
