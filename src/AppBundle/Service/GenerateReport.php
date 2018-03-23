@@ -231,7 +231,7 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$Aerial->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('ACHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('ACHART#'.$index,['src'=>$Chartfilename,'swh'=>575]);
             $templateProcessor->setImg('CHARTLEGENDA#'.$index,['src'=>$this->ressourcepath."/legendeA.jpg"]);
         }
     }
@@ -287,7 +287,7 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$foreigner->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('FCHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('FCHART#'.$index,['src'=>$Chartfilename,'swh'=>575]);
             $templateProcessor->setImg('CHARTLEGENDF#'.$index,['src'=>$this->ressourcepath."/legendeF.jpg"]);
         }
 
@@ -337,7 +337,7 @@ class GenerateReport extends WordGenerator
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$choc->getFileChart();
         if(realpath($Chartfilename)){
-            $templateProcessor->setImg('CCHART#'.$index,['src'=>$Chartfilename,'swh'=>600]);
+            $templateProcessor->setImg('CCHART#'.$index,['src'=>$Chartfilename,'swh'=>575]);
             $templateProcessor->setImg('CHARTLEGENDC#'.$index,['src'=>$this->ressourcepath."/legendeC.jpg"]);
         }
 
