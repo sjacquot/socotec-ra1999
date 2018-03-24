@@ -55,7 +55,7 @@ class ExtractResults
                     while(strlen($value)>= 1){
                         $data = array();
                         foreach ($dataInCols as $col ){
-                            $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                            $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getFormattedValue();
                         }
                         if(strlen($data[0])>0){
                             $resultsArray[self::BAI][] = $data;
@@ -171,7 +171,7 @@ class ExtractResults
                     while(strlen($value)>= 1){
                         $data = array();
                         foreach ($dataInCols as $col ){
-                            $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                            $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getFormattedValue();
                         }
                         if(strlen($data[0])>0){
                             $resultsArray[self::AAE][] = $data;
@@ -182,7 +182,13 @@ class ExtractResults
                 }
             }
         }
-
+/*        echo "<pre>";
+        echo "<h2>".self::BAI."</h2>";
+        var_dump($resultsArray[self::BAI]);
+        echo "<h2>".self::AAE."</h2>";
+        var_dump($resultsArray[self::AAE]);
+        echo "</pre>";
+        die(); */
         return $resultsArray;
     }
 }
