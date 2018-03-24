@@ -30,7 +30,7 @@ class ExtractAAE
         $index = 6;
         for($index;$index<=$this->highestRow;$index+=3){
             // Col #3 = Col C Local name mandatory for AAE
-            $value = $this->worksheet->getCellByColumnAndRow(3,$index)->getCalculatedValue();
+        $value = $this->worksheet->getCellByColumnAndRow(3,$index)->getCalculatedValue();
             if(strlen($value)>0){
                 $this->data[] = $this->worksheet->rangeToArray("B".$index.":Q".($index+3),'',true,true,false);
             }
