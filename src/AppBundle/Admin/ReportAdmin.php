@@ -134,7 +134,11 @@ class ReportAdmin extends AbstractAdmin
     {
         parent::postPersist($report);
 
-        $this->exportReport($report->getOperation());
+        $operation = $report->getOperation();
+
+        $operation->setReportReference($report);
+
+        $this->exportReport($operation);
     }
 
     /**
@@ -144,6 +148,7 @@ class ReportAdmin extends AbstractAdmin
      * @throws \Exception
      */
     public function exportReport($operation){
+
 
         $pathToReport = $this->createReport($operation);
 

@@ -260,6 +260,7 @@ class OperationAdmin extends Admin
                 ->end()->end()
                 ->with("Pictures", array('class' => 'col-md-9', 'tab'=>true))
                     ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                    ->add('pictures')
                     ->end()
                 ->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))

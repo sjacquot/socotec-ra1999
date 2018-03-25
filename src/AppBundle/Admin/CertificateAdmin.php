@@ -134,7 +134,11 @@ class CertificateAdmin extends AbstractAdmin
     {
         parent::postPersist($certificate);
 
-        $this->exportCertificate($certificate->getOperation());
+        $operation = $certificate->getOperation();
+
+        $operation->setCertifReference($certificate);
+
+        $this->exportCertificate($operation);
     }
 
     /**
