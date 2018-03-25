@@ -52,6 +52,12 @@ class Pictures
 
     /**
      *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     *
      * @ORM\Column(type="datetime")
      */
     private $created;
@@ -156,6 +162,22 @@ class Pictures
     public function setOperation($operation)
     {
         $this->operation = $operation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param mixed $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
     }
 }
 

@@ -13,6 +13,7 @@ use AppBundle\Entity\Operation;
 use AppBundle\Entity\Report;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
+use AppBundle\Service\PictureUploader;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -20,6 +21,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
@@ -256,6 +258,10 @@ class OperationAdmin extends Admin
                     'format' => 'dd/MM/yyyy',
                 ))
                 ->end()->end()
+                ->with("Pictures", array('class' => 'col-md-9', 'tab'=>true))
+                    ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                    ->end()
+                ->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
                 ->with("Opération/Intervenants & Equipe")
                 ->add("delegateMO", null, ['label' => "Maître d'ouvrage délégué (le cas échéant)"])
@@ -389,6 +395,14 @@ class OperationAdmin extends Admin
             $document = $fileUploader->upload($file);
             if($document){
                 $operation->setDocument($document);
+            }
+        }
+
+        if($this->getForm()->has('picturesUploaded')){
+            $picutres = $this->getForm()->get('picturesUploaded')->getData();
+            foreach($picutres as $picture){
+                $fileUploader = $this->container->get(PictureUploader::class);
+                $picture = $fileUploader->upload($picture, $operation);
             }
         }
     }

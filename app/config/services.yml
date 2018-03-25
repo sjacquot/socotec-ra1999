@@ -55,6 +55,10 @@ services:
     app.document_uploader:
             class: AppBundle\Service\FileUploader
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
+
+    app.picture_uploader:
+            class: AppBundle\Service\PictureUploader
+            arguments: ["@service_container", '@doctrine.orm.entity_manager']
     # Service to coordinate whole workbook import
     app.extract_data:
             class: AppBundle\Service\ExtractData
