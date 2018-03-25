@@ -36,6 +36,11 @@ class Report
      */
     private $operation;
 
+    public function __toString()
+    {
+        return ($this->reportReference)?$this->reportReference:'';
+    }
+
     /**
      * @return int
      */

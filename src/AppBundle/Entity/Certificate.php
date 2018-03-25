@@ -37,6 +37,11 @@ class Certificate
      */
     private $operation;
 
+    public function __toString()
+    {
+        return ($this->certifReference)?$this->certifReference:'';
+    }
+
     /**
      * @return int
      */
