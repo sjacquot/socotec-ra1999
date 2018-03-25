@@ -151,7 +151,6 @@ class ReportAdmin extends AbstractAdmin
 
         $name = $operation->getDocument()->getPathReport();
 
-
         //No cache
         header('Expires: 0');
         header('Cache-Control: must-revalidate');

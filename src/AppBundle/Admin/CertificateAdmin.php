@@ -151,9 +151,19 @@ class CertificateAdmin extends AbstractAdmin
 
         $name = $operation->getDocument()->getPathCertificate();
 
+        //No cache
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+
+        header('Content-Disposition: attachment; filename="'.$name.'"');
+//Define file size
         header('Content-Disposition: attachment; filename="'.$name.'"');
 
+        ob_clean();
+        flush();
         readfile($pathToCertif);
+        exit();
 
     }
 
