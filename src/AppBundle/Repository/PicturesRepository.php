@@ -36,4 +36,18 @@ class PicturesRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     */
+    public function getPictureByOperationOrder(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Pictures::class)->createQueryBuilder('r')
+            ->where('r.operation = :operation')
+            ->setParameter('operation', $operation)
+            ->orderBy('r.position')
+            ->getQuery()
+            ->getResult();
+    }
 }
