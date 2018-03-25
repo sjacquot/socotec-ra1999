@@ -151,9 +151,20 @@ class ReportAdmin extends AbstractAdmin
 
         $name = $operation->getDocument()->getPathReport();
 
-        header('Content-Disposition: attachment; filename="'.$name.'"');
 
+        //No cache
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+
+        header('Content-Disposition: attachment; filename="'.$name.'"');
+//Define file size
+        header('Content-Length: ' . filesize($pathToReport));
+
+        ob_clean();
+        flush();
         readfile($pathToReport);
+        exit();
 
     }
 
