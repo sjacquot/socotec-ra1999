@@ -264,7 +264,51 @@ class WordGenerator
         $templateProcessor->setValue('CALENDDATE', $date);
 
 
+        // Transport terrestre
+        $data = $operation->getOperationRoute300();
+        $dataMask = [1,2,3,4,5];
+        if(in_array(null,$data,true)||(count($data)==0)){
+            $templateProcessor->setValue('ISROUTENULL',self::cbChecked);
+            $templateProcessor->setValue('ISROUTE',self::cbUnchecked);
+            $templateProcessor->setValue('ISROUTE1',self::cbUnchecked);
+            $templateProcessor->setValue('ISROUTE2',self::cbUnchecked);
+            $templateProcessor->setValue('ISROUTE3',self::cbUnchecked);
+            $templateProcessor->setValue('ISROUTE4',self::cbUnchecked);
+            $templateProcessor->setValue('ISROUTE5',self::cbUnchecked);
+        } else {
+            foreach ($dataMask as $value){
+                if(in_array($value,$data,true)){
+                    $templateProcessor->setValue('ISROUTE'.$value, self::cbChecked);
+                }else{
+                    $templateProcessor->setValue('ISROUTE'.$value, self::cbUnchecked);
+                }
+            }
+            $templateProcessor->setValue('ISROUTE',self::cbChecked);
+            $templateProcessor->setValue('ISROUTENULL',self::cbUnchecked);
+        }
+        // Transport terrestre
+        $data = $operation->getOperationZonePEB();
+        $dataMask = ['A','B','C','D'];
+        if(in_array(null,$data,true)||(count($data)==0)){
+            $templateProcessor->setValue('ISAIRPORTNULL',self::cbChecked);
+            $templateProcessor->setValue('ISAIRPORT',self::cbUnchecked);
+            $templateProcessor->setValue('ISAIRPORTA',self::cbUnchecked);
+            $templateProcessor->setValue('ISAIRPORTB',self::cbUnchecked);
+            $templateProcessor->setValue('ISAIRPORTC',self::cbUnchecked);
+            $templateProcessor->setValue('ISAIRPORTD',self::cbUnchecked);
+            } else {
+            foreach ($dataMask as $value){
+                if(in_array($value,$data,true)){
+                    $templateProcessor->setValue('ISAIRPORT'.$value, self::cbChecked);
+                }else{
+                    $templateProcessor->setValue('ISAIRPORT'.$value, self::cbUnchecked);
+                }
+            }
+            $templateProcessor->setValue('ISAIRPORT',self::cbChecked);
+            $templateProcessor->setValue('ISAIRPORTNULL',self::cbUnchecked);
+        }
     }
+
     /**
      * @param TemplateProcessor $templateProcessor
      * @param $dataArray
