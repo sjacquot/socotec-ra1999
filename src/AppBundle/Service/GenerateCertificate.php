@@ -9,6 +9,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Operation;
+use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 
@@ -31,10 +32,12 @@ class GenerateCertificate extends WordGenerator
         $templateFile = $this->container->getParameter('path_template_certificate');
         $templateFile = realpath($templateFile);
         $templateProcessor = new TemplateProcessor($templateFile);
+
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);
         // Data from Results
-        $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());
+        $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());// also update $this->countMeasure value
+        $templateProcessor->setValue('COUNTMEASURE',$this->countMeasure);
 
         $certFilePath = $this->container->getParameter('path_document').'/certificate';
         $certFilePath = realpath($certFilePath);
@@ -44,6 +47,9 @@ class GenerateCertificate extends WordGenerator
         $certFileName = $this->sanitize($certFileName,true);
         $certFilePath .= "/".$certFileName;
         $templateProcessor->saveAs($certFilePath);
+//        $phpWord = \PhpOffice\PhpWord\IOFactory::load($certFilePath);
+//        $phpWord->getSettings()->setUpdateFields(true);
+//        $phpWord->save($certFilePath,'Word2007',true);
         return $certFileName;
     }
 

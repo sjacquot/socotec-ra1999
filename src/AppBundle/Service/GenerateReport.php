@@ -43,8 +43,6 @@ class GenerateReport extends WordGenerator
         $templateProcessor = new TemplateProcessor($templateFile);
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);
-        $templateProcessor->setValue('DOCAUTHOR',$operation->getDocAuthor());
-        $templateProcessor->setValue('DOCAUTHORMAIL',$operation->getDocAuthorEmail());
         // Data from Results
         $this->fillTplResuls($templateProcessor,$operation->getResults()->getData());
         $templateProcessor->setValue('COUNTMEASURE',$this->countMeasure);

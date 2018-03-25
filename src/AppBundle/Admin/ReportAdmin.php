@@ -163,7 +163,7 @@ class ReportAdmin extends AbstractAdmin
         ob_clean();
         flush();
         readfile($pathToReport);
-        exit();
+       exit();
 
     }
 

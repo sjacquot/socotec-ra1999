@@ -188,6 +188,7 @@ class WordGenerator
         $templateProcessor->setValue('OPENAME', $operation->getName());
         $templateProcessor->setValue('OPEINFO', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
+        $templateProcessor->setValue('CERTREF', $operation->getCertifReference());
 
         $value = (int) floatval($operation->getOperationNbCollectif())+ (int) floatval($operation->getOperationNbIndividuel());
         $templateProcessor->setValue('OPNBCOL',$operation->getOperationNbCollectif());
@@ -206,11 +207,23 @@ class WordGenerator
         }else{
             $templateProcessor->setValue('OPISIND', self::cbUnchecked);
         }
+        if($operation->isOperationVMCDouple()){
+            $templateProcessor->setValue('ISDOUBLEFLUX',self::cbChecked);
+        }else{
+            $templateProcessor->setValue('ISDOUBLEFLUX',self::cbUnchecked);
+        }
+        if($operation->isOperationVMCSimple()){
+            $templateProcessor->setValue('ISSIMPLEFLUX',self::cbChecked);
+        }else{
+            $templateProcessor->setValue('ISSIMPLEFLUX',self::cbUnchecked);
+        }
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
         $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
         $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
         // TODO: Unification des Balises AUTHOR
+        $templateProcessor->setValue('DOCAUTHOR',$operation->getDocAuthor());
+        $templateProcessor->setValue('DOCAUTHORMAIL',$operation->getDocAuthorEmail());
         $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
         $templateProcessor->setValue('MEASUREAUTHOR', $operation->getMeasureAuthor());
         $templateProcessor->setValue('OPECITY', $operation->getOperationCity());
