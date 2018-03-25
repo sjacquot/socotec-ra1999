@@ -32,7 +32,8 @@ class Report
 
     /**
      * One Operation has One certificate Reference.
-     * @ORM\OneToOne(targetEntity="Operation", mappedBy="reportReference")
+     * @ORM\OneToOne(targetEntity="Operation", inversedBy="reportReference")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $operation;
 

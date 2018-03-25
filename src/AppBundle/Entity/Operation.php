@@ -123,21 +123,21 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_route300", type="string", length=255, nullable=true)
+     * @ORM\Column(name="operation_route300", type="array", length=255, nullable=true)
      */
-    private $operationRoute300 = 'aucune';
+    private $operationRoute300 = array();
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_train300", type="string", length=255, nullable=true)
+     * @ORM\Column(name="operation_train300", type="array", length=255, nullable=true)
      */
-    private $operationTrain300 = 'aucune';
+    private $operationTrain300 = array();
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_zone_peb", type="string", length=255, nullable=true)
+     * @ORM\Column(name="operation_zone_peb", type="array", length=255, nullable=true)
      */
-    private $operationZonePEB = 'aucune';
+    private $operationZonePEB = array();
     /**
      * @var string
      *
@@ -314,8 +314,7 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Report", inversedBy="operation")
-     * @ORM\JoinColumn(name="report_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="Report", mappedBy="operation")
      */
     private $reportReference;
 

@@ -20,8 +20,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Sonata\AdminBundle\Form\ChoiceList;
 
 
 /**
@@ -112,9 +112,53 @@ class OperationAdmin extends Admin
                 ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
 
                 ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
-                ->add('operationRoute300',null,['label'=>'Classement de la ou des voies routières à moins de 300m'])
-                ->add('operationTrain300',null,['label'=>'Classement de la ou des voies ferrées à moins de 300m'])
-                ->add('operationZonePEB',null,['label'=>"Zone de bruit du PEB d'un aérodrome"])
+                ->add('operationRoute',ChoiceType::class,[
+                    'label'=>'Classement de la ou des voies routières à moins de 300m',
+                    'choices' => array(
+                        1 => 1,
+                        2 => 2,
+                        3 => 3,
+                        4 => 4,
+                        5 => 5,
+                        'Sans objet' => null
+                    ),
+                    'data'=> $this->getSubject()->getOperationRoute300(),
+                    'multiple' => true,
+                    'expanded' => true,
+                    'mapped' => false,
+                    'required' => false,
+                ])
+                ->add('operationTrain',ChoiceType::class,[
+                    'label'=>'Classement de la ou des voies ferrées à moins de 300m',
+                    'choices' => array(
+                        1 => 1,
+                        2 => 2,
+                        3 => 3,
+                        4 => 4,
+                        5 => 5,
+                        'Sans objet' => null
+                    ),
+                    'data'=> $this->getSubject()->getOperationTrain300(),
+                    'multiple' => true,
+                    'expanded' => true,
+                    'mapped' => false,
+                    'required' => false,
+                ])
+                ->add('operationPEB',ChoiceType::class,[
+                    'label'=>"Zone de bruit du PEB d'un aérodrome",
+                    'choices' => array(
+                        'A' => 'A',
+                        'B' => 'B',
+                        'C' => 'C',
+                        'D' => 'D',
+                        'Sans objet' => null
+                    ),
+                    'data'=> $this->getSubject()->getOperationZonePEB(),
+                    'multiple' => true,
+                    'expanded' => true,
+                    'mapped' => false,
+                    'required' => false,
+                ])
                 ->add('operationLabel',null,['label'=>"Label, certification ou démarche qualité"])
                 ->add('operationVMCSimple',null,array('label'=>"VMC simple flux"))
                 ->add('operationVMCDouple',null,array('label'=>"VMC double flux"))
@@ -298,6 +342,19 @@ class OperationAdmin extends Admin
      */
     public function preValidate($operation)
     {
+        if($this->getForm()->has('operationRoute')){
+            $operationRoute = $this->getForm()->get('operationRoute')->getData();
+            $operation->setOperationRoute300($operationRoute);
+        }
+        if($this->getForm()->has('operationTrain')){
+            $operationTrain = $this->getForm()->get('operationTrain')->getData();
+            $operation->setOperationTrain300($operationTrain);
+        }
+        if($this->getForm()->has('operationPEB')){
+            $operationPEB = $this->getForm()->get('operationPEB')->getData();
+            $operation->setOperationZonePEB($operationPEB);
+        }
+
         $file = $this->getForm()->get('documents')->getData();
         if(!is_null($file)){
             $fileUploader = $this->container->get(FileUploader::class);
