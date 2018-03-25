@@ -31,6 +31,12 @@
 .logo img + span {
     width: 130px;
 }
+ul[id*=operationTrain] li, ul[id*=operationPEB] li, ul[id*=operationRoute] li, ul[id*=operationTrain] li .icheckbox_square-blue, ul[id*=operationPEB] li .icheckbox_square-blue, ul[id*=operationRoute] li .icheckbox_square-blue, ul[id*=operationTrain] li span, ul[id*=operationPEB] li span, ul[id*=operationRoute] li span{
+    display: inline-block;
+}
+ul[id*=operationTrain] li .checkbox label, ul[id*=operationPEB] li .checkbox label, ul[id*=operationRoute] li .checkbox label{
+    margin-left: 0;
+}
 
 @media (max-width: 767px){
     .skin-black .main-header>.logo {
