@@ -185,6 +185,7 @@ class OperationAdmin extends Admin
         $datagridMapper->add('name', null, ['global_search' => true, 'label'=> 'Nom']);
         $datagridMapper->add('caseReference', null, ['global_search' => true, 'label'=>'Référence dossier']);
         $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
+        $datagridMapper->add('certifReference',null,['global_search' => true, 'label'=>'Référence rapport']);
         $datagridMapper->add('document', null, ['global_search' => true, 'label'=>'Fiche de mesure (XLS)']);
 
         $datagridMapper->add('status', null, ['global_search' => true, 'label'=>'Etat de traitement']);
@@ -215,6 +216,7 @@ class OperationAdmin extends Admin
         $listMapper->addIdentifier('name', null, ['label'=>'Nom'])
                     ->add('caseReference',null,['label'=>'Référence dossier'])
                     ->add('reportReference',null,['label'=>'Référence rapport'])
+                    ->add('certifReference',null,['label'=>'Référence certif'])
                     ->add('measureAuthor',null,['label'=>'Auteur(s)'])
                     ->add('measureDate',null,['label'=>'Date de la mesure'])
                     ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig',null,'label'=>'Fiche de mesure (XLS)'))
