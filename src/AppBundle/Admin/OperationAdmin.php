@@ -122,6 +122,9 @@ class OperationAdmin extends Admin
                         5 => 5,
                         'Sans objet' => null
                     ),
+                    'choice_attr' => [
+                        'Sans objet' => ['data-info' => 'null'],
+                    ],
                     'data'=> $this->getSubject()->getOperationRoute300(),
                     'multiple' => true,
                     'expanded' => true,
@@ -138,6 +141,9 @@ class OperationAdmin extends Admin
                         5 => 5,
                         'Sans objet' => null
                     ),
+                    'choice_attr' => [
+                        'Sans objet' => ['data-info' => 'null'],
+                    ],
                     'data'=> $this->getSubject()->getOperationTrain300(),
                     'multiple' => true,
                     'expanded' => true,
@@ -153,6 +159,9 @@ class OperationAdmin extends Admin
                         'D' => 'D',
                         'Sans objet' => null
                     ),
+                    'choice_attr' => [
+                        'Sans objet' => ['data-info' => 'null'],
+                    ],
                     'data'=> $this->getSubject()->getOperationZonePEB(),
                     'multiple' => true,
                     'expanded' => true,
