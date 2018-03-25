@@ -8,9 +8,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Certificate;
 use AppBundle\Entity\Operation;
+use AppBundle\Entity\Report;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -180,8 +183,24 @@ class OperationAdmin extends Admin
                 ->with('Opération/SOCOTEC')
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
                 ->add('DocChronoRef', null, ['label' => 'Numéro de chrono du dossier'])
-                ->add('reportReference', null, ['label' => 'Référence du rapport de mesures détaillées'])
-                ->add('certifReference', null, ['label' => "Référence de l'attestation RA1999"])
+                ->add('reportReference', EntityType::class, [
+                    'label' => 'Référence du rapport de mesures détaillées',
+                    'class' => Report::class,
+                    'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('r')
+                            ->where('r.operation = :operation')
+                            ->setParameter('operation', $this->getSubject());
+                    }
+                ])
+                ->add('certifReference', EntityType::class, [
+                    'label' => "Référence de l'attestation RA1999",
+                    'class' => Certificate::class,
+                    'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('r')
+                        ->where('r.operation = :operation')
+                        ->setParameter('operation', $this->getSubject());
+                    }
+                ])
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
                 ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
