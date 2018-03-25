@@ -6,7 +6,7 @@ sonata_admin:
             - css/styles.css
             - css/jquery-ui.min.css
         extra_javascripts:
-            - js/checkbox.js
+            - js/main.js
             - js/jquery-ui.min.js
     dashboard:
         groups:

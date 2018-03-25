@@ -151,23 +151,24 @@ class CertificateAdmin extends AbstractAdmin
 
         $pathToCertif = $this->createCertificate($operation);
 
-        header('Content-Type: application/docx');
-
         $name = $operation->getDocument()->getPathCertificate();
 
+        echo '/uploads/media/documents/certificate/'.$name; die();
+
+        //header('Content-Type: application/docx');
         //No cache
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
+        //header('Expires: 0');
+        //header('Cache-Control: must-revalidate');
+        //header('Pragma: public');
 
-        header('Content-Disposition: attachment; filename="'.$name.'"');
+        //header('Content-Disposition: attachment; filename="'.$name.'"');
 //Define file size
-        header('Content-Disposition: attachment; filename="'.$name.'"');
+        //header('Content-Disposition: attachment; filename="'.$name.'"');
 
-        ob_clean();
-        flush();
-        readfile($pathToCertif);
-        exit();
+        //ob_clean();
+        //flush();
+        //readfile($pathToCertif);
+        //exit();
 
     }
 
