@@ -165,9 +165,7 @@ class ReportAdmin extends AbstractAdmin
      */
     public function createReport($operation){
         $em = $this->entityManager;
-//        //TODO: Finish report generation in AppBundle\Service\GenerateCertificate
         $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
-        //TODO: get the report path
 
         $document = $operation->getDocument();
         $document->setPathReport($pathDocReport);
