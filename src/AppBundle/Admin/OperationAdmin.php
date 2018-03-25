@@ -108,7 +108,7 @@ class OperationAdmin extends Admin
                 ->add('operationNbIndividuel',null,['label'=>'Nombre de Logements individuels'])
                 ->add('operationNbCollectif',null,['label'=>'Nombre de Logements collectifs'])
 
-                ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
+               // ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
                 ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
 
                 ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])

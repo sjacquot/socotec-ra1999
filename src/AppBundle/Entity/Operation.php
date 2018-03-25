@@ -86,13 +86,6 @@ class Operation
      * @ORM\Column(name="operation_city", type="string", length=255, nullable=true)
      */
     private $operationCity;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="operation_nb_flat", type="integer", length=255, nullable=true)
-     */
-    private $operationNbFlat = 1;
     /**
      * @var integer
      *
@@ -592,22 +585,6 @@ class Operation
     public function setOperationCollectif($operationCollectif)
     {
         $this->operationCollectif = $operationCollectif;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOperationNbFlat()
-    {
-        return $this->operationNbFlat;
-    }
-
-    /**
-     * @param string $operationNbFlat
-     */
-    public function setOperationNbFlat($operationNbFlat)
-    {
-        $this->operationNbFlat = $operationNbFlat;
     }
 
     /**

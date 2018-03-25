@@ -188,7 +188,12 @@ class WordGenerator
         $templateProcessor->setValue('OPENAME', $operation->getName());
         $templateProcessor->setValue('OPEINFO', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
-        $templateProcessor->setValue('OPENBFLAT', $operation->getOperationNbFlat());
+
+        $value = (int) floatval($operation->getOperationNbCollectif())+ (int) floatval($operation->getOperationNbIndividuel());
+        $templateProcessor->setValue('OPNBCOL',$operation->getOperationNbCollectif());
+        $templateProcessor->setValue('OPNBIND', $operation->getOperationNbIndividuel());
+        $templateProcessor->setValue('OPENBFLAT', $value);
+
         $templateProcessor->setValue('OPENBBAT', $operation->getOperationNbBuilding());
         $templateProcessor->setValue('OPEADDRESS', $operation->getOperationAddress());
         if($operation->isOperationCollectif()){
@@ -201,8 +206,6 @@ class WordGenerator
         }else{
             $templateProcessor->setValue('OPISIND', self::cbUnchecked);
         }
-        $templateProcessor->setValue('OPNBCOL',$operation->getOperationNbCollectif());
-        $templateProcessor->setValue('OPNBIND', $operation->getOperationNbIndividuel());
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
         $templateProcessor->setValue('CASEREF', $operation->getCaseReference());

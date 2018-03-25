@@ -87,7 +87,7 @@ class GraphRA1999
         $this->Graph->xaxis->SetTickLabels(array('125','250','500','1000','2000','4000'));
         $this->Graph->xaxis->SetTitle("Hz");
 
-        $this->Graph->ygrid->SetFill(true,'#fff8a0','#fff8a0');
+        $this->Graph->ygrid->SetFill(true,'#84e4f9','#84e4f9');
         $this->Graph->ygrid->SetLineStyle("solid");
         $this->Graph->ygrid->Show();
         $this->Graph->ygrid->SetColor('black');
