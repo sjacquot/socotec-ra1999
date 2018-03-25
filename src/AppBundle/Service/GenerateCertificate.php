@@ -47,10 +47,11 @@ class GenerateCertificate extends WordGenerator
         $certFileName = $this->sanitize($certFileName,true);
         $certFilePath .= "/".$certFileName;
         $templateProcessor->saveAs($certFilePath);
-//        $phpWord = \PhpOffice\PhpWord\IOFactory::load($certFilePath);
-//        $phpWord->getSettings()->setUpdateFields(true);
-//        $phpWord->save($certFilePath,'Word2007',true);
         return $certFileName;
     }
+    // TODO: Explorer pour updateFields en auto...
+    //        $phpWord = \PhpOffice\PhpWord\IOFactory::load($certFilePath);
+    //        $phpWord->getSettings()->setUpdateFields(true);
+    //        $phpWord->save($certFilePath,'Word2007',true);
 
 }

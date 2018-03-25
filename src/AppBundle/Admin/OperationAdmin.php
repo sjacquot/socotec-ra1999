@@ -134,7 +134,7 @@ class OperationAdmin extends Admin
 
                 ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
                 ->add('operationRoute',ChoiceType::class,[
-                    'label'=>'Classement de la ou des voies routières à moins de 300m',
+                    'label'=>'Infrastructures de transport terrestre à moins de 300m',
                     'choices' => array(
                         1 => 1,
                         2 => 2,
@@ -152,7 +152,7 @@ class OperationAdmin extends Admin
                     'mapped' => false,
                     'required' => false,
                 ])
-                ->add('operationTrain',ChoiceType::class,[
+/*                ->add('operationTrain',ChoiceType::class,[
                     'label'=>'Classement de la ou des voies ferrées à moins de 300m',
                     'choices' => array(
                         1 => 1,
@@ -170,7 +170,7 @@ class OperationAdmin extends Admin
                     'expanded' => true,
                     'mapped' => false,
                     'required' => false,
-                ])
+                ])*/
                 ->add('operationPEB',ChoiceType::class,[
                     'label'=>"Zone de bruit du PEB d'un aérodrome",
                     'choices' => array(

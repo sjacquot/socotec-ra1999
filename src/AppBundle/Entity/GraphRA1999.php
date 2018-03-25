@@ -84,18 +84,18 @@ class GraphRA1999
 
         $this->Graph->yaxis->HideZeroLabel();
         $this->Graph->yaxis->SetTitle("dB");
+
         $this->Graph->xaxis->SetTickLabels(array('125','250','500','1000','2000','4000'));
         $this->Graph->xaxis->SetTitle("Hz");
 
-        $this->Graph->ygrid->SetFill(true,'#84e4f9','#84e4f9');
+        $this->Graph->ygrid->SetFill(true,'#c7dbf9@0.5','#c7dbf9@0.5');
         $this->Graph->ygrid->SetLineStyle("solid");
         $this->Graph->ygrid->Show();
         $this->Graph->ygrid->SetColor('black');
+
         $this->Graph->xgrid->SetLineStyle("solid");
         $this->Graph->xgrid->Show();
         $this->Graph->xgrid->SetColor('black');
-
-
 
 
         // Create the Template line
@@ -104,18 +104,13 @@ class GraphRA1999
         $p1->SetColor('red');
         $p1->SetStyle('solid');
         $p1->SetLineWeight(1);
-        //$p1->SetLegend($SettingsGraph["Gabarit"]['title']);
 
         $p2 = new \LinePlot($data["TEST"]);
         $this->Graph->Add($p2);
         $p2->SetColor('blue');
         $p2->SetStyle("solid");
-        $p2->SetLineWeight(2);
-        //$p2->SetLegend("Resultats de l'essai");
+        $p2->SetLineWeight(3);
 
-        //$this->Graph->legend->SetFrameWeight(1);
-        //$this->Graph->legend->SetLineWeight(2);
-        //$this->Graph->legend->SetLayout(0.5,0.8,'center','bottom');
         $this->Graph->legend->Hide();
         $time = date("Ymd-His");
 
