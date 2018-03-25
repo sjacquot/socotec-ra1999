@@ -497,6 +497,13 @@ class Operation
      */
     private $document;
 
+
+    /**
+     * One Product has One Shipment.
+     * @ORM\OneToMany(targetEntity="Pictures", mappedBy="operation")
+     */
+    private $pictures;
+
     /**
      * One Operation has Many Aerien.
      * @ORM\OneToMany(targetEntity="Aerien", mappedBy="operation")
@@ -539,6 +546,8 @@ class Operation
      * @ORM\Column(name="status", type="integer", nullable=true)
      */
     private $status = self::Draft;
+
+
 
     public function __toString()
     {
@@ -1356,6 +1365,7 @@ class Operation
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
         $this->foreigner = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     /**
@@ -1959,6 +1969,22 @@ class Operation
         $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());
         $this->setOperationObjective($workSheet->getCell("D15")->getCalculatedValue());
         $this->setOperationMeasureRef($workSheet->getCell("D16")->getCalculatedValue());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @param mixed $pictures
+     */
+    public function setPictures($pictures)
+    {
+        $this->pictures = $pictures;
     }
 
 }
