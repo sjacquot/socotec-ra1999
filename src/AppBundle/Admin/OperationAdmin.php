@@ -435,7 +435,7 @@ class OperationAdmin extends Admin
             $pictureRepo = $em->getRepository(Pictures::class);
             $i = 1;
             foreach($picutres as $picture) {
-                $image = $pictureRepo->findOneByName($picture);
+                $image = $pictureRepo->findOneByName($picture, $this->getSubject());
                 if(!is_null($image)){
                     $image->setPosition($i);
                     $em->persist($image);

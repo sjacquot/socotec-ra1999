@@ -17,17 +17,20 @@ class PicturesRepository extends EntityRepository
 {
     /**
      * @param $name
+     * @param Operation $operation
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByName($name){
+    public function findOneByName($name, Operation $operation){
         return $this->getEntityManager()
             ->getRepository(Pictures::class)
             ->createQueryBuilder('p')
             ->where('p.name = :name')
+            ->andWhere('p.operation = :operation')
             ->setParameters(
                 [
                     'name' => $name,
+                    'operation' => $operation,
                 ]
             )
             ->getQuery()
