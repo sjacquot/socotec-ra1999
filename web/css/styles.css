@@ -37,6 +37,9 @@ ul[id*=operationTrain] li, ul[id*=operationPEB] li, ul[id*=operationRoute] li, u
 ul[id*=operationTrain] li .checkbox label, ul[id*=operationPEB] li .checkbox label, ul[id*=operationRoute] li .checkbox label{
     margin-left: 0;
 }
+ul[id*=picturesOrder] .icheckbox_square-blue{
+    display: none!important;
+}
 
 @media (max-width: 767px){
     .skin-black .main-header>.logo {

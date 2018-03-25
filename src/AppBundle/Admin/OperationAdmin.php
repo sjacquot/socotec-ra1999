@@ -10,6 +10,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Certificate;
 use AppBundle\Entity\Operation;
+use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
@@ -80,6 +81,7 @@ class OperationAdmin extends Admin
 
     /**
      * @param FormMapper $formMapper
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -99,6 +101,20 @@ class OperationAdmin extends Admin
                 ->end();
         }
         if ($this->isCurrentRoute('edit')) {
+
+            $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
+                ->where('r.operation = :operation')
+                ->setParameter('operation', $this->getSubject())
+                ->orderBy('r.position')->getQuery()->getResult();
+
+            $pictureOrder = [];
+
+            $i = 1;
+            foreach ($pictureResult as $picture){
+                $pictureOrder[$picture->getName()] = $picture->getName();
+                $i++;
+            }
+
             $formMapper
                 ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/Chantier')
@@ -260,7 +276,13 @@ class OperationAdmin extends Admin
                 ->end()->end()
                 ->with("Pictures", array('class' => 'col-md-9', 'tab'=>true))
                     ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
-                    ->add('pictures')
+                    ->add('picturesOrder', ChoiceType::class, [
+                        'choices' =>  $pictureOrder,
+                        'required' => false,
+                        'mapped' => false,
+                        'multiple' => true,
+                        'expanded' => true,
+                    ])
                     ->end()
                 ->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
@@ -405,6 +427,22 @@ class OperationAdmin extends Admin
                 $fileUploader = $this->container->get(PictureUploader::class);
                 $picture = $fileUploader->upload($picture, $operation);
             }
+        }
+
+        if(isset($_POST['upload_picture'])){
+            $picutres = $_POST['upload_picture'];
+            $em = $this->container->get('doctrine')->getEntityManager();
+            $pictureRepo = $em->getRepository(Pictures::class);
+            $i = 1;
+            foreach($picutres as $picture) {
+                $image = $pictureRepo->findOneByName($picture);
+                if(!is_null($image)){
+                    $image->setPosition($i);
+                    $em->persist($image);
+                    $i++;
+                }
+            }
+            $em->flush();
         }
     }
 
