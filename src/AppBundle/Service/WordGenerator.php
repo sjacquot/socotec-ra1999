@@ -84,87 +84,117 @@ class WordGenerator
      */
     protected function fillTplResuls(TemplateProcessor $templateProcessor, \stdClass $resultsData){
         if (isset($resultsData->{self::BAI})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BAI},'BAI');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BAI},'BAI');
             $grade = $this->getGradeSocoTec($resultsData->{self::BAI},7);
             $templateProcessor->setValue('BAIAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BAI');
+            $templateProcessor->setValue('BAI-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BAI','BAI-1','BAI-2','BAI-3','BAI-4','BAI-5','BAI-6','BAI-7','BAI-8'],
                 ["NA"]);
             $templateProcessor->setValue('BAIAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BAI');
+            $templateProcessor->setValue('BAI-NUM',0);
         }
         if (isset($resultsData->{self::BAE})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BAE},'BAE');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BAE},'BAE');
             $grade = $this->getGradeSocoTec($resultsData->{self::BAE},7);
             $templateProcessor->setValue('BAEAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BAE');
+            $templateProcessor->setValue('BAE-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BAE','BAE-1','BAE-2','BAE-3','BAE-4','BAE-5','BAE-6','BAE-7','BAE-8'],
                 ["NA"]);
             $templateProcessor->setValue('BAEAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BAE');
+            $templateProcessor->setValue('BAE-NUM',0);
         }
         if (isset($resultsData->{self::BC})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BC},'BC');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BC},'BC');
             $grade = $this->getGradeSocoTec($resultsData->{self::BC},7);
             $templateProcessor->setValue('BCAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BC');
+            $templateProcessor->setValue('BC-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BC','BC-1','BC-2','BC-3','BC-4','BC-5','BC-6','BC-7','BC-8'],
                 ["NA"]);
             $templateProcessor->setValue('BCAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BC');
+            $templateProcessor->setValue('BC-NUM',0);
         }
         if (isset($resultsData->{self::BEIIL})) {
             $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIIL},'BEIIL');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEIIL},6);
             $templateProcessor->setValue('BEIILAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BEIIL');
+            $templateProcessor->setValue('BEIIL-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BEIIL','BEIIL-1','BEIIL-2','BEIIL-3','BEIIL-4','BEIIL-5','BEIIL-6','BEIIL-7'],
                 ["NA"]);
             $templateProcessor->setValue('BEIILAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BEIIL');
+            $templateProcessor->setValue('BEIIL-NUM',0);
 
         }
         if (isset($resultsData->{self::BEIEL})) {
             $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIEL},'BEIEL');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEIEL},6);
-            $templateProcessor->setValue('BEIELAPPREC',$this->APPRECIATION['NA']);
+            $templateProcessor->setValue('BEIELAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BEIEL');
+            $templateProcessor->setValue('BEIEL-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BEIEL','BEIEL-1','BEIEL-2','BEIEL-3','BEIEL-4','BEIEL-5','BEIEL-6','BEIEL-7'],
                 ["NA"]);
             $templateProcessor->setValue('BEIELAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BEIEL');
+            $templateProcessor->setValue('BEIEL-NUM',0);
         }
         if (isset($resultsData->{self::BEVMC})) {
             $this->fillClonedValues($templateProcessor,$resultsData->{self::BEVMC},'BEVMC');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEVMC},6);
             $templateProcessor->setValue('BEVMCAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BEVMC');
+            $templateProcessor->setValue('BEVMC-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BEVMC','BEVMC-1','BEVMC-2','BEVMC-3','BEVMC-4','BEVMC-5','BEVMC-6','BEVMC-7'],
                 ["NA"]);
             $templateProcessor->setValue('BVMCAPPREC',$this->APPRECIATION['NA']);
-
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BEVMC');
+            $templateProcessor->setValue('BEVMC-NUM',0);
         }
         if (isset($resultsData->{self::BEC})) {
             $this->fillClonedValues($templateProcessor,$resultsData->{self::BEC},'BEC');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEC},6);
             $templateProcessor->setValue('BECAPPREC',$this->APPRECIATION[$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'BEC');
+            $templateProcessor->setValue('BEC-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['BEC','BEC-1','BEC-2','BEC-3','BEC-4','BEC-5','BEC-6','BEC-7'],
                 ["NA"]);
             $templateProcessor->setValue('BECAPPREC',$this->APPRECIATION['NA']);
-
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BEC');
+            $templateProcessor->setValue('BEC-NUM',0);
         }
         if (isset($resultsData->{self::AAE})) {
             $this->fillClonedValues($templateProcessor,$resultsData->{self::AAE},'AAE');
             $grade = $this->getGradeSocoTec($resultsData->{self::AAE},6);
             $templateProcessor->setValue('AAEAPPREC',$this->APPRECIATION["AAE-".$grade]);
+            $this->TplGradeRecap($templateProcessor,$grade,'AAE');
+            $templateProcessor->setValue('AAE-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
                 ['AAE','AAE-1','AAE-2','AAE-3','AAE-4','AAE-5','AAE-6','AAE-7'],
                 ["NA"]);
             $templateProcessor->setValue('AAEAPPREC',$this->APPRECIATION['NA']);
+            $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'AAE');
+            $templateProcessor->setValue('AAE-NUM',0);
 
         }
     }
@@ -328,6 +358,7 @@ class WordGenerator
 
         }
         $this->countMeasure += $count;
+        return $count;
     }
 
     protected function getGradeSocoTec($DataArray,$col){
@@ -350,6 +381,27 @@ class WordGenerator
             }
         }
         return $Grade;
+    }
+    protected function TplGradeRecap($templateProcessor,$grade,$needle){
+        switch ($grade){
+            case self::GRADE_C:
+            case self::GRADE_CT:
+                $templateProcessor->setValue($needle."-".self::GRADE_C,self::cbChecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_NC,self::cbUnchecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_NA,self::cbUnchecked);
+                break;
+            case self::GRADE_NC:
+                $templateProcessor->setValue($needle."-".self::GRADE_NC,self::cbChecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_C,self::cbUnchecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_NA,self::cbUnchecked);
+                break;
+            case self::GRADE_NA:
+                $templateProcessor->setValue($needle."-".self::GRADE_NA,self::cbChecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_C,self::cbUnchecked);
+                $templateProcessor->setValue($needle."-".self::GRADE_NC,self::cbUnchecked);
+                break;
+        }
+
     }
     /**
      * @param TemplateProcessor $templateProcessor

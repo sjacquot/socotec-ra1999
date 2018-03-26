@@ -37,7 +37,7 @@ class ReadXLSSheetFile
      */
     public function readXLSSheetFile(Operation $operation){
 
-        setlocale(LC_ALL, "fr_FR");
+        setlocale(LC_ALL, "fr_FR.utf8");
         $locale = 'fr';
         $validLocale = \PhpOffice\PhpSpreadsheet\Settings::setLocale($locale);
 

@@ -274,17 +274,6 @@ class OperationAdmin extends Admin
                     'format' => 'dd/MM/yyyy',
                 ))
                 ->end()->end()
-                ->with("Pictures", array('class' => 'col-md-9', 'tab'=>true))
-                    ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
-                    ->add('picturesOrder', ChoiceType::class, [
-                        'choices' =>  $pictureOrder,
-                        'required' => false,
-                        'mapped' => false,
-                        'multiple' => true,
-                        'expanded' => true,
-                    ])
-                    ->end()
-                ->end()
                 ->with("Intervenants & Equipe", array('class' => 'col-md-9', 'tab'=>true))
                 ->with("Opération/Intervenants & Equipe")
                 ->add("delegateMO", null, ['label' => "Maître d'ouvrage délégué (le cas échéant)"])
@@ -305,6 +294,17 @@ class OperationAdmin extends Admin
                 ->add("OtherBET_AMOName", null, ['label' => "Nom autre BET ou AMO"])
                 ->add("OtherBET_AMOMission", null, ['label' => "Mission autre BET ou AMO"])
                 ->end()
+                ->end()
+                ->with("Plans des locaux", array('class' => 'col-md-9', 'tab'=>true))
+                    ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                    ->add('picturesOrder', ChoiceType::class, [
+                        'choices' =>  $pictureOrder,
+                        'required' => false,
+                        'mapped' => false,
+                        'multiple' => true,
+                        'expanded' => true,
+                    ])
+                    ->end()
             ->end();
         }
 

@@ -152,24 +152,23 @@ class ReportAdmin extends AbstractAdmin
 
         $pathToReport = $this->createReport($operation);
 
-        $name = $operation->getDocument()->getPathReport();
-        echo '/uploads/media/documents/report/'.$name; die();
+        header('Content-Type: application/docx');
 
-        //header('Content-Type: application/docx');
+        $name = $operation->getDocument()->getPathReport();
 
         //No cache
-        //header('Expires: 0');
-        //header('Cache-Control: must-revalidate');
-        //header('Pragma: public');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
 
-        //header('Content-Disposition: attachment; filename="'.$name.'"');
+        header('Content-Disposition: attachment; filename="'.$name.'"');
 //Define file size
-        //header('Content-Length: ' . filesize($pathToReport));
+        header('Content-Length: ' . filesize($pathToReport));
 
-        //ob_clean();
-        //flush();
-        //readfile($pathToReport);
-       //exit();
+        ob_clean();
+        flush();
+        readfile($pathToReport);
+        exit();
 
     }
 
@@ -193,3 +192,4 @@ class ReportAdmin extends AbstractAdmin
     }
 
 }
+
