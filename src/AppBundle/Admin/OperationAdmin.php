@@ -193,7 +193,6 @@ class OperationAdmin extends Admin
                 ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/SOCOTEC')
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
-                ->add('DocChronoRef', null, ['label' => 'Numéro de chrono du dossier'])
                 ->add('reportReference', EntityType::class, [
                     'label' => 'Référence du rapport de mesures détaillées',
                     'class' => Report::class,
