@@ -32,6 +32,12 @@ class ExtractEquipments
     public $type2AmbiantNoise;
     public $type1Comments;
     public $type2Comments;
+    /**
+     * Version du doc Excel
+     *
+     * @var string
+     */
+    public $version;
 
     public function readEquipment(Spreadsheet $xlsReader)
     {
@@ -46,7 +52,7 @@ class ExtractEquipments
             // Search in column D of worksheet to find "Type 1"
             $value = $this->worksheet->getCellByColumnAndRow(4, $index)->getCalculatedValue();
             if (strpos($value, self::Mark1) !== false) {
-                echo "TYPE 1<br/>";
+                $this->version = $this->worksheet->getCell("B".$index)->getFormattedValue();
                 $index += 3;
                 $this->type1 = $DataArray[self::Mark1] = $this->readTypeLine($index);
                 $bottom = $index + count($DataArray[self::Mark1]);
@@ -55,7 +61,9 @@ class ExtractEquipments
                 $this->type1AmbiantNoise = $this->getAmbiantNote($index);
             }
             if (strpos($value, self::Mark2) !== false) {
-                echo "TYPE 2<br/>";
+                if(!isset($this->version)||is_null($this->version)){
+                    $this->version = $this->worksheet->getCell("B".$index)->getFormattedValue();
+                }
                 $index += 3;
                 $this->type2 = $DataArray[self::Mark2] = $this->readTypeLine($index);
                 $bottom = $index + count($DataArray[self::Mark1]);

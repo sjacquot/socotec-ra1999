@@ -218,12 +218,19 @@ class ExtractBAE
      * @var date
      */
     public $MeasureTTX;
+    /**
+     * Version du doc Excel
+     *
+     * @var string
+     */
+    public $version;
 
     public function extractBAE(Spreadsheet $xlsReader, $sheetName,$pathCharts){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $this->idOfSheet = $sheetName;
+        $this->version = $worksheet->getCell("B2")->getFormattedValue();
 
         $dateUS = $worksheet->getCell("I7")->getFormattedValue();
         $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
