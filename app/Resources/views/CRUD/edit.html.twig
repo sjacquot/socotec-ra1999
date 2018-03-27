@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/CRUD/base_edit.html.twig' %}
+
+{% use 'CRUD/base_edit_form.html.twig' with form as parentForm %}
+
+{% block form %}
+    {{ block('parentForm') }}
+{% endblock %}
