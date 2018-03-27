@@ -154,7 +154,7 @@ class ReportAdmin extends AbstractAdmin
 
         $name = $operation->getDocument()->getPathReport();
 
-        echo $this->container->getParameter('path_report').'/'.$name;die();
+        //echo $this->container->getParameter('path_report').'/'.$name;die();
 
         header('Content-Type: application/docx');
 
