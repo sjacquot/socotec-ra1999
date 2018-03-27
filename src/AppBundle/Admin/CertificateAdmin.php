@@ -195,5 +195,21 @@ class CertificateAdmin extends AbstractAdmin
         return $this->container->getParameter('path_document') . '/certificate/'.$pathDocCertificate;
     }
 
+    /**
+     * @param $name
+     * @return mixed|null|string
+     */
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'CRUD/edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+
 }
 

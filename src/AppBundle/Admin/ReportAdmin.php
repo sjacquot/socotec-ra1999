@@ -196,6 +196,10 @@ class ReportAdmin extends AbstractAdmin
         return $this->container->getParameter('path_document') . '/report/'.$pathDocReport;
     }
 
+    /**
+     * @param $name
+     * @return mixed|null|string
+     */
     public function getTemplate($name)
     {
         switch ($name) {
