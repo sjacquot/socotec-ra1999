@@ -486,6 +486,14 @@
                 <source>read_less</source>
                 <target>Fermer</target>
             </trans-unit>
+            <trans-unit id="generate">
+                <source>generate</source>
+                <target>Générer</target>
+            </trans-unit>
+            <trans-unit id="return_to_list_ope">
+                <source>return_to_list_ope</source>
+                <target>Retour Liste</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
