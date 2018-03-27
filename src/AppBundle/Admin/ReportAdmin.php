@@ -152,9 +152,12 @@ class ReportAdmin extends AbstractAdmin
 
         $pathToReport = $this->createReport($operation);
 
+        $name = $operation->getDocument()->getPathReport();
+
+        echo $this->container->getParameter('path_report').'/'.$name;die();
+
         header('Content-Type: application/docx');
 
-        $name = $operation->getDocument()->getPathReport();
 
         //No cache
         header('Expires: 0');

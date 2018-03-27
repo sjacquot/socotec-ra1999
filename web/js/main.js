@@ -37,7 +37,7 @@ $(function() {
     });
 
     //action on report form
-    /*$("form[action*=report]").submit(function(e) {
+    $("form[action*=report]").submit(function(e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
         getdoc($(this));
     });
@@ -46,7 +46,7 @@ $(function() {
     $("form[action*=certificate]").submit(function(e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
         getdoc($(this));
-    });*/
+    });
 
     // funciton to get the doc from the report or certificate
     function getdoc(form) {

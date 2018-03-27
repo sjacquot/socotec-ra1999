@@ -151,9 +151,11 @@ class CertificateAdmin extends AbstractAdmin
 
         $pathToCertif = $this->createCertificate($operation);
 
+        $name = $operation->getDocument()->getPathCertificate();
+        echo $this->container->getParameter('path_certificate').'/'.$name;die();
+
         header('Content-Type: application/docx');
 
-        $name = $operation->getDocument()->getPathCertificate();
 
         //No cache
         header('Expires: 0');
