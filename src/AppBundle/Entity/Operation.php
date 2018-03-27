@@ -499,7 +499,7 @@ class Operation
 
 
     /**
-     * One Product has One Shipment.
+     * One Operation has Many Pictures.
      * @ORM\OneToMany(targetEntity="Pictures", mappedBy="operation")
      */
     private $pictures;
