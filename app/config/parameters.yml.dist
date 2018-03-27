@@ -24,3 +24,5 @@ parameters:
     path_picture: '%kernel.root_dir%/../web/uploads/media/pictures'
     path_template_certificate: '%kernel.root_dir%/../src/AppBundle/Resources/templates/cert-ra1999.docx'
     path_template_report: '%kernel.root_dir%/../src/AppBundle/Resources/templates/report-ra1999.docx'
+    path_report: '/uploads/media/documents/report'
+    path_certificate: '/uploads/media/documents/certificate'
