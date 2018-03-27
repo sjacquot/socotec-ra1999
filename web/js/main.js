@@ -37,16 +37,16 @@ $(function() {
     });
 
     //action on report form
-    $("form[action*=report]").submit(function(e) {
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-        getdoc($(this));
-    });
+    // $("form[action*=report]").submit(function(e) {
+    //     e.preventDefault(); // avoid to execute the actual submit of the form.
+    //     getdoc($(this));
+    // });
 
     //action on certificate from
-    $("form[action*=certificate]").submit(function(e) {
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-        getdoc($(this));
-    });
+    // $("form[action*=certificate]").submit(function(e) {
+    //     e.preventDefault(); // avoid to execute the actual submit of the form.
+    //     getdoc($(this));
+    // });
 
     // funciton to get the doc from the report or certificate
     function getdoc(form) {
