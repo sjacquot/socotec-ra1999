@@ -90,13 +90,6 @@ class OperationAdmin extends Admin
             $formMapper
                 ->with('Opération/Chantier', array('class' => 'col-md-9'))
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
-//                ->add('reportReference', null, ['label' => 'Référence rapport'])
-/*                ->add('document', EntityType::class, array(
-                    'multiple' => false,
-                    'required' => false,
-                    'label' => 'Fiche de mesure (XLS)',
-                    'class' => 'AppBundle\Entity\Document',
-                ))*/
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->end();
         }

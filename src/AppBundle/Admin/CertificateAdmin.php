@@ -83,15 +83,18 @@ class CertificateAdmin extends AbstractAdmin
     {
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
             $formMapper
-                ->add('certifReference')
+                ->with("Génération de l'attestation RA1999")
+                ->add('certifReference',null,['label' => "Référence de l'attestation RA1999",'required' => true])
                 ->add('operation', EntityType::class, [
                     'class' => Operation::class,
+                    'label' => "Nom de l'Opération/Chantier",
                     'query_builder' => function (EntityRepository $er){
                         return $er->createQueryBuilder('o')
                             ->where('o.id = :id')
                             ->setParameter('id', $_GET['operation']);
                     }
                 ])
+                ->end()
             ;
         }else{
             $formMapper
@@ -181,7 +184,6 @@ class CertificateAdmin extends AbstractAdmin
      */
     public function createCertificate($operation){
         $em = $this->entityManager;
-//        //TODO: Finish certificate generation in AppBundle\Service\GenerateCertificate
         $pathDocCertificate = $this->container->get('app.generate_certificate')->generateCertificate($operation);
 
         $document = $operation->getDocument();
