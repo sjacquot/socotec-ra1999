@@ -109,7 +109,7 @@ class GraphRA1999
         $this->Graph->Add($p2);
         $p2->SetColor('blue');
         $p2->SetStyle("solid");
-        $p2->SetLineWeight(4);
+        $p2->SetLineWeight(3);
 
         $this->Graph->legend->Hide();
         $time = date("Ymd-His");
