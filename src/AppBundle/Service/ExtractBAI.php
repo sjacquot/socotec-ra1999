@@ -199,6 +199,13 @@ class ExtractBAI
     public $MeasureTTX;
 
     /**
+     * Version du doc Excel
+     *
+     * @var string
+     */
+    public $version;
+
+    /**
      * @var json(type="json", nullable=true)
      */
     public $testTemplateCurve;
@@ -208,8 +215,7 @@ class ExtractBAI
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $this->idOfSheet = $sheetName;
-//        $title = $worksheet->getCell('D2')->getCalculatedValue();
-//        $this->idOfSheet = str_replace("#VALUE!", $sheetName,$title);
+        $this->version = $worksheet->getCell("B2")->getFormattedValue();
 
         $dateUS = $worksheet->getCell("I7")->getFormattedValue();
         $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";

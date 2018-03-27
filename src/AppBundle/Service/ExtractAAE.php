@@ -21,11 +21,19 @@ class ExtractAAE
     private $highestRow;
     public $data;
     public $comments;
+    /**
+     * Version du doc Excel
+     *
+     * @var string
+     */
+    public $version;
+
     public function readAAE(Spreadsheet $xlsReader)
     {
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
         $this->worksheet = $xlsReader->getActiveSheet();
         $this->highestRow = $this->worksheet->getHighestRow();
+        $this->version = $this->worksheet->getCell("B2")->getFormattedValue();
 
         $index = 6;
         for($index;$index<=$this->highestRow;$index+=3){

@@ -1963,7 +1963,7 @@ class Operation
         $this->setSheetDate($workSheet->getCell("D9")->getFormattedValue());
 
         $this->setName($workSheet->getCell("D10")->getCalculatedValue());
-        $this->setInfo($workSheet->getCell("D11")->getCalculatedValue());
+        $this->setInfo("");
 
         $this->setOperationAddress($workSheet->getCell("D12")->getCalculatedValue());
         $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());

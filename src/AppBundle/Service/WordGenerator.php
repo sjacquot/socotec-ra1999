@@ -216,7 +216,7 @@ class WordGenerator
         $templateProcessor->setValue('MOTEL', $operation->getMoTel());
         // OPE + UTILS
         $templateProcessor->setValue('OPENAME', $operation->getName());
-        $templateProcessor->setValue('OPEINFO', $operation->getInfo());
+        $templateProcessor->setValue('Version', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
         $templateProcessor->setValue('CERTREF', $operation->getCertifReference());
 

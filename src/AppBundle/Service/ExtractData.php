@@ -145,6 +145,7 @@ class ExtractData
             $aae = new Aae();
             $aae->setOperation($operation);
         }
+        $this->SetOperationVersion($operation,$data->version);
         $aae->setData($data->data);
         $aae->setComments($data->comments);
 
@@ -169,6 +170,7 @@ class ExtractData
             $equipement = new Equipement();
             $equipement->setOperation($operation);
             }
+        $this->SetOperationVersion($operation,$data->version);
         $equipement->setType1($data->type1);
         $equipement->setType1AmbiantNoise($data->type1AmbiantNoise);
         $equipement->setType1Comments($data->type1Comments);
@@ -198,6 +200,7 @@ class ExtractData
             $aerien->setIdOfSheet($data->idOfSheet);
             $aerien->setOperation($operation);
         }
+        $this->SetOperationVersion($operation,$data->version);
         $aerien->setLocalEmissionName($data->localEmissionName);
         $aerien->setLocalEmissionVolume($data->localEmissionVolume);
         $aerien->setLocalReceptionName($data->localReceptionName);
@@ -255,6 +258,7 @@ class ExtractData
             $foreigner->setIdOfSheet($data->idOfSheet);
             $foreigner->setOperation($operation);
         }
+        $this->SetOperationVersion($operation,$data->version);
         $foreigner->setLocalEmissionName($data->localEmissionName);
         $foreigner->setLocalEmissionType($data->localEmissionType);
         $foreigner->setLocalReceptionName($data->localReceptionName);
@@ -313,6 +317,7 @@ class ExtractData
             $shock->setIdOfSheet($data->idOfSheet);
             $shock->setOperation($operation);
         }
+        $this->SetOperationVersion($operation,$data->version);
         $shock->setLocalEmissionName($data->localEmissionName);
         $shock->setLocalEmissionVolume($data->localEmissionVolume);
 
@@ -369,5 +374,17 @@ class ExtractData
         $this->entityManager->persist($results);
 
         return $results;
+    }
+
+    /**
+     * Set Version value in Operation->info parameter
+     * @param Operation $operation
+     * @param $version
+     */
+    private function SetOperationVersion(Operation $operation, $version){
+        $opVersion = $operation->getInfo();
+        if(is_null($opVersion)||strlen($opVersion)==0){
+            $operation->setInfo($version);
+        }
     }
 }
