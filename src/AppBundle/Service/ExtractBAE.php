@@ -281,7 +281,7 @@ class ExtractBAE
         $result = $chart->createF($data);
         if($result !==false){
             $this->fileChart = $result["src"];
-            $this->weightedStandardizedAcousticIsolation = $result["TEMPLATE"][2]-5;
+            $this->weightedStandardizedAcousticIsolation = $this->CalcWeightedStandardizedAcousticIsolation($result);
             $this->testTemplateCurve = $result["TEMPLATE"];
         }
 
@@ -294,6 +294,18 @@ class ExtractBAE
             $data[] = floatval($item[0]);
         }
         return $data;
+    }
+    private function CalcWeightedStandardizedAcousticIsolation($data){
+        //(-10*LOG(10^((-21-H40)/10)+10^((-14-H41)/10)+10^((-8-H42)/10)+10^((-5-H43)/10)+10^((-4-H44)/10)))-AG7
+        $MeasureData = $data["TEST"];
+        $MasterVal = $data["TEMPLATE"][2];
+        $sum  = pow(10,(-14-$MeasureData[0])/10);
+        $sum += pow(10,(-10-$MeasureData[1])/10);
+        $sum += pow(10,( -7-$MeasureData[2])/10);
+        $sum += pow(10,( -4-$MeasureData[3])/10);
+        $sum += pow(10,( -6-$MeasureData[4])/10);
+        $correction = (-10*log10($sum))-$MasterVal;
+        return round($MasterVal+$correction);
     }
 
 }
