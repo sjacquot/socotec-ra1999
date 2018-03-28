@@ -244,7 +244,7 @@ class ExtractBAI
         $this->localReceptionSurface = $worksheet->getCell('Q20')->getCalculatedValue();
         $this->comment = $worksheet->getCell('Q23')->getCalculatedValue();
 
-        $this->weightedStandardizedAcousticIsolation = $worksheet->getCell('H46')->getCalculatedValue();
+        //$this->weightedStandardizedAcousticIsolation = $worksheet->getCell('H46')->getCalculatedValue();
         $this->objectifRa1999 = $worksheet->getCell('H51')->getCalculatedValue();
 
         $this->testResult = $worksheet->rangeToArray('B40:L45', '', true, true, true);
@@ -255,13 +255,19 @@ class ExtractBAI
 
         $chart = new GraphRA1999($pathCharts);
 
-        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, false, false);
+
         $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
-        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
-        $this->fileChart = $chart->createA($data);
-
+//        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+        $result = $chart->createA($data);
+        if($result !==false){
+            $this->fileChart = $result["src"];
+            $this->CalcWeightedStandardizedAcousticIsolation($result);
+            $this->weightedStandardizedAcousticIsolation = $this->CalcWeightedStandardizedAcousticIsolation($result);
+            $this->testTemplateCurve = $result["TEMPLATE"];
+        }
        return true;
 
 
@@ -272,6 +278,18 @@ class ExtractBAI
             $data[] = floatval($item[0]);
         }
         return $data;
+    }
+    private function CalcWeightedStandardizedAcousticIsolation($data){
+        //(-10*LOG(10^((-21-H40)/10)+10^((-14-H41)/10)+10^((-8-H42)/10)+10^((-5-H43)/10)+10^((-4-H44)/10)))-AG7
+        $MeasureData = $data["TEST"];
+        $MasterVal = $data["TEMPLATE"][2];
+        $sum  = pow(10,(-21-$MeasureData[0])/10);
+        $sum += pow(10,(-14-$MeasureData[1])/10);
+        $sum += pow(10,( -8-$MeasureData[2])/10);
+        $sum += pow(10,( -5-$MeasureData[3])/10);
+        $sum += pow(10,( -4-$MeasureData[4])/10);
+        $correction = (-10*log10($sum))-$MasterVal;
+        return $MasterVal+round($correction);
     }
 
 }

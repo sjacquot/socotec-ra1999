@@ -65,7 +65,6 @@ class ExtractData
              * Extract other file data
              */
             $this->extractDataFromDocument($operation, $spreadSheet);
-
             $this->entityManager->persist($operation);
             $this->entityManager->flush();
         }

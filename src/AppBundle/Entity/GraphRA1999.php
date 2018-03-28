@@ -22,15 +22,15 @@ class GraphRA1999
         ["A" =>
             ["Width"=>464,"Height"=>841,
             "title" => "Isolement acoustique standardise DnT",
-            "Gabarit"=>['serie'=>[41,50,57,60, 61],'title'=>'Gabarit ISO 717-1']],
+            "Gabarit"=>['title'=>'Gabarit ISO 717-1']],
         "F" =>
             ["Width"=>464,"Height"=>841,
                 "title" => "Isolement acoustique standardise DnT",
-                "Gabarit"=>['serie'=>[25,34,41,44, 45],'title'=>'Gabarit ISO 717-1']],
+                "Gabarit"=>['title'=>'Gabarit ISO 717-1']],
         "C" =>
             ["Width"=>464,"Height"=>841,
                 "title" => "Niveau du bruit de choc standardise L'nT",
-                "Gabarit"=>['serie'=>[48,48,46,43, 30],'title'=>'Gabarit ISO 717-2']]];
+                "Gabarit"=>['title'=>'Gabarit ISO 717-2']]];
     private $typeGraph;
     private $Graph;
     private $PathCharts;
@@ -47,20 +47,31 @@ class GraphRA1999
 
     public function createA($data = null)
     {
-        $this->typeGraph = "A";
-        return $this->create($this->Settings[$this->typeGraph],$data);
+        if (!is_null($data)){
+            $this->typeGraph = "A";
+            $data['TEMPLATE'] = $this->CalcTemplateCurveA($data["TEST"]);
+            $data['src'] = $this->create($this->Settings[$this->typeGraph],$data);
+            return $data;
+        } else return false;
     }
     public function createF($data = null)
     {
-        $this->typeGraph = "F";
-        return $this->create($this->Settings[$this->typeGraph],$data);
+        if (!is_null($data)){
+            $this->typeGraph = "F";
+            $data['TEMPLATE'] = $this->CalcTemplateCurveF($data["TEST"]);
+            $data['src'] = $this->create($this->Settings[$this->typeGraph],$data);
+            return $data;
+        } else return false;
 
     }
     public function createC($data = null)
     {
-        $this->typeGraph = "C";
-        return $this->create($this->Settings[$this->typeGraph],$data);
-
+        if (!is_null($data)){
+            $this->typeGraph = "C";
+            $data['TEMPLATE'] = $this->CalcTemplateCurveC($data["TEST"]);
+            $data['src'] = $this->create($this->Settings[$this->typeGraph],$data);
+            return $data;
+        } else return false;
     }
     private function create($SettingsGraph, $data){
 
@@ -102,14 +113,14 @@ class GraphRA1999
         $p1 = new \LinePlot($data["TEMPLATE"]);
         $this->Graph->Add($p1);
         $p1->SetColor('red');
-        $p1->SetStyle('solid');
+        $p1->SetStyle('dotted');
         $p1->SetLineWeight(1);
 
         $p2 = new \LinePlot($data["TEST"]);
         $this->Graph->Add($p2);
         $p2->SetColor('blue');
         $p2->SetStyle("solid");
-        $p2->SetLineWeight(3);
+        $p2->SetLineWeight(5);
 
         $this->Graph->legend->Hide();
         $time = date("Ymd-His");
@@ -120,5 +131,46 @@ class GraphRA1999
         $this->Graph->Stroke($this->PathCharts.$filename);
         return $filename;
 
+    }
+
+    private function CalcTemplateCurveA($data){
+        $maxi = 0;
+        for($index = 0;$index<=112;$index++){
+            $TplCurve = $this->getTemplateACurve($index);
+            $Sum = 0.0;
+            foreach ($TplCurve as $freq => $value){
+                $Sum += (float) ((-$value+$data[$freq])<0)?(-$value+$data[$freq]):0.0;
+            }
+            if($Sum>=-10.01&&$Sum<-5){
+                $maxi = $index;
+            }
+        }
+        return $this->getTemplateACurve($maxi);
+    }
+    private function getTemplateACurve($start){
+        return [$start-16,$start-7,$start,$start+3,$start+4];
+    }
+
+    private function CalcTemplateCurveF($data){
+        return $this->CalcTemplateCurveA($data);
+    }
+
+    private function CalcTemplateCurveC($data){
+        $min = null;
+        for($index = 0;$index<=105&&is_null($min);$index++) {
+            $TplCurve = $this->getTemplateCurveC($index);
+            $Sum = 0.0;
+            foreach ($TplCurve as $freq => $value){
+                $Sum += (float) ((+$value-$data[$freq])<0)?(+$value-$data[$freq]):0.0;
+            }
+            if($Sum>=-10.01&&$Sum<-5){
+                $min = $index;
+            }
+        }
+        return $this->getTemplateCurveC($min-5);
+    }
+
+    private function getTemplateCurveC($start){
+        return [$start+2,$start+2,$start,$start-3,$start-16];
     }
 }

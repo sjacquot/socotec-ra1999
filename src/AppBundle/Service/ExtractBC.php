@@ -238,7 +238,8 @@ class ExtractBC
 
         $this->comment = $worksheet->getCell('IQ23')->getCalculatedValue();
 
-        $this->weightedStandardizedShockNoise = $worksheet->getCell('H46')->getCalculatedValue();
+//        $this->weightedStandardizedShockNoise = $worksheet->getCell('H46')->getCalculatedValue();
+
         $this->objectifRa1999 = $worksheet->getCell('H51')->getCalculatedValue();
         $this->PassRa1999 = $worksheet->getCell('D52')->getCalculatedValue();
 
@@ -248,11 +249,16 @@ class ExtractBC
         $chart = new GraphRA1999($pathCharts);
 
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
-        $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
+//        $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
-        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
-        $this->fileChart = $chart->createC($data);
+//        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+        $result = $chart->createC($data);
+        if($result !==false){
+            $this->fileChart = $result["src"];
+            $this->weightedStandardizedShockNoise = $result["TEMPLATE"][2];
+            $this->testTemplateCurve = $result["TEMPLATE"];
+        }
 
         return true;
 

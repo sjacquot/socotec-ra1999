@@ -277,8 +277,14 @@ class ExtractBAE
         $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
-        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
-        $this->fileChart = $chart->createF($data);
+//        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+        $result = $chart->createF($data);
+        if($result !==false){
+            $this->fileChart = $result["src"];
+            $this->weightedStandardizedAcousticIsolation = $result["TEMPLATE"][2]-5;
+            $this->testTemplateCurve = $result["TEMPLATE"];
+        }
+
         return true;
 
     }

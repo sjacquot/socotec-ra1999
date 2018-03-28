@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Aerien;
 use AppBundle\Entity\Foreigner;
 use AppBundle\Entity\Operation;
+use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Shock;
 use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Aae;
@@ -98,6 +99,8 @@ class GenerateReport extends WordGenerator
                 $this->tplGenerateAAE($templateProcessor,$aae);
             }
         }
+
+       // $this->tplAddPlan($templateProcessor,$operation);
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
         $reportFilePath = realpath($reportFilePath);
@@ -385,6 +388,28 @@ class GenerateReport extends WordGenerator
                 ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
                 ['NA']);
         }
+
+    }
+    private function tplAddPlan(TemplateProcessor $templateProcessor, Operation $operation){
+        $pictures = $this->entityManager->getRepository(Pictures::class)->getPictureByOperationOrder($operation);
+        $PictFilePath = realpath($this->container->getParameter('path_picture'));
+        $PictFilePath .= '/';
+        if (!is_null($pictures)){
+            $nbPlan = count($pictures);
+            $templateProcessor->cloneRow('PLAN', $nbPlan);
+            $index = 1;
+            foreach ($pictures as $pict){
+               // $templateProcessor->setValue('PLAN#'.$index++,$pict->getPosition().'-'.$pict->getPath().self::WORDLINEBR);
+                $templateProcessor->setFixedImage('PLAN#'.$index++,[
+                    //'height' => 100,
+                    'width'=>100,
+                    'src'=>$PictFilePath.$pict->getPath(),
+                    'units'=>'%']);
+            }
+        } else {
+            $templateProcessor->setValue('PLAN',"Aucun plan fourni.");
+        }
+
 
     }
 
