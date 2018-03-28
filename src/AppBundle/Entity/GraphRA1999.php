@@ -99,7 +99,7 @@ class GraphRA1999
         $this->Graph->xaxis->SetTickLabels(array('125','250','500','1000','2000','4000'));
         $this->Graph->xaxis->SetTitle("Hz");
 
-        $this->Graph->ygrid->SetFill(true,'#c7dbf9@0.5','#c7dbf9@0.5');
+        $this->Graph->ygrid->SetFill(true,'#bae3e9@0.6','#bae3e9@0.6');
         $this->Graph->ygrid->SetLineStyle("solid");
         $this->Graph->ygrid->Show();
         $this->Graph->ygrid->SetColor('black');
@@ -112,15 +112,15 @@ class GraphRA1999
         // Create the Template line
         $p1 = new \LinePlot($data["TEMPLATE"]);
         $this->Graph->Add($p1);
-        $p1->SetColor('red');
-        $p1->SetStyle('dotted');
+        $p1->SetColor('#fa7272');
+        $p1->SetStyle('solid');
         $p1->SetLineWeight(1);
 
         $p2 = new \LinePlot($data["TEST"]);
         $this->Graph->Add($p2);
-        $p2->SetColor('blue');
+        $p2->SetColor('#1206b9');
         $p2->SetStyle("solid");
-        $p2->SetLineWeight(5);
+        $p2->SetLineWeight(1);
 
         $this->Graph->legend->Hide();
         $time = date("Ymd-His");
