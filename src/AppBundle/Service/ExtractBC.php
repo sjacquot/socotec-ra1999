@@ -246,7 +246,7 @@ class ExtractBC
 
         $chart = new GraphRA1999($pathCharts);
 
-        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, false, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
         echo "<h2>".$this->idOfSheet."</h2>";
