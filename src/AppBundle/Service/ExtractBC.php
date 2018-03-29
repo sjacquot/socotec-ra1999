@@ -247,12 +247,7 @@ class ExtractBC
         $chart = new GraphRA1999($pathCharts);
 
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, false, false);
-        echo "<h2>".$this->idOfSheet."</h2>";
-        echo "<pre>";
-        var_dump($dataTest);
         $data["TEST"] = $this->ArrayToFloat($dataTest);
-        var_dump($data["TEST"]);
-        echo "</pre>";
         $result = $chart->createC($data);
         if($result !==false){
             $this->fileChart = $result["src"];
