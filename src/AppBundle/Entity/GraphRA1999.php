@@ -163,9 +163,10 @@ class GraphRA1999
             foreach ($TplCurve as $freq => $value){
                 $Sum += (float) ((+$value-$data[$freq])<0)?(+$value-$data[$freq]):0.0;
             }
+            echo $index." SUM =".$Sum."<br/>";
             if($Sum>=-10.001&&$Sum<-5){
                 $min = $index;
-                echo $min;
+                echo "Min =".$min."<br/>";
             }
         }
         return $this->getTemplateCurveC($min);
