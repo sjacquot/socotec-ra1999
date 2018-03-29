@@ -100,7 +100,7 @@ class GenerateReport extends WordGenerator
             }
         }
 
-       // $this->tplAddPlan($templateProcessor,$operation);
+        $this->tplAddPlan($templateProcessor,$operation);
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
         $reportFilePath = realpath($reportFilePath);
@@ -396,16 +396,14 @@ class GenerateReport extends WordGenerator
         $PictFilePath .= '/';
         if (!is_null($pictures)){
             $nbPlan = count($pictures);
-            $templateProcessor->cloneRow('PLAN', $nbPlan);
+          //  $templateProcessor->cloneRow('PLAN', $nbPlan);
             $index = 1;
             foreach ($pictures as $pict){
                // $templateProcessor->setValue('PLAN#'.$index++,$pict->getPosition().'-'.$pict->getPath().self::WORDLINEBR);
-                $templateProcessor->setFixedImage('PLAN#'.$index++,[
-                    //'height' => 100,
-                    'width'=>100,
-                    'src'=>$PictFilePath.$pict->getPath(),
-                    'units'=>'%']);
+                $params[] = array( "h" => 21, "w"=>17, "src"=>$PictFilePath.$pict->getPath(), "units"=>'cm');
+            //    $templateProcessor->setFixedImage('PLAN#'.$index++, $params);
             }
+            $templateProcessor->setFixedImage('PLAN', $params);
         } else {
             $templateProcessor->setValue('PLAN',"Aucun plan fourni.");
         }
