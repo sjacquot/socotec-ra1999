@@ -115,7 +115,7 @@ class ExtractData
                 $ShockEntity = $this->UploadShock($operation, $extractBC);
                 $operation->addShock($ShockEntity);
             }
-        }
+        } die();
         $Equipement = new ExtractEquipments();
         if($Equipement->readEquipment($spreadSheet)){
             $this->UploadEquipement($operation, $Equipement);

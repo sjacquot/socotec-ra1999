@@ -249,6 +249,7 @@ class ExtractBC
         $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
+        echo "<h2>".$this->idOfSheet."</h2>";
         $result = $chart->createC($data);
         if($result !==false){
             $this->fileChart = $result["src"];

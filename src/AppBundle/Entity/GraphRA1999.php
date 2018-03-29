@@ -165,6 +165,7 @@ class GraphRA1999
             }
             if($Sum>=-10.001&&$Sum<-5){
                 $min = $index;
+                echo $min;
             }
         }
         return $this->getTemplateCurveC($min);
