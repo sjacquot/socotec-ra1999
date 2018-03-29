@@ -126,7 +126,7 @@ class WordGenerator
             $templateProcessor->setValue('BC-NUM',0);
         }
         if (isset($resultsData->{self::BEIIL})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIIL},'BEIIL');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIIL},'BEIIL');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEIIL},6);
             $templateProcessor->setValue('BEIILAPPREC',$this->APPRECIATION[$grade]);
             $this->TplGradeRecap($templateProcessor,$grade,'BEIIL');
@@ -141,7 +141,7 @@ class WordGenerator
 
         }
         if (isset($resultsData->{self::BEIEL})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIEL},'BEIEL');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BEIEL},'BEIEL');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEIEL},6);
             $templateProcessor->setValue('BEIELAPPREC',$this->APPRECIATION[$grade]);
             $this->TplGradeRecap($templateProcessor,$grade,'BEIEL');
@@ -155,7 +155,7 @@ class WordGenerator
             $templateProcessor->setValue('BEIEL-NUM',0);
         }
         if (isset($resultsData->{self::BEVMC})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BEVMC},'BEVMC');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BEVMC},'BEVMC');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEVMC},6);
             $templateProcessor->setValue('BEVMCAPPREC',$this->APPRECIATION[$grade]);
             $this->TplGradeRecap($templateProcessor,$grade,'BEVMC');
@@ -169,7 +169,7 @@ class WordGenerator
             $templateProcessor->setValue('BEVMC-NUM',0);
         }
         if (isset($resultsData->{self::BEC})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::BEC},'BEC');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BEC},'BEC');
             $grade = $this->getGradeSocoTec($resultsData->{self::BEC},6);
             $templateProcessor->setValue('BECAPPREC',$this->APPRECIATION[$grade]);
             $this->TplGradeRecap($templateProcessor,$grade,'BEC');
@@ -183,7 +183,7 @@ class WordGenerator
             $templateProcessor->setValue('BEC-NUM',0);
         }
         if (isset($resultsData->{self::AAE})) {
-            $this->fillClonedValues($templateProcessor,$resultsData->{self::AAE},'AAE');
+            $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::AAE},'AAE');
             $grade = $this->getGradeSocoTec($resultsData->{self::AAE},6);
             $templateProcessor->setValue('AAEAPPREC',$this->APPRECIATION["AAE-".$grade]);
             $this->TplGradeRecap($templateProcessor,$grade,'AAE');
