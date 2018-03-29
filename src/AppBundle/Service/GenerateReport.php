@@ -394,14 +394,9 @@ class GenerateReport extends WordGenerator
         $pictures = $this->entityManager->getRepository(Pictures::class)->getPictureByOperationOrder($operation);
         $PictFilePath = realpath($this->container->getParameter('path_picture'));
         $PictFilePath .= '/';
-        if (!is_null($pictures)){
-            $nbPlan = count($pictures);
-          //  $templateProcessor->cloneRow('PLAN', $nbPlan);
-            $index = 1;
+        if (!is_null($pictures) && ( count($pictures) > 0)){
             foreach ($pictures as $pict){
-               // $templateProcessor->setValue('PLAN#'.$index++,$pict->getPosition().'-'.$pict->getPath().self::WORDLINEBR);
                 $params[] = array( "h" => 21, "w"=>17, "src"=>$PictFilePath.$pict->getPath(), "units"=>'cm');
-            //    $templateProcessor->setFixedImage('PLAN#'.$index++, $params);
             }
             $templateProcessor->setFixedImage('PLAN', $params);
         } else {
