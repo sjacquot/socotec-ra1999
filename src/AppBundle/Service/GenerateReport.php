@@ -431,16 +431,10 @@ class GenerateReport extends WordGenerator
             $result[] = array('src' => $pdfFile.'-'.$index.'.jpg', 'swh'=> 1024);
             $index++;
         }
-        echo $pdfFile."<br/>";
-        echo $index."<br/><pre>";
-        var_dump($result);
-        echo '</pre>';
-        die();
-        if ($result>0){
-            return $result;
-        } else {
+        if ($index!=0){
             $result[] = array('src' => $pdfFile.'.jpg', 'swh'=> 1024);
         }
+        return $result;
     }
 
 
