@@ -271,7 +271,6 @@ class TemplateProcessor
         $this->setImagesInner($search, array($img));
     }
 
-
     private function setImagesInner($search, $images){
 
         $images_to_add = "";

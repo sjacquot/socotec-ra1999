@@ -462,6 +462,7 @@ class WordGenerator
      * @param $date
      */
     protected function AddDate($date){
+    $date = date("d / m / Y",  strtotime($date));
     if(!in_array($date,$this->dateList))
         $this->dateList[] = $date;
     }
