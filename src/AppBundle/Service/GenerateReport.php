@@ -426,12 +426,13 @@ class GenerateReport extends WordGenerator
         $imagick->flattenImages();
         $imagick->writeImages($pdfFile.'.jpg',false);
         $index = 0;
+        $result = [];
         while(file_exists($pdfFile.'-'.$index.'.jpg')){
             $result[] = array('src' => $pdfFile.'-'.$index.'.jpg', 'swh'=> 1024);
             $index++;
         }
         var_dump($result);die();
-        if ($index>0){
+        if ($result>0){
             return $result;
         } else {
             $result[] = array('src' => $pdfFile.'.jpg', 'swh'=> 1024);
