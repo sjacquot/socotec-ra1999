@@ -65,7 +65,10 @@ class WordGenerator
      * @var integer
      */
     protected $countMeasure;
-
+    /**
+     * @var array
+     */
+    protected $dateList = [];
     /**
      * Generate constructor.
      * @param ContainerInterface $container
@@ -293,6 +296,7 @@ class WordGenerator
         $date = (!is_null($operation->getCalEndDate()))? $operation->getCalEndDate()->format("d / m / Y"):"";
         $templateProcessor->setValue('CALENDDATE', $date);
 
+        $this->AddDate( $operation->getMeasureDate());
 
         // Transport terrestre
         $data = $operation->getOperationRoute300();
@@ -444,7 +448,7 @@ class WordGenerator
      * @return mixed|null|string|string[]
      */
 
-    function sanitize($string = '', $is_filename = FALSE)
+    protected function sanitize($string = '', $is_filename = FALSE)
     {
         // Replace all weird characters with dashes
         $string = preg_replace('/[^\w\-'. ($is_filename ? '~_\.' : ''). ']+/u', '-', $string);
@@ -452,4 +456,14 @@ class WordGenerator
         // Only allow one dash separator at a time (and make string lowercase)
         return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
     }
+
+    /**
+     * Add Measure date if not in datelist
+     * @param $date
+     */
+    protected function AddDate($date){
+    if(!in_array($date,$this->dateList))
+        $this->dateList[] = $date;
+    }
+
 }

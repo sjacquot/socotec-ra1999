@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "201789a8314bf317c5dbda00f07612bc",
+    "content-hash": "37a918d713775a781a90257925496bba",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1009,6 +1009,53 @@
                 "rest"
             ],
             "time": "2016-10-17T18:31:11+00:00"
+        },
+        {
+            "name": "francodacosta/phmagick",
+            "version": "v5.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francodacosta/phmagick.git",
+                "reference": "8871ec58ca5d12cc458d08ce1b9801d66ef35f16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francodacosta/phmagick/zipball/8871ec58ca5d12cc458d08ce1b9801d66ef35f16",
+                "reference": "8871ec58ca5d12cc458d08ce1b9801d66ef35f16",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "phMagick": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Costa",
+                    "email": "nuno@francodacosta.com",
+                    "homepage": "http://www.francodacosta.com"
+                }
+            ],
+            "description": "image manipulation with php and ImageMagick",
+            "homepage": "https://github.com/francodacosta/phmagick",
+            "keywords": [
+                "ImageMagick",
+                "gd",
+                "image manipulation",
+                "image resize",
+                "imagick",
+                "resize",
+                "thumbnail"
+            ],
+            "time": "2015-05-26T09:42:38+00:00"
         },
         {
             "name": "gedmo/doctrine-extensions",

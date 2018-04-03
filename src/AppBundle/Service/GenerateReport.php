@@ -99,7 +99,7 @@ class GenerateReport extends WordGenerator
                 $this->tplGenerateAAE($templateProcessor,$aae);
             }
         }
-
+        $templateProcessor->setValue('DATELIST',implode(', ',$this->dateList));
         $this->tplAddPlan($templateProcessor,$operation);
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
@@ -194,6 +194,8 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('A#'.$index, $Aerial->getIdOfSheet());
 
         $templateProcessor->setValue('AMEASUREDATE#'.$index, $Aerial->getMeasureDate());
+        $this->AddDate( $Aerial->getMeasureDate());
+
         $templateProcessor->setValue('AMEASURETTXDATE#'.$index, $Aerial->getMeasureTTX());
 
         $templateProcessor->setValue('ALocEmit-Name#'.$index, $Aerial->getLocalEmissionName());
@@ -247,6 +249,8 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('F#'.$index, $foreigner->getIdOfSheet());
 
         $templateProcessor->setValue('FMEASUREDATE#'.$index, $foreigner->getMeasureDate());
+        $this->AddDate( $foreigner->getMeasureDate());
+
         $templateProcessor->setValue('FMEASURETTXDATE#'.$index, $foreigner->getMeasureTTX());
 
         $templateProcessor->setValue('FEmitName#'.$index, $foreigner->getLocalEmissionName());
@@ -303,6 +307,8 @@ class GenerateReport extends WordGenerator
     {
         $templateProcessor->setValue('C#'.$index, $choc->getIdOfSheet());
         $templateProcessor->setValue('CMEASUREDATE#'.$index, $choc->getMeasureDate());
+        $this->AddDate( $choc->getMeasureDate());
+
         $templateProcessor->setValue('CMEASURETTXDATE#'.$index, $choc->getMeasureTTX());
 
         $templateProcessor->setValue('CLocEmit-Name#'.$index, $choc->getLocalEmissionName());
@@ -395,15 +401,35 @@ class GenerateReport extends WordGenerator
         $PictFilePath = realpath($this->container->getParameter('path_picture'));
         $PictFilePath .= '/';
         if (!is_null($pictures) && ( count($pictures) > 0)){
+            $nbPlan = count($pictures);
+            $templateProcessor->cloneRow('PLAN', $nbPlan);
+            $index = 1;
             foreach ($pictures as $pict){
-                $params[] = array( "h" => 21, "w"=>17, "src"=>$PictFilePath.$pict->getPath(), "units"=>'cm');
+                $src = $PictFilePath.$pict->getPath();
+                $arrayfilepath = explode(".", $src);
+                $type = end($arrayfilepath);
+                if ($type == "pdf" || $type == "pdf"){
+                    $templateProcessor->setImages('PLAN#' . $index++, $this->generateImages($src));
+                } else {
+                    $templateProcessor->setImg('PLAN#' . $index++, ['src' => $src, 'swh' => 1024]);
+                }
             }
-            $templateProcessor->setFixedImage('PLAN', $params);
         } else {
             $templateProcessor->setValue('PLAN',"Aucun plan fourni.");
         }
+    }
 
-
+    private function generateImages($pdfFile){
+        $imagick = new \Imagick();
+        $imagick->readImage($pdfFile);
+        $imagick->flattenImages();
+        $imagick->writeImages($pdfFile.'.jpg',false);
+        $index = 0;
+        while(file_exists($pdfFile.'-'.$index.'.jpg')){
+            $result[] = array('src' => $pdfFile.'-'.$index.'.jpg', 'swh'=> 1024);
+            $index++;
+        }
+        return $result;
     }
 
 

@@ -19,21 +19,23 @@ class IndexController extends Controller
      */
     public function listAction()
     {
-        $haystack = array (
-            'A(1)',
-            'AAE',
-            'A(2)',
-            'A()',
-            'F(1)'
-        );
-
-        $matches  = preg_grep ('/^A\((\d+)\)/i', $haystack);
-
-        print_r ($matches);
-        die();
+        $arrayres = $this->generateImages("/var/www/html/socotec/web/uploads/mytest.pdf");
+        print_r($arrayres);die();
         return $this->render('Index/list.html.twig', array(
             // ...
         ));
+    }
+    private function generateImages($pdfFile){
+        $imagick = new \Imagick();
+            $imagick->readImage($pdfFile);
+            $imagick->flattenImages();
+            $imagick->writeImages($pdfFile.'.jpg',false);
+        $index = 0;
+        while(file_exists($pdfFile.'-'.$index.'.jpg')){
+            $result[] = array('src' => $pdfFile.'-'.$index.'.jpg', 'swh'=> 1024);
+            $index++;
+        }
+        return $result;
     }
 
     /**
