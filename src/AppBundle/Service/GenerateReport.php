@@ -409,7 +409,8 @@ class GenerateReport extends WordGenerator
                 $arrayfilepath = explode(".", $src);
                 $type = end($arrayfilepath);
                 if ($type == "pdf" || $type == "pdf"){
-                    $templateProcessor->setImages('PLAN#' . $index++, $this->generateImages($src));
+                    $toto = $this->generateImages($src);
+                    $templateProcessor->setImages('PLAN#' . $index++, $toto);
                 } else {
                     $templateProcessor->setImg('PLAN#' . $index++, ['src' => $src, 'swh' => 1024]);
                 }
