@@ -101,6 +101,7 @@ class GenerateReport extends WordGenerator
         }
         $templateProcessor->setValue('DATELIST',implode(', ',$this->dateList));
         $this->tplAddPlan($templateProcessor,$operation);
+        die();
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
         $reportFilePath = realpath($reportFilePath);
@@ -409,8 +410,7 @@ class GenerateReport extends WordGenerator
                 $arrayfilepath = explode(".", $src);
                 $type = end($arrayfilepath);
                 if ($type == "pdf" || $type == "pdf"){
-                    $toto = $this->generateImages($src);
-                    $templateProcessor->setImages('PLAN#' . $index++, $toto);
+                    $templateProcessor->setImages('PLAN#' . $index++, $this->generateImages($src));
                 } else {
                     $templateProcessor->setImg('PLAN#' . $index++, ['src' => $src, 'swh' => 1024]);
                 }

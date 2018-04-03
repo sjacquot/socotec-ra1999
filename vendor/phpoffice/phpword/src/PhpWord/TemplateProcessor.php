@@ -278,7 +278,7 @@ class TemplateProcessor
         $rels_to_add = "";
 
         foreach($images as $img){
-
+            echo $img;
             list($width, $height) = getimagesize($img['src']);
             if(isset($img['swh'])){
                 //if the image is more vertical
