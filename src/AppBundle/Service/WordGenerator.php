@@ -78,6 +78,7 @@ class WordGenerator
     {
         $this->container = $container;
         $this->entityManager = $entityManager;
+        setlocale(LC_ALL, "fr_FR.utf8");
     }
 
     /**
