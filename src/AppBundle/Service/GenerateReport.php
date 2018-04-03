@@ -101,7 +101,7 @@ class GenerateReport extends WordGenerator
         }
         $templateProcessor->setValue('DATELIST',implode(', ',$this->dateList));
         $this->tplAddPlan($templateProcessor,$operation);
-        die();
+
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
         $reportFilePath = realpath($reportFilePath);
