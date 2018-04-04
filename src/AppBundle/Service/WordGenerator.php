@@ -78,7 +78,7 @@ class WordGenerator
     {
         $this->container = $container;
         $this->entityManager = $entityManager;
-        setlocale(LC_ALL, "fr_FR.utf8");
+        setlocale(LC_ALL, $this->container->getParameter('locale_server_xls'));
     }
 
     /**

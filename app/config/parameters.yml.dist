@@ -26,3 +26,4 @@ parameters:
     path_template_report: '%kernel.root_dir%/../src/AppBundle/Resources/templates/report-ra1999.docx'
     path_report: '/uploads/media/documents/report'
     path_certificate: '/uploads/media/documents/certificate'
+    locale_server_xls: fr_FR.utf8
