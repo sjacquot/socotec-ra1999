@@ -68,7 +68,7 @@ class WordGenerator
     /**
      * @var array
      */
-    protected $dateList = [];
+    protected $dateList;
     /**
      * Generate constructor.
      * @param ContainerInterface $container
@@ -463,9 +463,11 @@ class WordGenerator
      * @param $date
      */
     protected function AddDate($date){
-    $date = date("d / m / Y",  strtotime($date));
-    if(!in_array($date,$this->dateList))
-        $this->dateList[] = $date;
+        if(strlen($date)<=1)return;
+        if(is_null($this->dateList)){
+            $this->dateList[] = $date;
+        }elseif(!in_array($date,$this->dateList))
+            $this->dateList[] = $date;
     }
 
 }
