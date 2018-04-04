@@ -423,7 +423,7 @@ class GenerateReport extends WordGenerator
     private function generateImages($pdfFile){
         $imagick = new \Imagick();
         $imagick->readImage($pdfFile);
-        $imagick->autoOrient();
+        $this->autoRotateImage($imagick);
         $imagick->flattenImages();
         $imagick->writeImages($pdfFile.'.jpg',false);
         $index = 0;
@@ -437,6 +437,25 @@ class GenerateReport extends WordGenerator
         }
         return $result;
     }
+    private function autoRotateImage($image) {
+        $orientation = $image->getImageOrientation();
 
+        switch($orientation) {
+            case imagick::ORIENTATION_BOTTOMRIGHT:
+                $image->rotateimage("#000", 180); // rotate 180 degrees
+                break;
+
+            case imagick::ORIENTATION_RIGHTTOP:
+                $image->rotateimage("#000", 90); // rotate 90 degrees CW
+                break;
+
+            case imagick::ORIENTATION_LEFTBOTTOM:
+                $image->rotateimage("#000", -90); // rotate 90 degrees CCW
+                break;
+        }
+
+        // Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
+        $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+    }
 
 }
