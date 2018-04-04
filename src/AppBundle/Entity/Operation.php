@@ -528,8 +528,9 @@ class Operation
      */
     private $equipement;
     /**
-     * One Operation has One Agency result.
-     * @ORM\ManyToOne(targetEntity="Agency")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Agency", inversedBy="operation")
+     * @ORM\JoinColumn(name="agency_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="agency_id", referencedColumnName="id", nullable=true)
      */
     private $agency;
 
@@ -1990,6 +1991,22 @@ class Operation
     public function setPictures($pictures)
     {
         $this->pictures = $pictures;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAgency()
+    {
+        return $this->agency;
+    }
+
+    /**
+     * @param mixed $agency
+     */
+    public function setAgency($agency)
+    {
+        $this->agency = $agency;
     }
 
 }

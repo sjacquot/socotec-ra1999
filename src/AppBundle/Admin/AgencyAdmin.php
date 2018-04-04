@@ -106,6 +106,7 @@ class AgencyAdmin  extends AbstractAdmin
         $showMapper
             ->tab('General') // the tab call is optional
             ->add('name', null, ['label'=>'Nom'])
+            ->add('city', null, ['label'=>'Ville'])
             ->end()
         ;
     }

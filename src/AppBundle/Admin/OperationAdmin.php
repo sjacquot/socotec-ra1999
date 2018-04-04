@@ -146,25 +146,6 @@ class OperationAdmin extends Admin
                     'mapped' => false,
                     'required' => false,
                 ])
-/*                ->add('operationTrain',ChoiceType::class,[
-                    'label'=>'Classement de la ou des voies ferrées à moins de 300m',
-                    'choices' => array(
-                        1 => 1,
-                        2 => 2,
-                        3 => 3,
-                        4 => 4,
-                        5 => 5,
-                        'Sans objet' => null
-                    ),
-                    'choice_attr' => [
-                        'Sans objet' => ['data-info' => 'null'],
-                    ],
-                    'data'=> $this->getSubject()->getOperationTrain300(),
-                    'multiple' => true,
-                    'expanded' => true,
-                    'mapped' => false,
-                    'required' => false,
-                ])*/
                 ->add('operationPEB',ChoiceType::class,[
                     'label'=>"Zone de bruit du PEB d'un aérodrome",
                     'choices' => array(
@@ -213,15 +194,14 @@ class OperationAdmin extends Admin
                     }
                 ])
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
-/*                ->add('Agence', EntityType::class, [
+                ->add('agency', EntityType::class, [
                     'label' => "Agence",
                     'class' => Agency::class,
                     'query_builder' => function (EntityRepository $er){
-                        return $er->createQueryBuilder('r')
-                            ->where('r.operation = :operation')
-                            ->setParameter('operation', $this->getSubject());
+                        return $er->createQueryBuilder('a')
+                            ->where('1 = 1');
                     }
-                ])*/
+                ])
 
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
                 ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
