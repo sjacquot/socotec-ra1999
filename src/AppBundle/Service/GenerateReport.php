@@ -441,15 +441,15 @@ class GenerateReport extends WordGenerator
         $orientation = $image->getImageOrientation();
 
         switch($orientation) {
-            case imagick::ORIENTATION_BOTTOMRIGHT:
+            case \imagick::ORIENTATION_BOTTOMRIGHT:
                 $image->rotateimage("#000", 180); // rotate 180 degrees
                 break;
 
-            case imagick::ORIENTATION_RIGHTTOP:
+            case \imagick::ORIENTATION_RIGHTTOP:
                 $image->rotateimage("#000", 90); // rotate 90 degrees CW
                 break;
 
-            case imagick::ORIENTATION_LEFTBOTTOM:
+            case \imagick::ORIENTATION_LEFTBOTTOM:
                 $image->rotateimage("#000", -90); // rotate 90 degrees CCW
                 break;
         }
