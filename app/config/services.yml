@@ -35,6 +35,12 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Opération }
 
+    admin.agency:
+        class: AppBundle\Admin\AgencyAdmin
+        arguments: [~, AppBundle\Entity\Agency, AppBundle:CRUD, "@service_container"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Agence }
+
     admin.certificate:
         class: AppBundle\Admin\CertificateAdmin
         arguments: [~, AppBundle\Entity\Certificate, ~, "@service_container", "@doctrine.orm.entity_manager"]

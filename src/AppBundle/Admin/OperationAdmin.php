@@ -8,6 +8,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Agency;
 use AppBundle\Entity\Certificate;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Pictures;
@@ -212,6 +213,16 @@ class OperationAdmin extends Admin
                     }
                 ])
                 ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
+/*                ->add('Agence', EntityType::class, [
+                    'label' => "Agence",
+                    'class' => Agency::class,
+                    'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('r')
+                            ->where('r.operation = :operation')
+                            ->setParameter('operation', $this->getSubject());
+                    }
+                ])*/
+
                 ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
                 ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
                 ->add('DocAuthor', null, ['label' => "Nom auteur de l'attestation"])

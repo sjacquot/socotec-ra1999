@@ -17,6 +17,13 @@ sonata_admin:
                 items:
                     - admin.operation
                 icon:  <i class="fa fa-briefcase"></i>
+            agencies:
+                on_top: true
+                label:                Agence
+                label_catalogue:      ~
+                items:
+                    - admin.agency
+                icon:  <i class="fa fa-building"></i>
 
 sonata_core:
     form:

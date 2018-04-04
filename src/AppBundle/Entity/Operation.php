@@ -527,6 +527,11 @@ class Operation
      * @ORM\OneToMany(targetEntity="Equipement", mappedBy="operation")
      */
     private $equipement;
+    /**
+     * One Operation has One Agency result.
+     * @ORM\ManyToOne(targetEntity="Agency")
+     */
+    private $agency;
 
     /**
      * One Operation has One Results set.
