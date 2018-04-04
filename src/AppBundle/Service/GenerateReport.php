@@ -455,7 +455,7 @@ class GenerateReport extends WordGenerator
         }
 
         // Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
-        $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+        $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT);
     }
 
 }
