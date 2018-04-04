@@ -268,6 +268,11 @@ class ExtractBAE
         $this->PassRa1999  = $worksheet->getCell('D54')->getCalculatedValue();
 
         $this->testResult = $worksheet->rangeToArray('B40:H45', '', true, true, true);
+       // Rounding Issue
+        $trUtils = $worksheet->rangeToArray('F40:F45', '', true, false, true);
+        for($index = 40; $index <= 45; $index++){
+            $this->testResult[$index]['F'] = sprintf('%.2f',round($trUtils[$index]['F'],2));
+        }
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
 

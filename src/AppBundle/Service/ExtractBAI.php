@@ -248,7 +248,11 @@ class ExtractBAI
         $this->objectifRa1999 = $worksheet->getCell('H51')->getCalculatedValue();
 
         $this->testResult = $worksheet->rangeToArray('B40:L45', '', true, true, true);
-
+    // Rounding issue when TR is average of to value...
+        $trUtils = $worksheet->rangeToArray('F40:F45', '', true, false, true);
+        for($index = 40; $index <= 45; $index++){
+            $this->testResult[$index]['F'] = sprintf('%.2f',round($trUtils[$index]['F'],2));
+        }
         $this->PassRa1999  = $worksheet->getCell('D52')->getCalculatedValue();
 
         $this->data = $worksheet->rangeToArray('N2:T17', '', true, true, true);
