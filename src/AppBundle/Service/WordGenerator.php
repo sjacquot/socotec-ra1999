@@ -223,7 +223,23 @@ class WordGenerator
         $templateProcessor->setValue('Version', $operation->getInfo());
         $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
         $templateProcessor->setValue('CERTREF', $operation->getCertifReference());
+        // Agence
+        if (!is_null($operation->getAgency())){
+            $templateProcessor->setValue('AGNAME',$operation->getAgency()->getName());
+            $templateProcessor->setValue('AGCITY',$operation->getAgency()->getCity());
+            $templateProcessor->setValue('AGCP',$operation->getAgency()->getCp());
+            $templateProcessor->setValue('AGADD',$operation->getAgency()->getAddress());
+            $templateProcessor->setValue('AGTEL',$operation->getAgency()->getTel());
+            $templateProcessor->setValue('AGMAIL',$operation->getAgency()->getMail());
+        } else {
+            $templateProcessor->setValue('AGNAME','');
+            $templateProcessor->setValue('AGCITY','');
+            $templateProcessor->setValue('AGCP','');
+            $templateProcessor->setValue('AGADD','');
+            $templateProcessor->setValue('AGTEL','');
+            $templateProcessor->setValue('AGMAIL','');
 
+        }
         $value = (int) floatval($operation->getOperationNbCollectif())+ (int) floatval($operation->getOperationNbIndividuel());
         $templateProcessor->setValue('OPNBCOL',$operation->getOperationNbCollectif());
         $templateProcessor->setValue('OPNBIND', $operation->getOperationNbIndividuel());
@@ -464,6 +480,11 @@ class WordGenerator
      */
     protected function AddDate($date){
         if(strlen($date)<=1)return;
+        if(strpos($date,'/')){
+            $datearray = explode('/',$date);
+            $ts = mktime(12,0,0,$datearray[0],$datearray[1],$datearray[2]);
+            $date = strftime('%d %B %Y',$ts);
+        }
         if(is_null($this->dateList)){
             $this->dateList[] = $date;
         }elseif(!in_array($date,$this->dateList))
