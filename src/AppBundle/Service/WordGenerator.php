@@ -168,7 +168,7 @@ class WordGenerator
             $this->fillArrayOfValues($templateProcessor,
                 ['BEVMC','BEVMC-1','BEVMC-2','BEVMC-3','BEVMC-4','BEVMC-5','BEVMC-6','BEVMC-7'],
                 ["NA"]);
-            $templateProcessor->setValue('BVMCAPPREC',$this->APPRECIATION['NA']);
+            $templateProcessor->setValue('BEVMCAPPREC',$this->APPRECIATION['NA']);
             $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'BEVMC');
             $templateProcessor->setValue('BEVMC-NUM',0);
         }
@@ -194,7 +194,7 @@ class WordGenerator
             $templateProcessor->setValue('AAE-NUM',$count);
         } else {
             $this->fillArrayOfValues($templateProcessor,
-                ['AAE','AAE-1','AAE-2','AAE-3','AAE-4','AAE-5','AAE-6','AAE-7'],
+                ['AAE','AAE-1','AAE-2','AAE-3','AAE-4','AAE-5','AAE-6','AAE-7','AAE-8'],
                 ["NA"]);
             $templateProcessor->setValue('AAEAPPREC',$this->APPRECIATION['NA']);
             $this->TplGradeRecap($templateProcessor,self::GRADE_NA,'AAE');

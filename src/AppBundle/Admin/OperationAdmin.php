@@ -46,6 +46,10 @@ class OperationAdmin extends Admin
      */
     protected $container;
 
+    protected $datagridValues = [
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'updatedAt',
+    ];
     /**
      * OperationAdmin constructor.
      * @param $code
@@ -303,6 +307,7 @@ class OperationAdmin extends Admin
         $datagridMapper->add('caseReference', null, ['global_search' => true, 'label'=>'Référence dossier']);
         $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
         $datagridMapper->add('document', null, ['global_search' => true, 'label'=>'Fiche de mesure (XLS)']);
+        $datagridMapper->add('agency', null, ['global_search' => true, 'label'=>'Agence']);
 
         $datagridMapper->add('status', null, ['global_search' => true, 'label'=>'Etat de traitement']);
         $datagridMapper->add('measureCompany', null, ['global_search' => true, 'label'=>'Société']);
