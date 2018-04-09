@@ -36,7 +36,6 @@ class GenerateReport extends WordGenerator
      */
     public function generateReport(Operation $operation)
     {
-
         $templateFile = $this->container->getParameter('path_template_report');
         $templateFile = realpath($templateFile);
 
@@ -410,9 +409,11 @@ class GenerateReport extends WordGenerator
                 $arrayfilepath = explode(".", $src);
                 $type = end($arrayfilepath);
                 if ($type == "pdf" || $type == "pdf"){
-                        $templateProcessor->setImages('PLAN#' . $index++, $this->generateImages($src));
+                        $templateProcessor->setImages('PLAN#' . $index++, $this->generateImagesFromPDF($src));
                 } else {
-                    $templateProcessor->setImg('PLAN#' . $index++, ['src' => $src]);
+                    ;
+
+                    $templateProcessor->setImg('PLAN#' . $index++, $this->getImageBestFitParameters($src,18,24));
                 }
             }
         } else {
@@ -420,7 +421,13 @@ class GenerateReport extends WordGenerator
         }
     }
 
-    private function generateImages($pdfFile){
+    /**
+     * Generate images from a pdf file and returns array suitable for template processing
+     * @param $pdfFile
+     * @return array
+     * @throws \ImagickException
+     */
+    private function generateImagesFromPDF($pdfFile){
         $imagick = new \Imagick();
         $imagick->readImage($pdfFile);
         //$this->autoRotateImage($imagick);
@@ -430,14 +437,33 @@ class GenerateReport extends WordGenerator
         $index = 0;
         $result = [];
         while(file_exists($pdfFile.'-'.$index.'.jpg')){
-            $result[] = array('src' => $pdfFile.'-'.$index.'.jpg', 'swh'=> 1024);
+            $result[] = $this->getImageBestFitParameters($pdfFile.'-'.$index.'.jpg',18,24);
             $index++;
         }
         if ($index==0){
-            $result[] = array('src' => $pdfFile.'.jpg', 'swh'=> 1024);
+            $result[] = $this->getImageBestFitParameters($pdfFile.'.jpg',18,24);
         }
         return $result;
     }
+    private function getImageBestFitParameters($file, $width, $height){
+        $imagick = new \Imagick();
+        $imagick->readImage($file);
+        $imgH = $imagick->getImageHeight();
+        $imgW = $imagick->getImageWidth();
+
+        $imgR = $imgW/$imgH;
+        if($imgW >= $imgH){
+            $imgH = $width / $imgR;
+            $imgW = $width;
+        } else {
+            $imgH = $height;
+            $imgW = $height*$imgR;
+        }
+       return array('src'=> $file,'w'=>$imgW,'h'=>$imgH);
+    }
+    /**
+     * @param $image
+     */
     private function autoRotateImage($image) {
         $orientation = $image->getImageOrientation();
 
