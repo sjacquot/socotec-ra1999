@@ -21,6 +21,7 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "almasaeed2010/adminlte": "~2.4",
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",

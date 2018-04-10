@@ -459,6 +459,7 @@ class GenerateReport extends WordGenerator
             $imgH = $height;
             $imgW = $height*$imgR;
         }
+        print_r(array('src'=> $file,'w'=>$imgW,'h'=>$imgH)); die();
        return array('src'=> $file,'w'=>$imgW,'h'=>$imgH);
     }
     /**
