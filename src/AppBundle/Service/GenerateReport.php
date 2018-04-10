@@ -409,11 +409,11 @@ class GenerateReport extends WordGenerator
                 $arrayfilepath = explode(".", $src);
                 $type = end($arrayfilepath);
                 if ($type == "pdf" || $type == "pdf"){
-                        $templateProcessor->setImages('PLAN#' . $index++, $this->generateImagesFromPDF($src));
+                        $templateProcessor->setFixedSizedImages('PLAN#' . $index++, $this->generateImagesFromPDF($src));
                 } else {
                     ;
 
-                    $templateProcessor->setImg('PLAN#' . $index++, $this->getImageBestFitParameters($src,18,24));
+                    $templateProcessor->setFixedSizedImages('PLAN#' . $index++, $this->getImageBestFitParameters($src,18,24));
                 }
             }
         } else {
@@ -459,7 +459,6 @@ class GenerateReport extends WordGenerator
             $imgH = $height;
             $imgW = $height*$imgR;
         }
-        print_r(array('src'=> $file,'w'=>$imgW,'h'=>$imgH)); die();
        return array('src'=> $file,'w'=>$imgW,'h'=>$imgH);
     }
     /**
