@@ -413,7 +413,7 @@ class GenerateReport extends WordGenerator
                 } else {
                     ;
 
-                    $templateProcessor->setFixedSizedImages('PLAN#' . $index++, $this->getImageBestFitParameters($src,18,24));
+                    $templateProcessor->setFixedSizedImages('PLAN#' . $index++, array($this->getImageBestFitParameters($src,18,24)));
                 }
             }
         } else {
