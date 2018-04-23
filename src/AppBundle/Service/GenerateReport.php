@@ -25,6 +25,9 @@ use PhpOffice\PhpWord\TemplateProcessor;
  */
 class GenerateReport extends WordGenerator
 {
+    /**
+     * @var
+     */
     private $ressourcepath;
 
     /**
@@ -77,6 +80,11 @@ class GenerateReport extends WordGenerator
             $index = 1;
             foreach ($ShockArray->toArray() as $Choc){
                $this->tplGenerateC($templateProcessor,$Choc,$index);
+               if ($index == $nbclone) {
+                   $templateProcessor->deleteBlock("SP#".$index);
+               } else{
+                    $templateProcessor->cloneBlock("SP#".$index,1);
+               }
                 $index++;
             }
         } else {
@@ -351,6 +359,10 @@ class GenerateReport extends WordGenerator
     }
 
 
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Aae $aae
+     */
     private function tplGenerateAAE(TemplateProcessor $templateProcessor, Aae $aae){
         $data = $aae->getData();
         $data = $data[0];
@@ -396,6 +408,13 @@ class GenerateReport extends WordGenerator
         }
 
     }
+
+    /**
+     * Import buildings floor plans into word template as IMG attachment
+     * @param TemplateProcessor $templateProcessor
+     * @param Operation $operation
+     * @throws \ImagickException
+     */
     private function tplAddPlan(TemplateProcessor $templateProcessor, Operation $operation){
         $pictures = $this->entityManager->getRepository(Pictures::class)->getPictureByOperationOrder($operation);
         $PictFilePath = realpath($this->container->getParameter('path_picture'));
@@ -445,6 +464,14 @@ class GenerateReport extends WordGenerator
         }
         return $result;
     }
+
+    /**
+     * Compute Image size to a relative area
+     * @param $file
+     * @param $width
+     * @param $height
+     * @return array Array of parameters for TemplateProcessor setFixedSizedImages
+     */
     private function getImageBestFitParameters($file, $width, $height){
         $imagick = new \Imagick();
         $imagick->readImage($file);

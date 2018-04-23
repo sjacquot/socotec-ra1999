@@ -84,7 +84,7 @@ class CertificateAdmin extends AbstractAdmin
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
             $formMapper
                 ->with("Génération de l'attestation RA1999")
-                ->add('certifReference',null,['label' => "Référence de l'attestation RA1999",'required' => true])
+//                ->add('certifReference',null,['label' => "Référence de l'attestation RA1999"])
                 ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",

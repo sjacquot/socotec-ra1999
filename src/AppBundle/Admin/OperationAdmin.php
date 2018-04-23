@@ -290,6 +290,7 @@ class OperationAdmin extends Admin
                         'mapped' => false,
                         'multiple' => true,
                         'expanded' => true,
+                        'label' => 'Ordre d\'affichage des plans'
                     ])
                     ->end()
             ->end();
@@ -305,10 +306,9 @@ class OperationAdmin extends Admin
     {
         $datagridMapper->add('name', null, ['global_search' => true, 'label'=> 'Nom']);
         $datagridMapper->add('caseReference', null, ['global_search' => true, 'label'=>'Référence dossier']);
-        $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
+     //   $datagridMapper->add('reportReference',null,['global_search' => true, 'label'=>'Référence rapport']);
         $datagridMapper->add('document', null, ['global_search' => true, 'label'=>'Fiche de mesure (XLS)']);
         $datagridMapper->add('agency', null, ['global_search' => true, 'label'=>'Agence']);
-
         $datagridMapper->add('status', null, ['global_search' => true, 'label'=>'Etat de traitement']);
         $datagridMapper->add('measureCompany', null, ['global_search' => true, 'label'=>'Société']);
         $datagridMapper->add('measureAuthor', null, ['global_search' => true, 'label'=>'Auteur(s)']);
@@ -336,9 +336,9 @@ class OperationAdmin extends Admin
     {
         $listMapper->addIdentifier('name', null, ['label'=>'Nom'])
                     ->add('caseReference',null,['label'=>'Référence dossier'])
-                    ->add('reportReference',null,['label'=>'Référence rapport'])
+//                    ->add('reportReference',null,['label'=>'Référence rapport'])
                     ->add('measureAuthor',null,['label'=>'Auteur(s)'])
-                    ->add('measureDate',null,['label'=>'Date de la mesure'])
+                    ->add('measureDate','date',['label'=>'Date de la mesure', 'format'=> 'd/m/Y'])
                     ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig',null,'label'=>'Fiche de mesure (XLS)'))
                     ->add('_action', null, [
                     'actions' => [
@@ -364,7 +364,7 @@ class OperationAdmin extends Admin
             ->tab('General') // the tab call is optional
                 ->add('name', null, ['label'=>'Nom'])
                 ->add('caseReference',null,['label'=>'Référence dossier'])
-                ->add('reportReference', null,['label'=>'Référence Rapport'])
+//                ->add('reportReference', null,['label'=>'Référence Rapport'])
                 ->add('measureCompany', null,['label'=>'Société'])
                 ->add('measureAuthor', null,['label'=>'Auteur(s)'])
                 ->add('info', null,['label'=>'Information'])

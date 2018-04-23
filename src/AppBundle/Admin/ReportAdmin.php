@@ -84,7 +84,7 @@ class ReportAdmin extends AbstractAdmin
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
             $formMapper
                 ->with("Génération du rapport de mesure détaillé")
-                ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => true])
+//                ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => true])
                 ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",

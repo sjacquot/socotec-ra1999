@@ -42,6 +42,7 @@ class ExtractResults
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
         $worksheet = $xlsReader->getActiveSheet();
         $highestRow = $worksheet->getHighestRow(); // e.g. 10
+        //             B,C,D,E,F,I, L, O, P
         $dataInCols = [2,3,4,5,6,9,12,15,16];
         $resultsArray = array();
 
@@ -81,6 +82,11 @@ class ExtractResults
                     while(strlen($value)>= 1){
                         $data = array();
                         foreach ($dataInCols as $col ){
+/*                            if ($col != 2){
+                                $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getOldCalculatedValue();
+                            } else {
+                                $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+                            }*/
                             $data[] = $worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
                         }
                         if(strlen($data[0])>0){

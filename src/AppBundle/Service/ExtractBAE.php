@@ -264,6 +264,7 @@ class ExtractBAE
         $this->comment = $worksheet->getCell('Q23')->getCalculatedValue();
 
         $this->weightedStandardizedAcousticIsolation = $worksheet->getCell('H46')->getCalculatedValue();
+
         $this->objectifRa1999 = $worksheet->getCell('H53')->getCalculatedValue();
         $this->PassRa1999  = $worksheet->getCell('D54')->getCalculatedValue();
 
@@ -278,7 +279,7 @@ class ExtractBAE
 
         $chart = new GraphRA1999($pathCharts);
 
-        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, true, false);
+        $dataTest =  $worksheet->rangeToArray('H40:H45', '', true, false, false);
         $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
