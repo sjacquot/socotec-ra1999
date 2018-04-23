@@ -82,10 +82,12 @@ class ReportAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
-            $formMapper
-                ->with("Génération du rapport de mesure détaillé")
-//                ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => true])
-                ->add('operation', EntityType::class, [
+            if ($this->isCurrentRoute('edit')) {
+                $formMapper
+                    ->with("Génération du rapport de mesure détaillé")
+                    ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
+                }
+               $formMapper ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",
                     'query_builder' => function (EntityRepository $er){
@@ -96,8 +98,11 @@ class ReportAdmin extends AbstractAdmin
                 ])
             ;
         }else{
+            if ($this->isCurrentRoute('edit')) {
+                $formMapper
+                    ->add('reportReference');
+            }
             $formMapper
-                ->add('reportReference')
                 ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                 ])
