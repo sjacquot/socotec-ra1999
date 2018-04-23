@@ -50,4 +50,19 @@ class AerienRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllByOperation(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Aerien::class)
+            ->createQueryBuilder('a')
+            ->where('a.operation = :operation')
+            ->setParameter('operation', $operation)
+            ->getQuery()
+            ->getResult();
+    }
 }

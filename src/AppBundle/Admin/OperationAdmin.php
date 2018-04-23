@@ -8,15 +8,21 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Aae;
+use AppBundle\Entity\Aerien;
 use AppBundle\Entity\Agency;
 use AppBundle\Entity\Certificate;
+use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
+use AppBundle\Entity\Results;
+use AppBundle\Entity\Shock;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
 use AppBundle\Service\PictureUploader;
 use Doctrine\ORM\EntityRepository;
+use Proxies\__CG__\AppBundle\Entity\Foreigner;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -418,11 +424,11 @@ class OperationAdmin extends Admin
         }
 
         if(isset($_POST['upload_picture'])){
-            $picutres = $_POST['upload_picture'];
+            $pictures = $_POST['upload_picture'];
             $em = $this->container->get('doctrine')->getEntityManager();
             $pictureRepo = $em->getRepository(Pictures::class);
             $i = 1;
-            foreach($picutres as $picture) {
+            foreach($pictures as $picture) {
                 $image = $pictureRepo->findOneByName($picture, $this->getSubject());
                 if(!is_null($image)){
                     $image->setPosition($i);
@@ -456,6 +462,7 @@ class OperationAdmin extends Admin
         parent::postUpdate($operation);
         $file = $this->getForm()->get('documents')->getData();
         if(!is_null($file)){
+            $this->removeXLSData($operation);
             $this->container->get('app.extract_data')->extractData($operation);
         }
     }
@@ -470,5 +477,46 @@ class OperationAdmin extends Admin
         $this->container->get('app.extract_data')->extractData($operation);
     }
 
+    private function removeXLSData($operation){
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $Arepo = $em->getRepository(Aerien::class);
+        $AllA = $Arepo->findAllByOperation($operation);
+        if(!is_null($AllA)) {
+            foreach ($AllA as $A) {
+                $em->remove($A);
+            }
+        }
+        $Frepo = $em->getRepository(Foreigner::class);
+        $AllF = $Frepo->findAllByOperation($operation);
+        if(!is_null($AllF)){
+            foreach ($AllF as $F){
+                $em->remove($F);
+            }
+        }
+        $Srepo = $em->getRepository(Shock::class);
+        $AllS = $Srepo->findAllByOperation($operation);
+        if(!is_null($AllS)){
+            foreach ($AllS as $S){
+                $em->remove($S);
+            }
+        }
+        /*$ResRepo = $em->getRepository(Results::class);
+        $R = $ResRepo->findOneByOperation($operation);
+        if(!is_null($R)){
+            $em->remove($R);
+        }
+        $AAERepo = $em->getRepository(Aae::class);
+        $AAE = $AAERepo->findOneByOperation($operation);
+        if(!is_null($AAE)){
+            $em->remove($AAE);
+        }
+        $EquipRepo = $em->getRepository(Equipement::class);
+        $Equip = $EquipRepo->findOneByOperation($operation);
+        if(!is_null($Equip)){
+            $em->remove($Equip);
+        }
+        $em->flush();*/
+
+    }
 
 }
