@@ -102,121 +102,41 @@ class OperationAdmin extends Admin
                 ->with('Opération/Chantier', array('class' => 'col-md-9'))
                 ->add('caseReference', null, ['label' => 'Référence dossier'])
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                ->end()
                 ->end();
         }
-        if ($this->isCurrentRoute('edit')) {
-
-            $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
-                ->where('r.operation = :operation')
-                ->setParameter('operation', $this->getSubject())
-                ->orderBy('r.position')->getQuery()->getResult();
-
-            $pictureOrder = [];
-
-            $i = 1;
-            foreach ($pictureResult as $picture){
-                $pictureOrder[$picture->getName()] = $picture->getName();
-                $i++;
-            }
-
             $formMapper
                 ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/Chantier')
-                ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
-                ->add('name', null, ['label'=>"Nom de l'opération"])
-                ->add('operationAddress',null,['label'=>"Adresse de l'opération"])
-                ->add('operationCP',null,['label'=>"Code postal de l'opération"])
-                ->add('operationCity',null,['label'=>"Commune de l'opération"])
-                ->add('operationIndividuel',null,['label'=>'Logement individuel'])
-                ->add('operationCollectif',null,['label'=>'Logement collectif'])
+                    ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                    ->add('name', null, ['label'=>"Nom de l'opération"])
+                    ->add('operationAddress',null,['label'=>"Adresse de l'opération"])
+                    ->add('operationCP',null,['label'=>"Code postal de l'opération"])
+                    ->add('operationCity',null,['label'=>"Commune de l'opération"])
+                    ->add('operationIndividuel',null,['label'=>'Logement individuel'])
+                    ->add('operationCollectif',null,['label'=>'Logement collectif'])
 
-                ->add('operationNbIndividuel',null,['label'=>'Nombre de Logements individuels'])
-                ->add('operationNbCollectif',null,['label'=>'Nombre de Logements collectifs'])
+                    ->add('operationNbIndividuel',null,['label'=>'Nombre de Logements individuels'])
+                    ->add('operationNbCollectif',null,['label'=>'Nombre de Logements collectifs'])
 
-               // ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
-                ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
+                    // ->add('operationNbFlat',null,['label'=>'Nombre de logements'])
+                    ->add('operationNbBuilding',null,['label'=>'Nombre de bâtiments'])
 
-                ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
-                ->add('operationRoute',ChoiceType::class,[
-                    'label'=>'Infrastructures de transport terrestre à moins de 300m',
-                    'choices' => array(
-                        1 => 1,
-                        2 => 2,
-                        3 => 3,
-                        4 => 4,
-                        5 => 5,
-                        'Sans objet' => null
-                    ),
-                    'choice_attr' => [
-                        'Sans objet' => ['data-info' => 'null'],
-                    ],
-                    'data'=> $this->getSubject()->getOperationRoute300(),
-                    'multiple' => true,
-                    'expanded' => true,
-                    'mapped' => false,
-                    'required' => false,
-                ])
-                ->add('operationPEB',ChoiceType::class,[
-                    'label'=>"Zone de bruit du PEB d'un aérodrome",
-                    'choices' => array(
-                        'A' => 'A',
-                        'B' => 'B',
-                        'C' => 'C',
-                        'D' => 'D',
-                        'Sans objet' => null
-                    ),
-                    'choice_attr' => [
-                        'Sans objet' => ['data-info' => 'null'],
-                    ],
-                    'data'=> $this->getSubject()->getOperationZonePEB(),
-                    'multiple' => true,
-                    'expanded' => true,
-                    'mapped' => false,
-                    'required' => false,
-                ])
-                ->add('operationLabel',null,['label'=>"Label, certification ou démarche qualité"])
-                ->add('operationVMCSimple',null,array('label'=>"VMC simple flux"))
-                ->add('operationVMCDouple',null,array('label'=>"VMC double flux"))
+                    ->add('NbMeasure', null, ['label' => "Nombre de mesure minimum obligatoire"])
+                    ->add('operationLabel',null,['label'=>"Label, certification ou démarche qualité"])
+                    ->add('operationVMCSimple',null,array('label'=>"VMC simple flux"))
+                    ->add('operationVMCDouple',null,array('label'=>"VMC double flux"))
 
-                ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
-                ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
+                    ->add('operationObjective',null,['label'=>'Objectif de la mesure'])
+                    ->add('operationMeasureRef',null,['label'=>'Référentiel de mesure'])
                 ->end()
                 ->end()
                 ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/SOCOTEC')
-                ->add('caseReference', null, ['label' => 'Référence dossier'])
-                ->add('reportReference', EntityType::class, [
-                    'label' => 'Référence du rapport de mesures détaillées',
-                    'class' => Report::class,
-                    'query_builder' => function (EntityRepository $er){
-                        return $er->createQueryBuilder('r')
-                            ->where('r.operation = :operation')
-                            ->setParameter('operation', $this->getSubject());
-                    }
-                ])
-                ->add('certifReference', EntityType::class, [
-                    'label' => "Référence de l'attestation RA1999",
-                    'class' => Certificate::class,
-                    'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('r')
-                        ->where('r.operation = :operation')
-                        ->setParameter('operation', $this->getSubject());
-                    }
-                ])
-                ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
-                ->add('agency', EntityType::class, [
-                    'label' => "Agence",
-                    'class' => Agency::class,
-                    'query_builder' => function (EntityRepository $er){
-                        return $er->createQueryBuilder('a')
-                            ->where('1 = 1');
-                    }
-                ])
-
-                ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
-                ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
-                ->add('DocAuthor', null, ['label' => "Nom auteur de l'attestation"])
-                ->add('DocAuthorEmail', null, ['label' => "Email auteur de l'attestation"])
+                    ->add('measureAuthor',null,['label'=>'Auteur(s) de la mesure'])
+                    ->add('CompanySpeaker', null, ['label' => "Nom de l'interlocuteur SOCOTEC"])
+                    ->add('DocAuthor', null, ['label' => "Nom auteur de l'attestation"])
+                    ->add('DocAuthorEmail', null, ['label' => "Email auteur de l'attestation"])
                 ->end()
                 ->end()
                 ->with("Maîtrise d'Ouvrage", array('class' => 'col-md-9', 'tab'=>true))
@@ -286,6 +206,95 @@ class OperationAdmin extends Admin
                 ->add("BETAudioMission", null, ['label' => "Mission BET acoustique"])
                 ->add("OtherBET_AMOName", null, ['label' => "Nom autre BET ou AMO"])
                 ->add("OtherBET_AMOMission", null, ['label' => "Mission autre BET ou AMO"])
+                ->end()
+                ->end();
+        if ($this->isCurrentRoute('edit')) {
+
+            $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
+                ->where('r.operation = :operation')
+                ->setParameter('operation', $this->getSubject())
+                ->orderBy('r.position')->getQuery()->getResult();
+
+            $pictureOrder = [];
+
+            $i = 1;
+            foreach ($pictureResult as $picture){
+                $pictureOrder[$picture->getName()] = $picture->getName();
+                $i++;
+            }
+
+            $formMapper
+                ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
+                ->with('Opération/Chantier')
+                    ->add('operationRoute',ChoiceType::class,[
+                        'label'=>'Infrastructures de transport terrestre à moins de 300m',
+                        'choices' => array(
+                            1 => 1,
+                            2 => 2,
+                            3 => 3,
+                            4 => 4,
+                            5 => 5,
+                            'Sans objet' => null
+                        ),
+                        'choice_attr' => [
+                            'Sans objet' => ['data-info' => 'null'],
+                        ],
+                        'data'=> $this->getSubject()->getOperationRoute300(),
+                        'multiple' => true,
+                        'expanded' => true,
+                        'mapped' => false,
+                        'required' => false,
+                    ])
+                    ->add('operationPEB',ChoiceType::class,[
+                        'label'=>"Zone de bruit du PEB d'un aérodrome",
+                        'choices' => array(
+                            'A' => 'A',
+                            'B' => 'B',
+                            'C' => 'C',
+                            'D' => 'D',
+                            'Sans objet' => null
+                        ),
+                        'choice_attr' => [
+                            'Sans objet' => ['data-info' => 'null'],
+                        ],
+                        'data'=> $this->getSubject()->getOperationZonePEB(),
+                        'multiple' => true,
+                        'expanded' => true,
+                        'mapped' => false,
+                        'required' => false,
+                    ])
+                ->end()
+                ->end()
+                ->with('SOCOTEC', array('class' => 'col-md-9', 'tab'=>true))
+                ->with('Opération/SOCOTEC')
+                    ->add('caseReference', null, ['label' => 'Référence dossier'])
+                    ->add('reportReference', EntityType::class, [
+                        'label' => 'Référence du rapport de mesures détaillées',
+                        'class' => Report::class,
+                        'query_builder' => function (EntityRepository $er){
+                            return $er->createQueryBuilder('r')
+                                ->where('r.operation = :operation')
+                                ->setParameter('operation', $this->getSubject());
+                        }
+                    ])
+                    ->add('certifReference', EntityType::class, [
+                        'label' => "Référence de l'attestation RA1999",
+                        'class' => Certificate::class,
+                        'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('r')
+                            ->where('r.operation = :operation')
+                            ->setParameter('operation', $this->getSubject());
+                        }
+                    ])
+                    ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
+                    ->add('agency', EntityType::class, [
+                        'label' => "Agence",
+                        'class' => Agency::class,
+                        'query_builder' => function (EntityRepository $er){
+                            return $er->createQueryBuilder('a')
+                                ->where('1 = 1');
+                        }
+                    ])
                 ->end()
                 ->end()
                 ->with("Plans des locaux", array('class' => 'col-md-9', 'tab'=>true))
@@ -474,7 +483,9 @@ class OperationAdmin extends Admin
     public function postPersist($operation)
     {
         parent::postPersist($operation);
-        $this->container->get('app.extract_data')->extractData($operation);
+        if(!empty($operation->getDocument())){
+            $this->container->get('app.extract_data')->extractData($operation);
+        }
     }
 
     private function removeXLSData($operation){

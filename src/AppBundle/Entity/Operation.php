@@ -260,7 +260,7 @@ class Operation
     /**
      * @var string
      *
-     * @ORM\Column(name="case_reference", type="string", length=255)
+     * @ORM\Column(name="case_reference", type="string", length=255, nullable=true)
      */
     private $caseReference;
     /**
@@ -493,7 +493,7 @@ class Operation
     /**
      * One Product has One Shipment.
      * @ORM\OneToOne(targetEntity="Document")
-     * @ORM\JoinColumn(name="document_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
     private $document;
 
@@ -1367,7 +1367,6 @@ class Operation
     {
         $this->createdAt= new \DateTime();
         $this->updatedAt= new \DateTime();
-        $this->document = new ArrayCollection();
         $this->shock = new ArrayCollection();
         $this->aerien = new ArrayCollection();
         $this->foreigner = new ArrayCollection();
