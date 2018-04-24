@@ -297,6 +297,7 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('FObj#'.$index, $foreigner->getObjectifRa1999());
         $templateProcessor->setValue('FPassRa1999#'.$index, $foreigner->getPassRa1999());
 
+
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$foreigner->getFileChart();
         if(realpath($Chartfilename)){

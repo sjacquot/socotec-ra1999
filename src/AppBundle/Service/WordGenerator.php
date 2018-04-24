@@ -272,6 +272,7 @@ class WordGenerator
         $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
         $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
         // TODO: Unification des Balises AUTHOR
+        $templateProcessor->setValue('COMPSPEAKER',$operation->getCompanySpeaker());
         $templateProcessor->setValue('DOCAUTHOR',$operation->getDocAuthor());
         $templateProcessor->setValue('DOCAUTHORMAIL',$operation->getDocAuthorEmail());
         $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
