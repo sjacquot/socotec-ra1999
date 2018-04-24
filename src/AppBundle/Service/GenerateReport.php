@@ -151,7 +151,14 @@ class GenerateReport extends WordGenerator
                 $templateProcessor->setValue('EQ1P#'.$row,$data[$index][0][14]);
                 $templateProcessor->setValue('EQ1Q#'.$row,$data[$index][0][15]);
                 $templateProcessor->setValue('EQ1V#'.$row,$data[$index][0][20]);
-                $templateProcessor->setValue('EQ1W#'.$row,$data[$index][0][21]);
+                if(strpos($data[$index][0][21],'NON')!==false){
+                    $templateProcessor->setValue('NOTEQ1W#'.$row,$data[$index][0][21]);
+                    $templateProcessor->setValue('EQ1W#'.$row,'');
+
+                }else{
+                    $templateProcessor->setValue('EQ1W#'.$row,$data[$index][0][21]);
+                    $templateProcessor->setValue('NOTEQ1W#'.$row,'');
+                }
             }
 
         } else{
@@ -183,7 +190,14 @@ class GenerateReport extends WordGenerator
                 $templateProcessor->setValue('EQ2P#'.$row,$data[$index][0][14]);
                 $templateProcessor->setValue('EQ2Q#'.$row,$data[$index][0][15]);
                 $templateProcessor->setValue('EQ2V#'.$row,$data[$index][0][20]);
-                $templateProcessor->setValue('EQ2W#'.$row,$data[$index][0][21]);
+                if(strpos($data[$index][0][21],'NON')!==false){
+                    $templateProcessor->setValue('NOTEQ2W#'.$row,$data[$index][0][21]);
+                    $templateProcessor->setValue('EQ2W#'.$row,'');
+
+                }else{
+                    $templateProcessor->setValue('EQ2W#'.$row,$data[$index][0][21]);
+                    $templateProcessor->setValue('NOTEQ2W#'.$row,'');
+                }
             }
 
         } else{
@@ -405,7 +419,14 @@ class GenerateReport extends WordGenerator
                     $templateProcessor->setValue('AAE8#'.$row,$data[$index][8]);
                     $templateProcessor->setValue('AAE9#'.$row,$data[$index][9]);
                     $templateProcessor->setValue('AAE10#'.$row,$data[$index][14]);
-                    $templateProcessor->setValue('AAE11#'.$row,$data[$index][15]);
+                    if(strpos($data[$index][15],'NON')!==false){
+                        $templateProcessor->setValue('NOTAAE11#'.$row,$data[$index][15]);
+                        $templateProcessor->setValue('AAE11#'.$row,'');
+
+                    }else{
+                        $templateProcessor->setValue('AAE11#'.$row,$data[$index][15]);
+                        $templateProcessor->setValue('NOTAAE11#'.$row,'');
+                    }
                     $index++;
                     if ($index < $nbLigne){
                         $templateProcessor->setValue('AAE3-2#'.$row,$data[$index][3]);

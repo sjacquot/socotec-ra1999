@@ -220,8 +220,12 @@ class WordGenerator
         // OPE + UTILS
         $templateProcessor->setValue('OPENAME', $operation->getName());
         $templateProcessor->setValue('Version', $operation->getInfo());
-        $templateProcessor->setValue('REPORTREF', $operation->getReportReference());
-        $templateProcessor->setValue('CERTREF', $operation->getCertifReference());
+        //
+        $ref = (strlen($operation->getReportReference())>0)? $operation->getReportReference():'NUMCHRONO';
+        $templateProcessor->setValue('REPORTREF', $ref);
+        $ref = (strlen($operation->getCertifReference())>0)? $operation->getCertifReference():'NUMCHRONO';
+        $templateProcessor->setValue('CERTREF', $ref);
+        //
         // Agence
         if (!is_null($operation->getAgency())){
             $templateProcessor->setValue('AGNAME',$operation->getAgency()->getName());
