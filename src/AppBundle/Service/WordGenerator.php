@@ -208,7 +208,6 @@ class WordGenerator
      * @param Operation $operation
      */
     protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
-
         // MO
         $templateProcessor->setValue('MO', $operation->getMoName());
         $templateProcessor->setValue('MOADDR', $operation->getMoAddress());

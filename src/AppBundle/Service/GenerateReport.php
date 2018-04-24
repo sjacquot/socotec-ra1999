@@ -213,7 +213,15 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('AType#'.$index, $Aerial->getTransmissionType());
         $templateProcessor->setValue('AW#'.$index, $Aerial->getWeightedStandardizedAcousticIsolation());
         $templateProcessor->setValue('AObj#'.$index, $Aerial->getObjectifRa1999());
-        $templateProcessor->setValue('APassRa1999#'.$index, $Aerial->getPassRa1999());
+//        $templateProcessor->setValue('APassRa1999#'.$index, $Aerial->getPassRa1999());
+        $passornot = $Aerial->getPassRa1999();
+        if(strpos($passornot,'NON')!==false){
+            $templateProcessor->setValue('APassRa1999#'.$index, '');
+            $templateProcessor->setValue('ANotPassRa1999#'.$index, $passornot);
+        } else {
+            $templateProcessor->setValue('APassRa1999#'.$index, $passornot);
+            $templateProcessor->setValue('ANotPassRa1999#'.$index, '');
+        }
 
         $templateProcessor->setValue('ASepWal-Nature#'.$index, $Aerial->getSeparatingNatureWall());
         $templateProcessor->setValue('ASepWal-Dub-Nature#'.$index, $Aerial->getSeparatingDubbingNatureWall());
@@ -295,9 +303,15 @@ class GenerateReport extends WordGenerator
         }
         $templateProcessor->setValue('FW#'.$index, $foreigner->getWeightedStandardizedAcousticIsolation());
         $templateProcessor->setValue('FObj#'.$index, $foreigner->getObjectifRa1999());
-        $templateProcessor->setValue('FPassRa1999#'.$index, $foreigner->getPassRa1999());
-
-
+// New red for not pass text
+        $passornot = $foreigner->getPassRa1999();
+        if(strpos($passornot,'NON')!==false){
+            $templateProcessor->setValue('FPassRa1999#'.$index, '');
+            $templateProcessor->setValue('FNotPassRa1999#'.$index, $passornot);
+        } else {
+            $templateProcessor->setValue('FPassRa1999#'.$index, $passornot);
+            $templateProcessor->setValue('FNotPassRa1999#'.$index, '');
+        }
         $ChartsFilePath = $this->container->getParameter('path_document').'/charts/';
         $Chartfilename = $ChartsFilePath.$foreigner->getFileChart();
         if(realpath($Chartfilename)){
@@ -336,7 +350,16 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->setValue('CW#'.$index, $choc->getWeightedStandardizedShockNoise());
         $templateProcessor->setValue('CObj#'.$index, $choc->getObjectifRa1999());
-        $templateProcessor->setValue('CPassRa1999#'.$index, $choc->getPassRa1999());
+//        $templateProcessor->setValue('CPassRa1999#'.$index, $choc->getPassRa1999());
+// New red for not pass text
+        $passornot = $choc->getPassRa1999();
+        if(strpos($passornot,'NON')!==false){
+            $templateProcessor->setValue('CPassRa1999#'.$index, '');
+            $templateProcessor->setValue('CNotPassRa1999#'.$index, $passornot);
+        } else {
+            $templateProcessor->setValue('CPassRa1999#'.$index, $passornot);
+            $templateProcessor->setValue('CNotPassRa1999#'.$index, '');
+        }
 
         $Results = $choc->getTestResult();
 
