@@ -81,6 +81,12 @@ class Sonometer
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $endOfValidity;
+    /**
+     * Many Sonometer have One Agency.
+     * @ORM\ManyToOne(targetEntity="Agency", inversedBy="sonometer")
+     * @ORM\JoinColumn(name="agency_id", referencedColumnName="id")
+     */
+    private $agency;
 
     /**
      * @return int
@@ -232,5 +238,21 @@ class Sonometer
     public function setEndOfValidity($endOfValidity)
     {
         $this->endOfValidity = $endOfValidity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAgency()
+    {
+        return $this->agency;
+    }
+
+    /**
+     * @param mixed $agency
+     */
+    public function setAgency($agency)
+    {
+        $this->agency = $agency;
     }
 }
