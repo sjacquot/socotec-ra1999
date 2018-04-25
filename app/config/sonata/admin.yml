@@ -12,7 +12,7 @@ sonata_admin:
         groups:
             operations:
                 on_top: true
-                label:                Operation
+                label:                Opération
                 label_catalogue:      ~
                 items:
                     - admin.operation

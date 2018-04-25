@@ -100,11 +100,11 @@ class OperationAdmin extends Admin
         if ($this->isCurrentRoute('create')) {
             $formMapper
                 ->with('Opération/Chantier', array('class' => 'col-md-9'))
-                ->add('caseReference', null, ['label' => 'Référence dossier'])
+                ->add('caseReference', null, ['label' => 'Référence dossier', 'required' => true])
                 ->add('documents', FileType::class, array('data_class' => null, 'multiple' => false, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
                 ->end()
                 ->end();
-        }
+        } else {
             $formMapper
                 ->with('Chantier', array('class' => 'col-md-9', 'tab'=>true))
                 ->with('Opération/Chantier')
@@ -208,6 +208,7 @@ class OperationAdmin extends Admin
                 ->add("OtherBET_AMOMission", null, ['label' => "Mission autre BET ou AMO"])
                 ->end()
                 ->end();
+        }
         if ($this->isCurrentRoute('edit')) {
 
             $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')

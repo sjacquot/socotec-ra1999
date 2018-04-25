@@ -45,13 +45,13 @@ services:
         class: AppBundle\Admin\CertificateAdmin
         arguments: [~, AppBundle\Entity\Certificate, ~, "@service_container", "@doctrine.orm.entity_manager"]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Certificate }
+            - { name: sonata.admin, manager_type: orm, label: Attestation RA1999 }
 
     admin.report:
         class: AppBundle\Admin\ReportAdmin
         arguments: [~, AppBundle\Entity\Report, ~, "@service_container", "@doctrine.orm.entity_manager"]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Report }
+            - { name: sonata.admin, manager_type: orm, label: Rapport de mesure détaillé }
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

@@ -87,7 +87,9 @@ class ReportAdmin extends AbstractAdmin
                     ->with("Génération du rapport de mesure détaillé")
                     ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
                 }
-               $formMapper ->add('operation', EntityType::class, [
+               $formMapper
+                   ->with("Génération du rapport de mesure détaillé")
+                   ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",
                     'query_builder' => function (EntityRepository $er){
