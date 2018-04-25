@@ -88,6 +88,11 @@ class Sonometer
      */
     private $agency;
 
+    public function __toString()
+    {
+        return $this->serialNumber;
+    }
+
     /**
      * @return int
      */

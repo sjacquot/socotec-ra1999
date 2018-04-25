@@ -530,7 +530,6 @@ class Operation
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Agency", inversedBy="operation")
      * @ORM\JoinColumn(name="agency_id", referencedColumnName="id", nullable=true)
-     * @ORM\JoinColumn(name="agency_id", referencedColumnName="id", nullable=true)
      */
     private $agency;
 

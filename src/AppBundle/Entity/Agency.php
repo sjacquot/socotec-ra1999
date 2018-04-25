@@ -71,10 +71,17 @@ class Agency
     private $sonometer;
 
     /**
+     * One Agency has Many Operation.
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="agency")
+     */
+    private $operation;
+
+    /**
      * Agency constructor.
      */
     public function __construct() {
         $this->sonometer = new ArrayCollection();
+        $this->operation = new ArrayCollection();
     }
 
     /**

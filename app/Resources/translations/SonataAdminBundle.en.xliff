@@ -444,7 +444,7 @@
             </trans-unit>
             <trans-unit id="add_new_entry">
                 <source>add_new_entry</source>
-                <target>rajouter un élément</target>
+                <target>Rajouter un élément</target>
             </trans-unit>
             <trans-unit id="link_actions">
                 <source>link_actions</source>

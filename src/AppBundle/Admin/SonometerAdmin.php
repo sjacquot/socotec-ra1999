@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 
 class SonometerAdmin extends AbstractAdmin
 {
@@ -53,17 +54,23 @@ class SonometerAdmin extends AbstractAdmin
             ->with("Sonomètre")
                 ->add('type')
                 ->add('serialNumber')
-                ->add('endOfValidity')
+                ->add('endOfValidity', DatePickerType::class, array(
+                    'required' => false,
+                    'label' => 'Fin de validité',
+                    'dp_side_by_side' => true,
+                    'dp_use_current' => true,
+                    'format' => 'dd/MM/yyyy',
+                ))
             ->end()
-            ->with("Sonomètre")
+            ->with("Préamplificateur")
                 ->add('preamplifierType')
                 ->add('preamplifierSerialNumber')
             ->end()
-            ->with("Sonomètre")
+            ->with("Micro")
                 ->add('microphoneType')
                 ->add('MicrophoneSerialNumber')
             ->end()
-            ->with("Sonomètre")
+            ->with("Calibreur")
                 ->add('calibratorType')
                 ->add('calibratorSerialNumber')
             ->end()
