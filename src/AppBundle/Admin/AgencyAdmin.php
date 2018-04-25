@@ -71,12 +71,14 @@ class AgencyAdmin  extends AbstractAdmin
                         ->add('mail', null, ['label' => 'Adresse email de contact'])
                     ->end()
                 ->end()
-
+                //TODO: only the one already in the agency
+                //TODO: change the label with all the data, look if html becon ok
                 ->with("Matériel", array('class' => 'col-md-9', 'tab'=>true))
                     ->with("Sonomètre")
                         ->add('sonometer', ModelType::class, [
                             'btn_add' =>true,
                             'multiple' => true,
+                            'expanded' => true,
                         ])
                     ->end()
                 ->end();
