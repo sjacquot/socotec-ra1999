@@ -11,9 +11,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Shock
+ * Sonometer
  *
  * @ORM\Table(name="sonometer")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SonometerRepository")
  */
 class Sonometer
 {
