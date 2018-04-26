@@ -88,7 +88,6 @@ class ReportAdmin extends AbstractAdmin
                     ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
                 }
                $formMapper
-                   ->with("Génération du rapport de mesure détaillé")
                    ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",
@@ -102,7 +101,8 @@ class ReportAdmin extends AbstractAdmin
         }else{
             if ($this->isCurrentRoute('edit')) {
                 $formMapper
-                    ->add('reportReference');
+                    ->with("Génération du rapport de mesure détaillé")
+                    ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
             }
             $formMapper
                 ->add('operation', EntityType::class, [
