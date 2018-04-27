@@ -494,6 +494,10 @@
                 <source>return_to_list_ope</source>
                 <target>Retour Liste</target>
             </trans-unit>
+            <trans-unit id="btn_add_one_to_many">
+                <source>btn_add_one_to_many</source>
+                <target>Ajouter element</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

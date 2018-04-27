@@ -245,11 +245,15 @@ class Agency
         return $this->sonometer;
     }
 
-    /**
-     * @param mixed $sonometer
-     */
-    public function setSonometer($sonometer)
+    public function addSonometer(Sonometer $sonometer)
     {
-        $this->sonometer = $sonometer;
+        $this->sonometer->add($sonometer);
+        return $this;
+    }
+
+    public function removeSonometer(Sonometer $sonometer)
+    {
+        $this->sonometer->removeElement($sonometer);
+        return $this;
     }
 }

@@ -90,7 +90,7 @@ class Sonometer
 
     public function __toString()
     {
-        return $this->serialNumber;
+        return json_encode([$this->type, $this->serialNumber]);
     }
 
     /**

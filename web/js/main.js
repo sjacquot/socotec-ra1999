@@ -66,5 +66,21 @@ $(function() {
         window.location.replace(basicUrl + '/admin/app/operation/list');
     }
 
+    $(document).on('click', '.delete_element_matos', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var type = $(this).data('type');
 
+        $.ajax({
+            url: '/delete/'+type+'/'+id,
+            type: 'DELETE',
+            success: function(result) {
+                console.log(result);
+                if(result === 'remove'){
+                    console.log($('#matos_'+type+'_'+id));
+                    $('#matos_'+type+'_'+id).remove();
+                }
+            }
+        });
+    })
 });
