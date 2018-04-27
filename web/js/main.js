@@ -82,5 +82,29 @@ $(function() {
                 }
             }
         });
-    })
+    });
+
+    /**
+     * IT WORK but when you want to chnage agnecy you need to remove all sonometer and then save
+     * TRY https://stackoverflow.com/questions/10118868/how-to-use-ajax-within-sonata-admin-forms
+     * @param value
+     *
+     * When you change company with tool selected you just need to change and validate and then add you tools
+     */
+    $('select[id*=_agency]').click(function(){
+        getsonometer($(this));
+    });
+    getsonometer($('select[id*=_agency]'));
+
+
+    function getsonometer(value) {
+        $.ajax({
+            url: $( "form[method=POST]" ).attr('action') + '&agency='+value.val(),
+            type: 'GET',
+            success: function(result) {
+                $('div[id$=sonometer]').replaceWith($(result).find("div[id$=sonometer]"));
+            }
+        });
+    }
+
 });
