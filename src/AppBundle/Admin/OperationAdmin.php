@@ -526,8 +526,8 @@ class OperationAdmin extends Admin
         $Equip = $EquipRepo->findOneByOperation($operation);
         if(!is_null($Equip)){
             $em->remove($Equip);
-        }
-        $em->flush();*/
+        }*/
+        $em->flush();
 
     }
 
