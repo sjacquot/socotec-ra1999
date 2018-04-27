@@ -66,6 +66,8 @@ $(function() {
         window.location.replace(basicUrl + '/admin/app/operation/list');
     }
 
+
+    /** pour delet dans agency */
     $(document).on('click', '.delete_element_matos', function (e) {
         e.preventDefault();
         var id = $(this).data('id');

@@ -215,9 +215,10 @@ class OperationAdmin extends Admin
             $this->agency = $this->getSubject()->getAgency();
 
             if(isset($_GET['agency'])){
-                $this->agency = $_GET['agency'];
+                if(is_numeric($_GET['agency'])){
+                    $this->agency = $_GET['agency'];
+                }
             }
-
 
             $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
                 ->where('r.operation = :operation')
