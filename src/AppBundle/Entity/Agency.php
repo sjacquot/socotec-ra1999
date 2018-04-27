@@ -64,6 +64,29 @@ class Agency
      */
     private $mail;
 
+    /**
+     * One Agency has Many Sonometer.
+     * @ORM\OneToMany(targetEntity="Sonometer", mappedBy="agency")
+     */
+    private $sonometer;
+
+    /**
+     * One Agency has Many Operation.
+     * @ORM\OneToMany(targetEntity="Operation", mappedBy="agency")
+     */
+    private $operation;
+
+    /**
+     * Agency constructor.
+     */
+    public function __construct() {
+        $this->sonometer = new ArrayCollection();
+        $this->operation = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return ($this->name)?$this->name:'';
@@ -214,4 +237,19 @@ class Agency
         $this->mail = $mail;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSonometer()
+    {
+        return $this->sonometer;
+    }
+
+    /**
+     * @param mixed $sonometer
+     */
+    public function setSonometer($sonometer)
+    {
+        $this->sonometer = $sonometer;
+    }
 }

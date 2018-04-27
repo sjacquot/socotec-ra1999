@@ -8,16 +8,15 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Agency;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelListType;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Serializer\Tests\Model;
 
 
 class AgencyAdmin  extends AbstractAdmin
@@ -62,13 +61,26 @@ class AgencyAdmin  extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper) {
 
             $formMapper
-                ->with('Agence', array('class' => 'col-md-9'))
-                ->add('name', null, ['label' => 'Nom'])
-                ->add('address', null, ['label' => 'Adresse'])
-                ->add('city', null, ['label' => 'Ville'])
-                ->add('cp', null, ['label' => 'Code postal'])
-                ->add('tel', null, ['label' => 'Téléphone'])
-                ->add('mail', null, ['label' => 'Adresse email de contact'])
+                ->with('Agence', array('class' => 'col-md-9', 'tab'=>true))
+                    ->with("Agence")
+                        ->add('name', null, ['label' => 'Nom'])
+                        ->add('address', null, ['label' => 'Adresse'])
+                        ->add('city', null, ['label' => 'Ville'])
+                        ->add('cp', null, ['label' => 'Code postal'])
+                        ->add('tel', null, ['label' => 'Téléphone'])
+                        ->add('mail', null, ['label' => 'Adresse email de contact'])
+                    ->end()
+                ->end()
+                //TODO: only the one already in the agency
+                //TODO: change the label with all the data, look if html becon ok
+                ->with("Matériel", array('class' => 'col-md-9', 'tab'=>true))
+                    ->with("Sonomètre")
+                        ->add('sonometer', ModelType::class, [
+                            'btn_add' =>true,
+                            'multiple' => true,
+                            'expanded' => true,
+                        ])
+                    ->end()
                 ->end();
     }
 

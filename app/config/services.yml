@@ -111,6 +111,13 @@ services:
             arguments: ["@service_container", '@doctrine.orm.entity_manager']
             public: true
 
+    app.admin.sonometer:
+        class: AppBundle\Admin\SonometerAdmin
+        arguments: [~, AppBundle\Entity\Sonometer, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Sonometer }
+        public: true
+
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"
           public: true
