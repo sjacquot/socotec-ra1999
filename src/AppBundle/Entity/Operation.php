@@ -552,7 +552,27 @@ class Operation
      */
     private $status = self::Draft;
 
+    /**
+     * Many Operation have Many Sonometer.
+     * @ORM\ManyToMany(targetEntity="Sonometer", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_sonometer")
+     */
+    private $sonometer;
 
+
+    /**
+     * Operation constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt= new \DateTime();
+        $this->updatedAt= new \DateTime();
+        $this->shock = new ArrayCollection();
+        $this->aerien = new ArrayCollection();
+        $this->foreigner = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->sonometer = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -1358,20 +1378,6 @@ class Operation
     {
         $this->OtherBET_AMOMission = $OtherBET_AMOMission;
     }
-
-    /**
-     * Operation constructor.
-     */
-    public function __construct()
-    {
-        $this->createdAt= new \DateTime();
-        $this->updatedAt= new \DateTime();
-        $this->shock = new ArrayCollection();
-        $this->aerien = new ArrayCollection();
-        $this->foreigner = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
-    }
-
     /**
      * Get id
      *
@@ -2005,6 +2011,22 @@ class Operation
     public function setAgency($agency)
     {
         $this->agency = $agency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSonometer()
+    {
+        return $this->sonometer;
+    }
+
+    /**
+     * @param mixed $sonometer
+     */
+    public function setSonometer($sonometer)
+    {
+        $this->sonometer = $sonometer;
     }
 
 }

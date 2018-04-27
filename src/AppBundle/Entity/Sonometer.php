@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -87,6 +88,15 @@ class Sonometer
      * @ORM\JoinColumn(name="agency_id", referencedColumnName="id")
      */
     private $agency;
+    /**
+     * Many Sonometer have Many Operation.
+     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="sonometer")
+     */
+    private $operation;
+
+    public function __construct() {
+        $this->operation = new ArrayCollection();
+    }
 
     public function __toString()
     {
