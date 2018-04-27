@@ -80,19 +80,21 @@ class AgencyAdmin  extends AbstractAdmin
                     ->add('tel', null, ['label' => 'Téléphone'])
                     ->add('mail', null, ['label' => 'Adresse email de contact'])
                 ->end()
-            ->end()
-            //TODO: only the one already in the agency
-            //TODO: change the label with all the data, look if html becon ok
-            ->with("Matériel", array('class' => 'col-md-9', 'tab'=>true))
+            ->end();
+        /** you cannot create and add materiel if the agency didn't has an id */
+        if ($this->isCurrentRoute('create')) {
+            $formMapper
+            ->with("Matériel", array('class' => 'col-md-9', 'tab' => true))
                 ->with("Sonomètre")
                     ->add('sonometer', ModelType::class, [
                         'query' => $sonometer,
-                        'btn_add' =>true,
+                        'btn_add' => true,
                         'multiple' => true,
                         'expanded' => true,
                     ])
                 ->end()
             ->end();
+        }
     }
 
     /**
@@ -167,7 +169,7 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if(isset($_GET['code']) && strpos($_GET['code'], 'sonometer')){
+        if((isset($_GET['code']) && strpos($_GET['code'], 'sonometer')) OR (isset($_GET['elementId']) && strpos($_GET['elementId'], 'sonometer'))  ){
 
             $sono = $sonoRepo->findOneBy(
                 [],
@@ -189,14 +191,14 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if ($this->isCurrentRoute('edit')) {
+        if ($this->isCurrentRoute('create')) {
             return $sonoRepo->createQueryBuilder('s')
-                ->where('s.agency = :agency')
-                ->setParameter('agency', $this->getSubject())
+                ->where('s.agency IS NULL')
                 ->getQuery();
         }
         return $sonoRepo->createQueryBuilder('s')
-            ->where('s.agency IS NULL')
+            ->where('s.agency = :agency')
+            ->setParameter('agency', $this->getSubject())
             ->getQuery();
     }
 }
