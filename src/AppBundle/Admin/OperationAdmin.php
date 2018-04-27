@@ -18,6 +18,7 @@ use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
 use AppBundle\Entity\Results;
 use AppBundle\Entity\Shock;
+use AppBundle\Entity\Sonometer;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
 use AppBundle\Service\PictureUploader;
@@ -211,11 +212,12 @@ class OperationAdmin extends Admin
         }
         if ($this->isCurrentRoute('edit')) {
 
+            $this->agency = $this->getSubject()->getAgency();
+
             $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
                 ->where('r.operation = :operation')
                 ->setParameter('operation', $this->getSubject())
                 ->orderBy('r.position')->getQuery()->getResult();
-
             $pictureOrder = [];
 
             $i = 1;
@@ -288,15 +290,33 @@ class OperationAdmin extends Admin
                         }
                     ])
                     ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
-                    ->add('agency', EntityType::class, [
-                        'label' => "Agence",
-                        'class' => Agency::class,
-                        'query_builder' => function (EntityRepository $er){
-                            return $er->createQueryBuilder('a')
-                                ->where('1 = 1');
-                        }
-                    ])
+
                 ->end()
+                ->end()
+                ->with("Agency/Materiel", array('class' => 'col-md-9', 'tab'=>true))
+                    ->with('Agency')
+                        ->add('agency', EntityType::class, [
+                            'label' => "Agence",
+                            'class' => Agency::class,
+                            'query_builder' => function (EntityRepository $er){
+                                return $er->createQueryBuilder('a')
+                                    ->where('1 = 1');
+                            }
+                        ])
+                    ->end()
+                    ->with('Agency')
+                        ->add('sonometer', EntityType::class, [
+                            'class' => Sonometer::class,
+                            'query_builder' => function (EntityRepository $er){
+                                return $er->createQueryBuilder('a')
+                                    ->where('a.agency = :agency')
+                                    ->setParameter('agency', $this->agency);
+                            },
+                            'required' => false,
+                            'multiple' => true,
+                            'expanded' => true,
+                        ])
+                    ->end()
                 ->end()
                 ->with("Plans des locaux", array('class' => 'col-md-9', 'tab'=>true))
                     ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))

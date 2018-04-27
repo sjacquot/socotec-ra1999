@@ -27,7 +27,7 @@ file that was distributed with this source code.
 
                 {% endif %}
             {% else %}
-                {% if form.children and form.children.0.vars.id matches '/.*sonometer.*/' %}
+                {% if form.vars.id matches '/.*sonometer.*/' %}
                     <table>
                         <thead>
                             <tr>

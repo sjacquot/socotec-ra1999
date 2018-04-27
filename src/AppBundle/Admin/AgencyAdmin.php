@@ -86,7 +86,7 @@ class AgencyAdmin  extends AbstractAdmin
             ->with("Matériel", array('class' => 'col-md-9', 'tab'=>true))
                 ->with("Sonomètre")
                     ->add('sonometer', ModelType::class, [
-                        'choices' => $sonometer,
+                        'query' => $sonometer,
                         'btn_add' =>true,
                         'multiple' => true,
                         'expanded' => true,
@@ -167,7 +167,7 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if(isset($_GET['elementId']) && strpos($_GET['elementId'], 'sonometer')){
+        if(isset($_GET['code']) && strpos($_GET['code'], 'sonometer')){
 
             $sono = $sonoRepo->findOneBy(
                 [],
@@ -189,10 +189,14 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
+        if ($this->isCurrentRoute('edit')) {
+            return $sonoRepo->createQueryBuilder('s')
+                ->where('s.agency = :agency')
+                ->setParameter('agency', $this->getSubject())
+                ->getQuery();
+        }
         return $sonoRepo->createQueryBuilder('s')
-            ->where('s.agency = :agency')
-            ->setParameter('agency', $this->getSubject())
-            ->getQuery()
-            ->getResult();
+            ->where('s.agency IS NULL')
+            ->getQuery();
     }
 }
