@@ -2,7 +2,7 @@
     display: none;
 }
 .skin-black .wrapper, .skin-black .main-sidebar, .skin-black .left-side {
-    background-color: #0082DE;
+        background-color: #f9fafc;
 }
 .skin-black .sidebar-menu>li:hover>a, .skin-black .sidebar-menu>li.active>a {
     color: #0082DE;
@@ -39,6 +39,9 @@ ul[id*=operationTrain] li .checkbox label, ul[id*=operationPEB] li .checkbox lab
 }
 ul[id*=picturesOrder] .icheckbox_square-blue{
     display: none!important;
+}
+section.sidebar{
+    background-color: #f9fafc;
 }
 
 @media (max-width: 767px){
