@@ -77,7 +77,6 @@ $(function() {
             url: '/delete/'+type+'/'+id,
             type: 'DELETE',
             success: function(result) {
-                console.log(result);
                 if(result === 'remove'){
                     console.log($('#matos_'+type+'_'+id));
                     $('#matos_'+type+'_'+id).remove();

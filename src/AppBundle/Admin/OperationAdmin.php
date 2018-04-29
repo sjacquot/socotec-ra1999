@@ -212,14 +212,6 @@ class OperationAdmin extends Admin
         }
         if ($this->isCurrentRoute('edit')) {
 
-            $this->agency = $this->getSubject()->getAgency();
-
-            if(isset($_GET['agency'])){
-                if(is_numeric($_GET['agency'])){
-                    $this->agency = $_GET['agency'];
-                }
-            }
-
             $pictureResult = $this->container->get('doctrine')->getEntityManager()->getRepository(Pictures::class)->createQueryBuilder('r')
                 ->where('r.operation = :operation')
                 ->setParameter('operation', $this->getSubject())
@@ -314,9 +306,19 @@ class OperationAdmin extends Admin
                         ->add('sonometer', EntityType::class, [
                             'class' => Sonometer::class,
                             'query_builder' => function (EntityRepository $er){
-                                return $er->createQueryBuilder('a')
-                                    ->where('a.agency = :agency')
-                                    ->setParameter('agency', $this->agency);
+
+                                $queryBuilder = $er->createQueryBuilder('a');
+                                $query = $queryBuilder;
+
+                                if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                                        $this->agency = $_GET['agency'];
+
+                                        $query = $queryBuilder
+                                            ->where('a.agency = :agency')
+                                            ->setParameter('agency', $this->agency);
+                                }
+
+                                return $query;
                             },
                             'required' => false,
                             'multiple' => true,
@@ -461,7 +463,6 @@ class OperationAdmin extends Admin
 
         if(isset($_POST['upload_picture'])){
             $pictures = $_POST['upload_picture'];
-            $em = $this->container->get('doctrine')->getEntityManager();
             $pictureRepo = $em->getRepository(Pictures::class);
             $i = 1;
             foreach($pictures as $picture) {
