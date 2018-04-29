@@ -94,6 +94,18 @@ class AgencyAdmin  extends AbstractAdmin
                     ])
                 ->end()
             ->end();
+        }else{
+            $formMapper
+                ->with("Matériel", array('class' => 'col-md-9', 'tab' => true))
+                ->with("Sonomètre")
+                ->add('sonometer', ModelType::class, [
+                    'query' => $sonometer, //GET all sonometer with out agency and they must seleted
+                    'btn_add' => true,
+                    'multiple' => true,
+                    'expanded' => true,
+                ])
+                ->end()
+                ->end();
         }
     }
 
@@ -166,18 +178,22 @@ class AgencyAdmin  extends AbstractAdmin
      * @throws \Exception
      */
     public function addElementOnEventBtnAdd(){
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if((isset($_GET['code']) && strpos($_GET['code'], 'sonometer')) OR (isset($_GET['elementId']) && strpos($_GET['elementId'], 'sonometer'))  ){
+        if ($this->isCurrentRoute('edite')) {
 
-            $sono = $sonoRepo->findOneBy(
-                [],
-                array('id' => 'DESC')
-            );
-            $sono->setAgency($this->getSubject());
-            $em->persist($sono);
-            $em->flush();
+            $em = $this->container->get('doctrine')->getEntityManager();
+            $sonoRepo = $em->getRepository(Sonometer::class);
+
+            if((isset($_GET['code']) && strpos($_GET['code'], 'sonometer')) OR (isset($_GET['elementId']) && strpos($_GET['elementId'], 'sonometer'))  ){
+
+                $sono = $sonoRepo->findOneBy(
+                    [],
+                    array('id' => 'DESC')
+                );
+                $sono->setAgency($this->getSubject());
+                $em->persist($sono);
+                $em->flush();
+            }
         }
     }
 
@@ -191,14 +207,14 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if ($this->isCurrentRoute('create')) {
+        if ($this->isCurrentRoute('edit')) {
             return $sonoRepo->createQueryBuilder('s')
-                ->where('s.agency IS NULL')
+                ->where('s.agency = :agency')
+                ->setParameter('agency', $this->getSubject())
                 ->getQuery();
         }
         return $sonoRepo->createQueryBuilder('s')
-            ->where('s.agency = :agency')
-            ->setParameter('agency', $this->getSubject())
+            ->where('s.agency IS NULL')
             ->getQuery();
     }
 }

@@ -53,6 +53,9 @@ file that was distributed with this source code.
                             {% for ele in form.children %}
                                 {% set sonometer = ele.vars.value|sonometer %}
                                 <tr id="matos_sonometer_{{ ele.vars.value }}">
+                                    {% if app.request.attributes.get('_route') matches '/.*_create/' %}
+                                        <td class="box_agency_creation">{{ form_widget(form) }}</td>
+                                    {% endif %}
                                     <td>{{ sonometer.type }}</td>
                                     <td>{{ sonometer.serialNumber }}</td>
                                     <td>{{ sonometer.preamplifierType }}</td>
