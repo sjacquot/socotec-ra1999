@@ -525,6 +525,7 @@ class OperationAdmin extends Admin
             ->end()
             ->end();
     }
+
     private function setFormFieldAgency(FormMapper $formMapper){
         $this->agency = $this->getSubject()->getAgency();
 
@@ -549,9 +550,19 @@ class OperationAdmin extends Admin
             ->add('sonometer', EntityType::class, [
                 'class' => Sonometer::class,
                 'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('a')
-                        ->where('a.agency = :agency')
-                        ->setParameter('agency', $this->agency);
+
+                    $queryBuilder = $er->createQueryBuilder('a');
+                    $query = $queryBuilder;
+
+                    if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                        $this->agency = $_GET['agency'];
+
+                        $query = $queryBuilder
+                            ->where('a.agency = :agency')
+                            ->setParameter('agency', $this->agency);
+                    }
+
+                    return $query;
                 },
                 'required' => false,
                 'multiple' => true,
