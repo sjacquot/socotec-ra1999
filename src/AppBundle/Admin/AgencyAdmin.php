@@ -82,7 +82,7 @@ class AgencyAdmin  extends AbstractAdmin
                 ->end()
             ->end();
         /** you cannot create and add materiel if the agency didn't has an id */
-        if ($this->isCurrentRoute('create')) {
+        if (!$this->isCurrentRoute('create')) {
             $formMapper
             ->with("Matériel", array('class' => 'col-md-9', 'tab' => true))
                 ->with("Sonomètre")
