@@ -110,13 +110,9 @@ class OperationAdmin extends Admin
             $this->setFormFieldSocotec($formMapper);
             $this->setFormFieldMO_MOE($formMapper);
             $this->setFormFieldPCCalendar($formMapper);
-        }
-        if ($this->isCurrentRoute('edit')) {
-            $this->setFormFieldPlan($formMapper);
             $this->setFormFieldAgency($formMapper);
-
+            $this->setFormFieldPlan($formMapper);
         }
-
 
     }
 
@@ -569,7 +565,7 @@ class OperationAdmin extends Admin
                 'expanded' => true,
                 'label' => "Sonomètre",
             ])
-            ->add('noiseSource', EntityType::class, [
+            ->add('noise_source', EntityType::class, [
                 'class' => NoiseSource::class,
                 'query_builder' => function (EntityRepository $er){
 
