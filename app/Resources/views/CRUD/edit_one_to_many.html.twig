@@ -76,22 +76,21 @@ file that was distributed with this source code.
                 {% elseif form.vars.id matches '/.*noise_source.*/' %}
                     <table class="table-striped socochild">
                         <thead>
-                        {% for ele in form.children %}
-                            <tr >
-                            <td colspan="4">--</td>
-<!--                                <td>Type</td>
+                            <tr>
+                            <td>Marque</td>
+                                <td>Type</td>
                                 <td>N° de série</td>
-                                <td>Action</td> -->
+                                <td>Action</td>
                             </tr>
-                        {% endfor %}
                         </thead>
                         <tbody>
                             {% for ele in form.children %}
                                 <tr  id="matos_noise_source_{{ ele.vars.value }}">
-                                <td>Marque</td>
+<!--                                <td>Marque</td>
                                 <td>Type</td>
                                 <td>N° de série</td>
-                                <td>Action</td>
+                                <td>Action</td> -->
+                                    <td colspan="4">{{ ele.vars.label }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
