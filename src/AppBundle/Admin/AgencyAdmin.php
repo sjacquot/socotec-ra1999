@@ -208,7 +208,7 @@ class AgencyAdmin  extends AbstractAdmin
      */
     public function addElementOnEventBtnAdd(){
 
-        if ($this->isCurrentRoute('edite')) {
+        if ($this->request->get('_route') == 'sonata_admin_retrieve_form_element') {
 
             $em = $this->container->get('doctrine')->getEntityManager();
             // Sonometer
@@ -251,7 +251,7 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $sonoRepo = $em->getRepository(Sonometer::class);
 
-        if ($this->isCurrentRoute('edit')) {
+        if ($this->isCurrentRoute('edit') || $this->request->get('_route') == 'sonata_admin_retrieve_form_element') {
             return $sonoRepo->createQueryBuilder('s')
                 ->where('s.agency = :agency')
                 ->setParameter('agency', $this->getSubject())
@@ -271,7 +271,7 @@ class AgencyAdmin  extends AbstractAdmin
         $em = $this->container->get('doctrine')->getEntityManager();
         $NoiseSourceRepo = $em->getRepository(NoiseSource::class);
 
-        if ($this->isCurrentRoute('edit')) {
+        if ($this->isCurrentRoute('edit') || $this->request->get('_route') == 'sonata_admin_retrieve_form_element') {
             return $NoiseSourceRepo->createQueryBuilder('s')
                 ->where('s.agency = :agency')
                 ->setParameter('agency', $this->getSubject())
