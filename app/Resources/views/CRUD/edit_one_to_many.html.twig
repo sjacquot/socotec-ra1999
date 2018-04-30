@@ -85,12 +85,19 @@ file that was distributed with this source code.
                         </thead>
                         <tbody>
                             {% for ele in form.children %}
+                                {% set noise_source = ele.vars.value|noise_source %}
                                 <tr  id="matos_noise_source_{{ ele.vars.value }}">
-<!--                                <td>Marque</td>
-                                <td>Type</td>
-                                <td>N° de série</td>
-                                <td>Action</td> -->
-                                    <td colspan="4">{{ ele.vars.label }}</td>
+                                    {% if app.request.attributes.get('_route') matches '/.*_create/' %}
+                                        <td class="box_agency_creation">{{ form_widget(form) }}</td>
+                                    {% endif %}
+                                <td>{{ noise_source.brand }}</td>
+                                <td>{{ noise_source.type }}</td>
+                                <td>{{ noise_source.serialNumber }}</td>
+                                <td>
+                                    <a href="{{ path('admin_app_noise_source_edit', {'id': ele.vars.value}) }}">Modifier</a>
+                                    <a href="{{ path('admin_app_noise_source_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="noise_source" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la source de bruit ?');">Supprimer</a>
+                                </td>
+<!--                                    <td colspan="4">{{ ele.vars.label }}</td> -->
                             </tr>
                             {% endfor %}
                         </tbody>
