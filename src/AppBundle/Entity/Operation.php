@@ -558,6 +558,12 @@ class Operation
      * @ORM\JoinTable(name="operation_sonometer")
      */
     private $sonometer;
+    /**
+     * Many Operation have Many NoiseSource.
+     * @ORM\ManyToMany(targetEntity="NoiseSource", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_noise_source")
+     */
+    private $noise_source;
 
 
     /**
@@ -572,6 +578,7 @@ class Operation
         $this->foreigner = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->sonometer = new ArrayCollection();
+        $this->noise_source = new ArrayCollection();
     }
 
     public function __toString()
@@ -2027,6 +2034,22 @@ class Operation
     public function setSonometer($sonometer)
     {
         $this->sonometer = $sonometer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNoiseSource()
+    {
+        return $this->noise_source;
+    }
+
+    /**
+     * @param mixed $noiseSource
+     */
+    public function setNoiseSource($noiseSource)
+    {
+        $this->noise_source = $noiseSource;
     }
 
 }

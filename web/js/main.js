@@ -67,7 +67,7 @@ $(function() {
     }
 
 
-    /** pour delet dans agency */
+    /** pour delete dans agency */
     $(document).on('click', '.delete_element_matos', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -94,8 +94,10 @@ $(function() {
      */
     $('select[id*=_agency]').click(function(){
         getsonometer($(this));
+        getnoise_source($(this));
     });
     getsonometer($('select[id*=_agency]'));
+    getnoise_source($('select[id*=_agency]'));
 
 
     function getsonometer(value) {
@@ -104,6 +106,15 @@ $(function() {
             type: 'GET',
             success: function(result) {
                 $('div[id$=sonometer]').replaceWith($(result).find("div[id$=sonometer]"));
+            }
+        });
+    }
+    function getnoise_source(value) {
+        $.ajax({
+            url: $( "form[method=POST]" ).attr('action') + '&agency='+value.val(),
+            type: 'GET',
+            success: function(result) {
+                $('div[id$=noise_source]').replaceWith($(result).find("div[id$=noise_source]"));
             }
         });
     }

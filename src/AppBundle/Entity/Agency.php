@@ -69,6 +69,11 @@ class Agency
      * @ORM\OneToMany(targetEntity="Sonometer", mappedBy="agency")
      */
     private $sonometer;
+    /**
+     * One Agency has Many NoiseSource.
+     * @ORM\OneToMany(targetEntity="NoiseSource", mappedBy="agency")
+     */
+    private $noise_source;
 
     /**
      * One Agency has Many Operation.
@@ -80,6 +85,7 @@ class Agency
      * Agency constructor.
      */
     public function __construct() {
+        $this->noise_source = new ArrayCollection();
         $this->sonometer = new ArrayCollection();
         $this->operation = new ArrayCollection();
     }
@@ -254,6 +260,25 @@ class Agency
     public function removeSonometer(Sonometer $sonometer)
     {
         $this->sonometer->removeElement($sonometer);
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getNoiseSource()
+    {
+        return $this->noise_source;
+    }
+
+    public function addNoiseSource(NoiseSource $noiseSource)
+    {
+        $this->noise_source->add($noiseSource);
+        return $this;
+    }
+
+    public function removeNoiseSource(NoiseSource $noiseSource)
+    {
+        $this->noise_source->removeElement($noiseSource);
         return $this;
     }
 }

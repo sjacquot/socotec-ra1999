@@ -115,7 +115,14 @@ services:
         class: AppBundle\Admin\SonometerAdmin
         arguments: [~, AppBundle\Entity\Sonometer, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Sonometer }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Sonomètre }
+        public: true
+
+    app.admin.noise_source:
+        class: AppBundle\Admin\NoiseSourceAdmin
+        arguments: [~, AppBundle\Entity\NoiseSource, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: 'Source de bruit' }
         public: true
 
     AppBundle\Service\:

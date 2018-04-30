@@ -64,18 +64,42 @@ file that was distributed with this source code.
                                     <td>{{ sonometer.MicrophoneSerialNumber }}</td>
                                     <td>{{ sonometer.calibratorType }}</td>
                                     <td>{{ sonometer.calibratorSerialNumber }}</td>
-                                    <td>{{ sonometer.endOfValidity|date }}</td>
+                                    <td>{{ sonometer.endOfValidity|date('d/m/Y') }}</td>
                                     <td>
                                         <a href="{{ path('admin_app_sonometer_edit', {'id': ele.vars.value}) }}">Modifier</a>
-                                        <a href="{{ path('admin_app_sonometer_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="sonometer" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voules vous vriament supprimer le Sonomètre?');">Supprimer</a>
+                                        <a href="{{ path('admin_app_sonometer_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="sonometer" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer le Sonomètre ?');">Supprimer</a>
                                     </td>
                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% elseif form.vars.id matches '/.*noise_source.*/' %}
+                    <table class="table-striped socochild">
+                        <thead>
+                        {% for ele in form.children %}
+                            <tr >
+                            <td colspan="4">--</td>
+<!--                                <td>Type</td>
+                                <td>N° de série</td>
+                                <td>Action</td> -->
+                            </tr>
+                        {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% for ele in form.children %}
+                                <tr  id="matos_noise_source_{{ ele.vars.value }}">
+                                <td>Marque</td>
+                                <td>Type</td>
+                                <td>N° de série</td>
+                                <td>Action</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 {% else %}
                     {{ form_widget(form) }}
                 {% endif %}
+
             {% endif %}
 
         </span>

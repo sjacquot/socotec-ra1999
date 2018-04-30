@@ -13,6 +13,7 @@ use AppBundle\Entity\Aerien;
 use AppBundle\Entity\Agency;
 use AppBundle\Entity\Certificate;
 use AppBundle\Entity\Equipement;
+use AppBundle\Entity\NoiseSource;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
@@ -567,6 +568,28 @@ class OperationAdmin extends Admin
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Sonomètre",
+            ])
+            ->add('noiseSource', EntityType::class, [
+                'class' => NoiseSource::class,
+                'query_builder' => function (EntityRepository $er){
+
+                    $queryBuilder = $er->createQueryBuilder('a');
+                    $query = $queryBuilder;
+
+                    if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                        $this->agency = $_GET['agency'];
+
+                        $query = $queryBuilder
+                            ->where('a.agency = :agency')
+                            ->setParameter('agency', $this->agency);
+                    }
+
+                    return $query;
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => "Source de bruit",
             ])
             ->end()
             ->end();
