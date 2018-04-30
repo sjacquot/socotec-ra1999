@@ -100,7 +100,14 @@ class Sonometer
 
     public function __toString()
     {
-        return json_encode([$this->type, $this->serialNumber]);
+        //return json_encode([$this->type, $this->serialNumber]);
+        $sonometer =  "Sonomètre : ".$this->type." n° : ".$this->serialNumber;
+        $sonometer .= " Préamplificateur : ".$this->preamplifierType." n° : ".$this->preamplifierSerialNumber;
+        $sonometer .= " Microphone : ".$this->microphoneType." n° : ".$this->MicrophoneSerialNumber;
+        $sonometer .= " Calibreur : ".$this->calibratorType." n° : ".$this->calibratorSerialNumber;
+        $sonometer .= " Date de validité : ".$this->endOfValidity->format("d/m/Y");
+
+        return $sonometer;
     }
 
     /**
