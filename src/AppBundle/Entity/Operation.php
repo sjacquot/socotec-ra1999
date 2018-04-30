@@ -564,6 +564,12 @@ class Operation
      * @ORM\JoinTable(name="operation_noise_source")
      */
     private $noise_source;
+    /**
+     * Many Operation have Many Shockmachine.
+     * @ORM\ManyToMany(targetEntity="Shockmachine", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_shockmachine")
+     */
+    private $shockmachine;
 
 
     /**
@@ -579,6 +585,7 @@ class Operation
         $this->pictures = new ArrayCollection();
         $this->sonometer = new ArrayCollection();
         $this->noise_source = new ArrayCollection();
+        $this->shockmachine = new ArrayCollection();
     }
 
     public function __toString()
@@ -2051,6 +2058,24 @@ class Operation
     {
         $this->noise_source = $noiseSource;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShockmachine()
+    {
+        return $this->shockmachine;
+    }
+
+    /**
+     * @param mixed $shockmachine
+     */
+    public function setShockmachine($shockmachine)
+    {
+        $this->shockmachine = $shockmachine;
+    }
+
+
 
 }
 

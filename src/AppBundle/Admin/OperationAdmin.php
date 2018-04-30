@@ -19,6 +19,7 @@ use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
 use AppBundle\Entity\Results;
 use AppBundle\Entity\Shock;
+use AppBundle\Entity\Shockmachine;
 use AppBundle\Entity\Sonometer;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
@@ -542,7 +543,7 @@ class OperationAdmin extends Admin
                 }
             ])
             ->end()
-            ->with('Agence')
+            ->with('Matériels')
             ->add('sonometer', EntityType::class, [
                 'class' => Sonometer::class,
                 'query_builder' => function (EntityRepository $er){
@@ -586,6 +587,28 @@ class OperationAdmin extends Admin
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Source de bruit",
+            ])
+            ->add('shockmachine', EntityType::class, [
+                'class' => Shockmachine::class,
+                'query_builder' => function (EntityRepository $er){
+
+                    $queryBuilder = $er->createQueryBuilder('a');
+                    $query = $queryBuilder;
+
+                    if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                        $this->agency = $_GET['agency'];
+
+                        $query = $queryBuilder
+                            ->where('a.agency = :agency')
+                            ->setParameter('agency', $this->agency);
+                    }
+
+                    return $query;
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => "Machine à chocs",
             ])
             ->end()
             ->end();

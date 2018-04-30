@@ -85,19 +85,46 @@ file that was distributed with this source code.
                         </thead>
                         <tbody>
                             {% for ele in form.children %}
-                                {% set noise_source = ele.vars.value|noise_source %}
+                                {% set noise_source = ele.vars.value|noiseSource %}
                                 <tr  id="matos_noise_source_{{ ele.vars.value }}">
                                     {% if app.request.attributes.get('_route') matches '/.*_create/' %}
                                         <td class="box_agency_creation">{{ form_widget(form) }}</td>
                                     {% endif %}
-                                <td>{{ noise_source.brand }}</td>
-                                <td>{{ noise_source.type }}</td>
-                                <td>{{ noise_source.serialNumber }}</td>
+                                <td>{{ noise_source.brand }}a</td>
+                                <td>{{ noise_source.type }}b</td>
+                                <td>{{ noise_source.serialNumber }}c</td>
                                 <td>
-                                    <a href="{{ path('admin_app_noise_source_edit', {'id': ele.vars.value}) }}">Modifier</a>
-                                    <a href="{{ path('admin_app_noise_source_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="noise_source" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la source de bruit ?');">Supprimer</a>
+                                    <a href="{{ path('admin_app_noisesource_edit', {'id': ele.vars.value}) }}">Modifier</a>
+                                    <a href="{{ path('admin_app_noisesource_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="noise_source" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la source de bruit ?');">Supprimer</a>
                                 </td>
-<!--                                    <td colspan="4">{{ ele.vars.label }}</td> -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% elseif form.vars.id matches '/.*shockmachine.*/' %}
+                    <table class="table-striped socochild">
+                        <thead>
+                            <tr>
+                            <td>Marque</td>
+                                <td>Type</td>
+                                <td>N° de série</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ele in form.children %}
+                                {% set shockmachine = ele.vars.value|shockmachine %}
+                                <tr  id="matos_noise_source_{{ ele.vars.value }}">
+                                    {% if app.request.attributes.get('_route') matches '/.*_create/' %}
+                                        <td class="box_agency_creation">{{ form_widget(form) }}</td>
+                                    {% endif %}
+                                    <td>{{ shockmachine.brand }}a</td>
+                                <td>{{ shockmachine.type }}b</td>
+                                <td>{{ shockmachine.serialNumber }}c</td>
+                                <td>
+                                    <a href="{{ path('admin_app_shockmachine_edit', {'id': ele.vars.value}) }}">Modifier</a>
+                                    <a href="{{ path('admin_app_shockmachine_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="shockmachine" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la machine à chocs ?');">Supprimer</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

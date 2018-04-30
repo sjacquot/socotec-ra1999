@@ -118,11 +118,18 @@ services:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Sonomètre }
         public: true
 
-    app.admin.noise_source:
+    app.admin.noisesource:
         class: AppBundle\Admin\NoiseSourceAdmin
         arguments: [~, AppBundle\Entity\NoiseSource, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: 'Source de bruit' }
+        public: true
+
+    app.admin.shockmachine:
+        class: AppBundle\Admin\ShockmachineAdmin
+        arguments: [~, AppBundle\Entity\Shockmachine, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: 'Machine à chocs' }
         public: true
 
     AppBundle\Service\:
