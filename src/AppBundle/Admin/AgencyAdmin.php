@@ -91,6 +91,7 @@ class AgencyAdmin  extends AbstractAdmin
                         'btn_add' => true,
                         'multiple' => true,
                         'expanded' => true,
+                        'label' => 'Sonomètre',
                     ])
                 ->end()
             ->end();
@@ -103,6 +104,7 @@ class AgencyAdmin  extends AbstractAdmin
                     'btn_add' => true,
                     'multiple' => true,
                     'expanded' => true,
+                    'label' => 'Sonomètre',
                 ])
                 ->end()
                 ->end();

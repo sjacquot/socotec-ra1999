@@ -2,12 +2,15 @@
     display: none;
 }
 .skin-black .wrapper, .skin-black .main-sidebar, .skin-black .left-side {
-        background-color: #f9fafc;
+    background-color: #f9fafc;
 }
 .skin-black .sidebar-menu>li:hover>a, .skin-black .sidebar-menu>li.active>a {
-    color: #0082DE;
+    color: #333;
     background: white;
     border-left-color: #0082DE;
+}
+.skin-black .sidebar a {
+    color: #333;
 }
 .skin-black .sidebar-form {
     border: 1px solid #0082DE;
@@ -21,15 +24,20 @@
 .box.box-primary {
     border-top-color: #0082DE;
 }
-.btn-primary {
-    background-color: #0082DE;
-    border-color: #006dde;
-}
 .logo span{
     color:black;
 }
 .logo img + span {
     width: 130px;
+}
+/* matos child table */
+.socochild{
+    width: 100%;
+
+}
+.list-unstyled{
+    position: relative;
+    left: 5%;
 }
 ul[id*=operationTrain] li, ul[id*=operationPEB] li, ul[id*=operationRoute] li, ul[id*=operationTrain] li .icheckbox_square-blue, ul[id*=operationPEB] li .icheckbox_square-blue, ul[id*=operationRoute] li .icheckbox_square-blue, ul[id*=operationTrain] li span, ul[id*=operationPEB] li span, ul[id*=operationRoute] li span{
     display: inline-block;
@@ -42,6 +50,20 @@ ul[id*=picturesOrder] .icheckbox_square-blue{
 }
 section.sidebar{
     background-color: #f9fafc;
+}
+
+.btn {
+/*    float: right; */
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.btn-primary {
+
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+    color: #fff;
 }
 
 @media (max-width: 767px){

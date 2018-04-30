@@ -86,7 +86,7 @@ $(function() {
     });
 
     /**
-     * IT WORK but when you want to chnage agnecy you need to remove all sonometer and then save
+     * IT WORK but when you want to change agnecy you need to remove all sonometer and then save
      * TRY https://stackoverflow.com/questions/10118868/how-to-use-ajax-within-sonata-admin-forms
      * @param value
      *

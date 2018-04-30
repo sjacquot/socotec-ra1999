@@ -173,7 +173,6 @@ class OperationAdmin extends Admin
             ->tab('General') // the tab call is optional
                 ->add('name', null, ['label'=>'Nom'])
                 ->add('caseReference',null,['label'=>'Référence dossier'])
-//                ->add('reportReference', null,['label'=>'Référence Rapport'])
                 ->add('measureCompany', null,['label'=>'Société'])
                 ->add('measureAuthor', null,['label'=>'Auteur(s)'])
                 ->add('info', null,['label'=>'Information'])
@@ -535,7 +534,7 @@ class OperationAdmin extends Admin
             }
         }
         $formMapper
-            ->with("Agence/Materiel", array('class' => 'col-md-9', 'tab'=>true))
+            ->with("Agence/Matériel", array('class' => 'col-md-9', 'tab'=>true))
             ->with('Agence')
             ->add('agency', EntityType::class, [
                 'label' => "Agence",
