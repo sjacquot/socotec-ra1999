@@ -131,6 +131,18 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: 'Machine à chocs' }
         public: true
+    app.admin.reverbaccessory:
+        class: AppBundle\Admin\ReverbAccessoryAdmin
+        arguments: [~, AppBundle\Entity\ReverbAccessory, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: 'Accessoire pour la mesure de durée de réverbération' }
+        public: true
+    app.admin.software:
+        class: AppBundle\Admin\SoftwareAdmin
+        arguments: [~, AppBundle\Entity\Software, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: 'Logiciels' }
+        public: true
 
     AppBundle\Service\:
           resource: "../../src/AppBundle/Service"

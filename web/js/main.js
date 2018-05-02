@@ -118,5 +118,32 @@ $(function() {
             }
         });
     }
+    function getshockmachine(value) {
+        $.ajax({
+            url: $( "form[method=POST]" ).attr('action') + '&agency='+value.val(),
+            type: 'GET',
+            success: function(result) {
+                $('div[id$=shockmachine]').replaceWith($(result).find("div[id$=shockmachine]"));
+            }
+        });
+    }
+    function getreverb_accessory(value) {
+        $.ajax({
+            url: $( "form[method=POST]" ).attr('action') + '&agency='+value.val(),
+            type: 'GET',
+            success: function(result) {
+                $('div[id$=reverb_accessory]').replaceWith($(result).find("div[id$=reverb_accessory]"));
+            }
+        });
+    }
+    function getsoftware(value) {
+        $.ajax({
+            url: $( "form[method=POST]" ).attr('action') + '&agency='+value.val(),
+            type: 'GET',
+            success: function(result) {
+                $('div[id$=software]').replaceWith($(result).find("div[id$=software]"));
+            }
+        });
+    }
 
 });

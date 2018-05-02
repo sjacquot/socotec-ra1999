@@ -60,7 +60,7 @@ class NoiseSource
 
     public function __toString()
     {
-        $noisesource =  "Source de bruit : ".$this->brand." type : ".$this->type." n° : ".$this->serialNumber;
+        $noisesource =  "Source de bruit, ".$this->brand.", type ".$this->type.", n° ".$this->serialNumber;
         return $noisesource;
     }
 

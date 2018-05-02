@@ -570,6 +570,18 @@ class Operation
      * @ORM\JoinTable(name="operation_shockmachine")
      */
     private $shockmachine;
+    /**
+     * Many Operation have Many ReverbAcessory.
+     * @ORM\ManyToMany(targetEntity="ReverbAccessory", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_reverb_accessory")
+     */
+    private $reverb_accessory;
+    /**
+     * Many Operation have Many Software.
+     * @ORM\ManyToMany(targetEntity="Software", inversedBy="operation")
+     * @ORM\JoinTable(name="operation_software")
+     */
+    private $software;
 
 
     /**
@@ -586,6 +598,8 @@ class Operation
         $this->sonometer = new ArrayCollection();
         $this->noise_source = new ArrayCollection();
         $this->shockmachine = new ArrayCollection();
+        $this->reverb_accessory = new ArrayCollection();
+        $this->software = new ArrayCollection();
     }
 
     public function __toString()
@@ -2075,6 +2089,37 @@ class Operation
         $this->shockmachine = $shockmachine;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getReverbAccessory()
+    {
+        return $this->reverb_accessory;
+    }
+
+    /**
+     * @param mixed $reverb_accessory
+     */
+    public function setReverbAccessory($reverb_accessory)
+    {
+        $this->reverb_accessory = $reverb_accessory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoftware()
+    {
+        return $this->software;
+    }
+
+    /**
+     * @param mixed $software
+     */
+    public function setSoftware($software)
+    {
+        $this->software = $software;
+    }
 
 
 }

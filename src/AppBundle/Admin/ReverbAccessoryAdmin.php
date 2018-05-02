@@ -7,24 +7,20 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class NoiseSourceAdmin extends AbstractAdmin
+class ReverbAccessoryAdmin extends AbstractAdmin
 {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('brand',null,['label'=>'marque'])
-            ->add('type')
-            ->add('serialNumber',null,['label'=>'numéro de série'])
-        ;
+            ->add('type');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('brand',null ,array('label'=>'marque'))
             ->add('type')
-            ->add('serialNumber',null,['label'=>'numéro de série'])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -38,19 +34,27 @@ class NoiseSourceAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with("Source de bruit")
-            ->add('brand',null ,array('label'=>'marque'))
-            ->add('type')
-            ->add('serialNumber',null,['label'=>'numéro de série'])
+            ->with("Accessoires")
+            ->add('type',ChoiceType::class,[
+                'label'=>'Type d\'accessoire',
+                'choices' => array(
+                    'pistolet d’alarme 6 mm' => 0,
+                    'pistolet d’alarme 9 mm' => 1,
+                    'claquoir' => 2,
+                    'ballons de baudruche' => 3
+                ),
+                'data'=> $this->getSubject()->getType(),
+                'multiple' => false,
+                'expanded' => false,
+                'mapped' => true,
+                'required' => true,
+            ])
             ->end();
     }
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('brand',null ,array('label'=>'marque'))
-            ->add('type')
-            ->add('serialNumber',null,['label'=>'numéro de série'])
-        ;
+            ->add('type',null ,array('label'=>'type'));
     }
 }

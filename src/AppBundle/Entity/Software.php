@@ -2,17 +2,16 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Shockmachine
+ * Software
  *
- * @ORM\Table(name="shockmachine")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ShockmachineRepository")
+ * @ORM\Table(name="software")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SoftwareRepository")
  */
-class Shockmachine
+class Software
 {
     /**
      * @var int
@@ -26,44 +25,45 @@ class Shockmachine
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="version", type="string", length=255)
+     */
+    private $version;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="brand", type="string", length=255)
      */
     private $brand;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="serialNumber", type="string", length=255)
-     */
-    private $serialNumber;
-
-    /**
      * Many Sonometer have One Agency.
-     * @ORM\ManyToOne(targetEntity="Agency", inversedBy="shockmachine")
+     * @ORM\ManyToOne(targetEntity="Agency", inversedBy="software")
      * @ORM\JoinColumn(name="agency_id", referencedColumnName="id")
      */
     private $agency;
     /**
      * Many Sonometer have Many Operation.
-     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="shockmachine")
+     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="software")
      */
     private $operation;
 
     public function __construct() {
         $this->operation = new ArrayCollection();
     }
-
+    /**
+     *
+    */
     public function __toString()
     {
-        $ShockMachine =  "Machine à chocs de marque ".$this->brand.", type ".$this->type.", n° ".$this->serialNumber;
-        return $ShockMachine;
+        return 'Logiciel '. $this->name.', version '.$this->version.' de la société '.$this->brand;
     }
 
     /**
@@ -77,11 +77,59 @@ class Shockmachine
     }
 
     /**
+     * Set name.
+     *
+     * @param string $name
+     *
+     * @return Software
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set version.
+     *
+     * @param string $version
+     *
+     * @return Software
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version.
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
      * Set brand.
      *
      * @param string $brand
      *
-     * @return Shockmachine
+     * @return Software
      */
     public function setBrand($brand)
     {
@@ -98,44 +146,6 @@ class Shockmachine
     public function getBrand()
     {
         return $this->brand;
-    }
-
-    /**
-     * Set type.
-     *
-     * @param string $type
-     *
-     * @return Shockmachine
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set serialNumber.
-     *
-     * @param string $serialNumber
-     *
-     * @return Shockmachine
-     */
-    public function setSerialNumber($serialNumber)
-    {
-        $this->serialNumber = $serialNumber;
-
-        return $this;
     }
 
     /**

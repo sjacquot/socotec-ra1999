@@ -79,7 +79,17 @@ class Agency
      * @ORM\OneToMany(targetEntity="Shockmachine", mappedBy="agency")
      */
     private $shockmachine;
+    /**
+     * One Agency has Many ReverbAcessory.
+     * @ORM\OneToMany(targetEntity="ReverbAccessory", mappedBy="agency")
+     */
+    private $reverb_accessory;
 
+    /**
+     * One Agency has Many Software.
+     * @ORM\OneToMany(targetEntity="Software", mappedBy="agency")
+     */
+    private $software;
     /**
      * One Agency has Many Operation.
      * @ORM\OneToMany(targetEntity="Operation", mappedBy="agency")
@@ -90,6 +100,8 @@ class Agency
      * Agency constructor.
      */
     public function __construct() {
+        $this->software = new ArrayCollection();
+        $this->reverb_accessory = new ArrayCollection();
         $this->shockmachine = new ArrayCollection();
         $this->noise_source = new ArrayCollection();
         $this->sonometer = new ArrayCollection();
@@ -304,6 +316,44 @@ class Agency
     public function removeShockmachine(Shockmachine $Shockmachine)
     {
         $this->shockmachine->removeElement($Shockmachine);
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getReverbAccessory()
+    {
+        return $this->reverb_accessory;
+    }
+
+    public function addReverbAccessory(ReverbAccessory $reverbAccessory)
+    {
+        $this->reverb_accessory->add($reverbAccessory);
+        return $this;
+    }
+
+    public function removeReverbAccessory(ReverbAccessory $reverbAccessory)
+    {
+        $this->reverb_accessory->removeElement($noiseSource);
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getSoftware()
+    {
+        return $this->software;
+    }
+
+    public function addSoftware(Software $software)
+    {
+        $this->software->add($software);
+        return $this;
+    }
+
+    public function removeSoftware(Software $software)
+    {
+        $this->software->removeElement($software);
         return $this;
     }
 }

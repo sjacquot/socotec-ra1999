@@ -18,8 +18,10 @@ use AppBundle\Entity\Operation;
 use AppBundle\Entity\Pictures;
 use AppBundle\Entity\Report;
 use AppBundle\Entity\Results;
+use AppBundle\Entity\ReverbAccessory;
 use AppBundle\Entity\Shock;
 use AppBundle\Entity\Shockmachine;
+use AppBundle\Entity\Software;
 use AppBundle\Entity\Sonometer;
 use AppBundle\Service\ExtractData;
 use AppBundle\Service\FileUploader;
@@ -609,6 +611,50 @@ class OperationAdmin extends Admin
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Machine à chocs",
+            ])
+            ->add('reverb_accessory', EntityType::class, [
+                'class' => ReverbAccessory::class,
+                'query_builder' => function (EntityRepository $er){
+
+                    $queryBuilder = $er->createQueryBuilder('a');
+                    $query = $queryBuilder;
+
+                    if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                        $this->agency = $_GET['agency'];
+
+                        $query = $queryBuilder
+                            ->where('a.agency = :agency')
+                            ->setParameter('agency', $this->agency);
+                    }
+
+                    return $query;
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => "Accessoire pour la réverbération",
+            ])
+            ->add('software', EntityType::class, [
+                'class' => Software::class,
+                'query_builder' => function (EntityRepository $er){
+
+                    $queryBuilder = $er->createQueryBuilder('a');
+                    $query = $queryBuilder;
+
+                    if(isset($_GET['agency']) && is_numeric($_GET['agency'])){
+                        $this->agency = $_GET['agency'];
+
+                        $query = $queryBuilder
+                            ->where('a.agency = :agency')
+                            ->setParameter('agency', $this->agency);
+                    }
+
+                    return $query;
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => "Logiciel",
             ])
             ->end()
             ->end();

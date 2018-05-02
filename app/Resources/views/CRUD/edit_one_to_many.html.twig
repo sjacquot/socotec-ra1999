@@ -118,12 +118,64 @@ file that was distributed with this source code.
                                     {% if app.request.attributes.get('_route') matches '/.*_create/' %}
                                         <td class="box_agency_creation">{{ form_widget(form) }}</td>
                                     {% endif %}
-                                    <td>{{ shockmachine.brand }}a</td>
-                                <td>{{ shockmachine.type }}b</td>
-                                <td>{{ shockmachine.serialNumber }}c</td>
+                                    <td>{{ shockmachine.brand }}</td>
+                                <td>{{ shockmachine.type }}</td>
+                                <td>{{ shockmachine.serialNumber }}</td>
                                 <td>
                                     <a href="{{ path('admin_app_shockmachine_edit', {'id': ele.vars.value}) }}">Modifier</a>
                                     <a href="{{ path('admin_app_shockmachine_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="shockmachine" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la machine à chocs ?');">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% elseif form.vars.id matches '/.*reverb_accessory.*/' %}
+                    <table class="table-striped socochild">
+                        <thead>
+                            <tr>
+                                <td>Type</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ele in form.children %}
+                                {% set reverbtools = ele.vars.value|reverbtools %}
+                                <tr  id="matos_reverb_accessory_{{ ele.vars.value }}">
+                                    {% if app.request.attributes.get('_route') matches '/.*_create/' %}
+                                        <td class="box_agency_creation">{{ form_widget(form) }}</td>
+                                    {% endif %}
+                                    <td>{{ reverbtools.label }}</td>
+                                <td>
+                                    <a href="{{ path('admin_app_reverbaccessory_edit', {'id': ele.vars.value}) }}">Modifier</a>
+                                    <a href="{{ path('admin_app_reverbaccessory_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="reverb_accessory" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer l\'accessoire ?');">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% elseif form.vars.id matches '/.*software.*/' %}
+                    <table class="table-striped socochild">
+                        <thead>
+                            <tr>
+                                <td>Nom</td>
+                                <td>Version</td>
+                                <td>Marque</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ele in form.children %}
+                                {% set software = ele.vars.value|software %}
+                                <tr  id="matos_software_{{ ele.vars.value }}">
+                                    {% if app.request.attributes.get('_route') matches '/.*_create/' %}
+                                        <td class="box_agency_creation">{{ form_widget(form) }}</td>
+                                    {% endif %}
+                                    <td>{{ software.name }}</td>
+                                    <td>{{ software.version }}</td>
+                                    <td>{{ software.brand }}</td>
+                                <td>
+                                    <a href="{{ path('admin_app_software_edit', {'id': ele.vars.value}) }}">Modifier</a>
+                                    <a href="{{ path('admin_app_software_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="software" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer le logiciel ?');">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}
