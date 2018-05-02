@@ -117,13 +117,17 @@ class ExtractData
             }
         }
         $Equipement = new ExtractEquipments();
-        if($Equipement->readEquipment($spreadSheet)){
-            $this->UploadEquipement($operation, $Equipement);
+        if(in_array($Equipement::sheetName,$SheetNames,true)){
+            if($Equipement->readEquipment($spreadSheet)){
+                $this->UploadEquipement($operation, $Equipement);
+            }
         }
 
         $AAE = new ExtractAAE();
-        if($AAE->readAAE($spreadSheet)) {
-            $this->UploadAAE($operation, $AAE);
+        if(in_array($AAE::sheetName,$SheetNames,true)) {
+            if ($AAE->readAAE($spreadSheet)) {
+                $this->UploadAAE($operation, $AAE);
+            }
         }
     }
 

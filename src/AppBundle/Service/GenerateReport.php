@@ -102,6 +102,13 @@ class GenerateReport extends WordGenerator
             foreach ($equipmentArray->toArray() as $equipment){
                 $this->tplGenerateEquipment($templateProcessor,$equipment);
             }
+        } else{
+            $this->fillArrayOfValues($templateProcessor,
+                ['EQ1B','EQ1C','EQ1D','EQ1E','EQ1F','EQ1G','EQ1H','EQ1I','EQ1J','EQ1K','EQ1M','EQ1N','EQ1O','EQ1P','EQ1Q','EQ1V','EQ1W','NOTEQ1W'],
+                ["NA"]);
+            $this->fillArrayOfValues($templateProcessor,
+                ['EQ2B','EQ2C','EQ2D','EQ2E','EQ2F','EQ2I','EQ2J','EQ2K','EQ2M','EQ2N','EQ2O','EQ2P','EQ2Q','EQ2V','EQ2W','NOTEQ2W'],
+                ["NA"]);
         }
 
         $aaeArray = $operation->getAae();
@@ -110,7 +117,12 @@ class GenerateReport extends WordGenerator
             foreach ($aaeArray->toArray() as $aae){
                 $this->tplGenerateAAE($templateProcessor,$aae);
             }
-        }
+        } else {
+                $this->fillArrayOfValues($templateProcessor,
+                    ['AAE','AAE1','AAE3-1','AAE5-1','AAE7-1','AAE8','AAE9','AAE10','AAE11','NOTAAE11',
+                        'AAE3-2','AAE5-2','AAE7-2','AAE3-3','AAE5-3','AAE7-3'],
+                    ["NA"]);
+                }
         $templateProcessor->setValue('DATELIST',implode(', ',$this->dateList));
         $this->tplAddPlan($templateProcessor,$operation);
 
@@ -642,7 +654,7 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('SONOM-N#'.$index,$sono->getMicrophoneSerialNumber());
         $templateProcessor->setValue('SONOC-T#'.$index,$sono->getCalibratorType());
         $templateProcessor->setValue('SONOC-N#'.$index,$sono->getCalibratorSerialNumber());
-        $templateProcessor->setValue('SONO-D#'.$index,$sono->getEndOfValidity()->format('d/m/Y'));
+        $templateProcessor->setValue('SONO-D#'.$index,$sono->getEndOfValidity()->format('m/Y'));
     }
     /**
      * @param TemplateProcessor $templateProcessor

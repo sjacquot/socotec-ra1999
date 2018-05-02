@@ -14,30 +14,30 @@ class SonometerAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('type')
-            ->add('serialNumber')
-            ->add('preamplifierType')
-            ->add('preamplifierSerialNumber')
-            ->add('microphoneType')
-            ->add('MicrophoneSerialNumber')
-            ->add('calibratorType')
-            ->add('calibratorSerialNumber')
-            ->add('endOfValidity')
+            ->add('type',null,['label'=>'type'])
+            ->add('serialNumber',null,['label'=>'N° de série'])
+            ->add('preamplifierType',null,['label'=>'Préamplificateur : type'])
+            ->add('preamplifierSerialNumber',null,['label'=>'Préamplificateur : N° de série'])
+            ->add('microphoneType',null,['label'=>'Micro : type'])
+            ->add('MicrophoneSerialNumber',null,['label'=>'Micro : N° de série'])
+            ->add('calibratorType',null,['label'=>'Calibreur : type'])
+            ->add('calibratorSerialNumber',null,['Calibreur : label'=>'N° de série'])
+            ->add('endOfValidity',null,['label'=>'Fin de validité métrologique', 'format'=> 'm/Y'])
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('type')
-            ->add('serialNumber')
-            ->add('preamplifierType')
-            ->add('preamplifierSerialNumber')
-            ->add('microphoneType')
-            ->add('MicrophoneSerialNumber')
-            ->add('calibratorType')
-            ->add('calibratorSerialNumber')
-            ->add('endOfValidity')
+            ->add('type',null,['label'=>'type'])
+            ->add('serialNumber',null,['label'=>'N° de série'])
+            ->add('preamplifierType',null,['label'=>'Préamplificateur : type'])
+            ->add('preamplifierSerialNumber',null,['label'=>'Préamplificateur : N° de série'])
+            ->add('microphoneType',null,['label'=>'Micro : type'])
+            ->add('MicrophoneSerialNumber',null,['label'=>'Micro : N° de série'])
+            ->add('calibratorType',null,['label'=>'Calibreur : type'])
+            ->add('calibratorSerialNumber',null,['Calibreur : label'=>'N° de série'])
+            ->add('endOfValidity',null,['label'=>'Fin de validité métrologique', 'format'=> 'm/Y'])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -52,27 +52,27 @@ class SonometerAdmin extends AbstractAdmin
     {
         $formMapper
             ->with("Sonomètre")
-                ->add('type')
-                ->add('serialNumber')
+                ->add('type',null,['label'=>'type'])
+                ->add('serialNumber',null,['label'=>'N° de série'])
                 ->add('endOfValidity', DatePickerType::class, array(
                     'required' => false,
-                    'label' => 'Fin de validité',
+                    'label' => 'Fin de validité métrologique',
                     'dp_side_by_side' => true,
                     'dp_use_current' => true,
-                    'format' => 'dd/MM/yyyy',
+                    'format' => 'MM/yyyy',
                 ))
             ->end()
             ->with("Préamplificateur")
-                ->add('preamplifierType')
-                ->add('preamplifierSerialNumber')
+                ->add('preamplifierType',null,['label'=>'type'])
+                ->add('preamplifierSerialNumber',null,['label'=>'N° de série'])
             ->end()
             ->with("Micro")
-                ->add('microphoneType')
-                ->add('MicrophoneSerialNumber')
+                ->add('microphoneType',null,['label'=>'type'])
+                ->add('MicrophoneSerialNumber',null,['label'=>'N° de série'])
             ->end()
             ->with("Calibreur")
-                ->add('calibratorType')
-                ->add('calibratorSerialNumber')
+                ->add('calibratorType',null,['label'=>'type'])
+                ->add('calibratorSerialNumber',null,['label'=>'N° de série'])
             ->end()
         ;
     }
@@ -80,15 +80,22 @@ class SonometerAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('type')
-            ->add('serialNumber')
-            ->add('preamplifierType')
-            ->add('preamplifierSerialNumber')
-            ->add('microphoneType')
-            ->add('MicrophoneSerialNumber')
-            ->add('calibratorType')
-            ->add('calibratorSerialNumber')
-            ->add('endOfValidity')
-        ;
+            ->with("Sonomètre")
+            ->add('type',null,['label'=>'type'])
+            ->add('serialNumber',null,['label'=>'N° de série'])
+            ->add('endOfValidity',null,['label'=>'Fin de validité métrologique', 'format'=> 'm/Y'])
+            ->end()
+            ->with("Préamplificateur")
+            ->add('preamplifierType',null,['label'=>'type'])
+            ->add('preamplifierSerialNumber',null,['label'=>'N° de série'])
+            ->end()
+            ->with("Micro")
+                ->add('microphoneType',null,['label'=>'type'])
+                ->add('MicrophoneSerialNumber',null,['label'=>'N° de série'])
+            ->end()
+            ->with("Calibreur")
+                ->add('calibratorType',null,['label'=>'type'])
+                ->add('calibratorSerialNumber',null,['label'=>'N° de série'])
+            ->end();
     }
 }

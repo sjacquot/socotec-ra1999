@@ -64,7 +64,7 @@ file that was distributed with this source code.
                                     <td>{{ sonometer.MicrophoneSerialNumber }}</td>
                                     <td>{{ sonometer.calibratorType }}</td>
                                     <td>{{ sonometer.calibratorSerialNumber }}</td>
-                                    <td>{{ sonometer.endOfValidity|date('d/m/Y') }}</td>
+                                    <td>{{ sonometer.endOfValidity|date('m/Y') }}</td>
                                     <td>
                                         <a href="{{ path('admin_app_sonometer_edit', {'id': ele.vars.value}) }}">Modifier</a>
                                         <a href="{{ path('admin_app_sonometer_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="sonometer" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer le Sonomètre ?');">Supprimer</a>
@@ -90,9 +90,9 @@ file that was distributed with this source code.
                                     {% if app.request.attributes.get('_route') matches '/.*_create/' %}
                                         <td class="box_agency_creation">{{ form_widget(form) }}</td>
                                     {% endif %}
-                                <td>{{ noise_source.brand }}a</td>
-                                <td>{{ noise_source.type }}b</td>
-                                <td>{{ noise_source.serialNumber }}c</td>
+                                <td>{{ noise_source.brand }}</td>
+                                <td>{{ noise_source.type }}</td>
+                                <td>{{ noise_source.serialNumber }}</td>
                                 <td>
                                     <a href="{{ path('admin_app_noisesource_edit', {'id': ele.vars.value}) }}">Modifier</a>
                                     <a href="{{ path('admin_app_noisesource_delete', {'id': ele.vars.value}) }}" class="delete_element_matos" data-type="noise_source" data-id="{{ ele.vars.value }}"  onclick="return confirm('Voulez vous vraiment supprimer la source de bruit ?');">Supprimer</a>
