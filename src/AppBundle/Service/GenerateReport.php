@@ -10,12 +10,17 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Aerien;
 use AppBundle\Entity\Foreigner;
+use AppBundle\Entity\NoiseSource;
 use AppBundle\Entity\Operation;
 use AppBundle\Entity\Pictures;
+use AppBundle\Entity\ReverbAccessory;
 use AppBundle\Entity\Shock;
 use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Aae;
 
+use AppBundle\Entity\Shockmachine;
+use AppBundle\Entity\Software;
+use AppBundle\Entity\Sonometer;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 
@@ -109,6 +114,70 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('DATELIST',implode(', ',$this->dateList));
         $this->tplAddPlan($templateProcessor,$operation);
 
+        $SonoArray = $operation->getSonometer();
+        $nbclone = count($SonoArray);
+        if($nbclone > 0) {
+            $templateProcessor->cloneRow("SONO", $nbclone);
+            $index = 1;
+            foreach ($SonoArray->toArray() as $Sono){
+                $this->tplGenerateSono($templateProcessor,$Sono,$index);
+                $index++;
+            }
+        } else {
+            $templateProcessor->deleteRow("SONO");
+        }
+
+        $NoiseSourceArray = $operation->getNoiseSource();
+        $nbclone = count($NoiseSourceArray);
+        if($nbclone > 0) {
+            $templateProcessor->cloneRow("NOISE", $nbclone);
+            $index = 1;
+            foreach ($NoiseSourceArray->toArray() as $NS){
+                $this->tplGenerateNoise($templateProcessor,$NS,$index);
+                $index++;
+            }
+        } else {
+            $templateProcessor->deleteRow("NOISE");
+        }
+        $ShockMachineArray = $operation->getShockmachine();
+        $nbclone = count($ShockMachineArray);
+        if($nbclone > 0) {
+            $templateProcessor->cloneRow("MAC", $nbclone);
+            $index = 1;
+            foreach ($ShockMachineArray->toArray() as $SM){
+                $this->tplGenerateShockMachine($templateProcessor,$SM,$index);
+                $index++;
+            }
+        } else {
+            $templateProcessor->deleteRow("MAC");
+        }
+        $RevAccArray = $operation->getReverbAccessory();
+        $nbclone = count($RevAccArray);
+        if($nbclone > 0) {
+            $templateProcessor->cloneRow("REVTOOL", $nbclone);
+            $index = 1;
+            foreach ($RevAccArray->toArray() as $RevAcc){
+                $this->tplGenerateReverb($templateProcessor,$RevAcc,$index);
+                $index++;
+            }
+        } else {
+            $templateProcessor->deleteRow("REVTOOL");
+        }
+        $SoftArray = $operation->getSoftware();
+        $nbclone = count($SoftArray);
+        if($nbclone > 0) {
+            $templateProcessor->cloneRow("SOFT", $nbclone);
+            $index = 1;
+            foreach ($SoftArray->toArray() as $Soft){
+                $this->tplGenerateSoft($templateProcessor,$Soft,$index);
+                $index++;
+            }
+        } else {
+            $templateProcessor->deleteRow("SOFT");
+        }
+        $templateProcessor->setValue('XLS',$operation->getDocument()->getName());
+
+
         $reportFilePath = $this->container->getParameter('path_document').'/report';
 
         $reportFilePath = realpath($reportFilePath);
@@ -119,6 +188,7 @@ class GenerateReport extends WordGenerator
         $reportFilePath .= '/'.$reportFileName;
 
         $templateProcessor->saveAs($reportFilePath);
+
         return $reportFileName;
     }
 
@@ -555,6 +625,56 @@ class GenerateReport extends WordGenerator
 
         // Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
         $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT);
+    }
+
+
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Sonometer $sono
+     * @param integer $index
+     */
+    private function tplGenerateSono(TemplateProcessor $templateProcessor, Sonometer $sono, $index){
+        $templateProcessor->setValue('SONO#'.$index,$sono->getType());
+        $templateProcessor->setValue('SONO-N#'.$index,$sono->getSerialNumber());
+        $templateProcessor->setValue('SONOP-T#'.$index,$sono->getPreamplifierType());
+        $templateProcessor->setValue('SONOP-N#'.$index,$sono->getPreamplifierSerialNumber());
+        $templateProcessor->setValue('SONOM-T#'.$index,$sono->getMicrophoneType());
+        $templateProcessor->setValue('SONOM-N#'.$index,$sono->getMicrophoneSerialNumber());
+        $templateProcessor->setValue('SONOC-T#'.$index,$sono->getCalibratorType());
+        $templateProcessor->setValue('SONOC-N#'.$index,$sono->getCalibratorSerialNumber());
+        $templateProcessor->setValue('SONO-D#'.$index,$sono->getEndOfValidity()->format('d/m/Y'));
+    }
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param NoiseSource $noise
+     * @param integer $index
+     */
+    private function tplGenerateNoise(TemplateProcessor $templateProcessor, NoiseSource $noise, $index){
+        $templateProcessor->setValue('NOISE#'.$index,$noise->__toString());
+    }
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Shockmachine $sm
+     * @param integer $index
+     */
+    private function tplGenerateShockMachine(TemplateProcessor $templateProcessor, Shockmachine $sm, $index){
+        $templateProcessor->setValue('MAC#'.$index,$sm->__toString());
+    }
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param ReverbAccessory $ra
+     * @param integer $index
+     */
+    private function tplGenerateReverb(TemplateProcessor $templateProcessor, ReverbAccessory $ra, $index){
+        $templateProcessor->setValue('REVTOOL#'.$index,$ra->getLabel());
+    }
+    /**
+     * @param TemplateProcessor $templateProcessor
+     * @param Software $soft
+     * @param integer $index
+     */
+    private function tplGenerateSoft(TemplateProcessor $templateProcessor, Software $soft, $index){
+        $templateProcessor->setValue('SOFT#'.$index,$soft->__toString());
     }
 
 }
