@@ -95,9 +95,15 @@ $(function() {
     $('select[id*=_agency]').click(function(){
         getsonometer($(this));
         getnoise_source($(this));
+        getshockmachine($(this));
+        getreverb_accessory($(this));
+        getsoftware($(this));
     });
     getsonometer($('select[id*=_agency]'));
     getnoise_source($('select[id*=_agency]'));
+    getshockmachine($('select[id*=_agency]'));
+    getreverb_accessory($('select[id*=_agency]'));
+    getsoftware($('select[id*=_agency]'));
 
 
     function getsonometer(value) {
