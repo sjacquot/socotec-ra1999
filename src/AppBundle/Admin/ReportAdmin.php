@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
@@ -49,6 +50,14 @@ class ReportAdmin extends AbstractAdmin
         $this->container = $container;
         $this->entityManager = $entityManager;
     }
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->clearExcept(['edit','create']);
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -214,7 +223,7 @@ class ReportAdmin extends AbstractAdmin
                 return 'CRUD/edit.html.twig';
                 break;
             default:
-                return parent::getTemplate($name);
+            return parent::getTemplate($name);
                 break;
         }
     }

@@ -52,15 +52,15 @@ class PictureUploader
 
         $file->move($this->targetDir, $fileName);
 
-        $picutre = new Pictures();
-        $picutre->setName($file->getClientOriginalName());
-        $picutre->setPath($fileName);
-        $picutre->setOperation($operation);
-        $picutre->setUpdated();
-        $this->entityManager->persist($picutre);
+        $picture = new Pictures();
+        $picture->setName($file->getClientOriginalName());
+        $picture->setPath($fileName);
+        $picture->setOperation($operation);
+        $picture->setUpdated();
+        $this->entityManager->persist($picture);
         $this->entityManager->flush();
 
-        return $picutre;
+        return $picture;
     }
 
     /**

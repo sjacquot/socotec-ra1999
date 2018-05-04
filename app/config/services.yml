@@ -34,6 +34,8 @@ services:
         arguments: [~, AppBundle\Entity\Operation, AppBundle:CRUD, "@service_container"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Opération }
+        calls:
+            - [addChild, ['@admin.pictures']]
 
     admin.agency:
         class: AppBundle\Admin\AgencyAdmin
@@ -52,6 +54,13 @@ services:
         arguments: [~, AppBundle\Entity\Report, ~, "@service_container", "@doctrine.orm.entity_manager"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Rapport de mesure détaillé }
+
+    admin.pictures:
+        class: AppBundle\Admin\PicturesAdmin
+        arguments: [~, AppBundle\Entity\Pictures, AppBundle:CRUD, "@service_container", "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Plan }
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

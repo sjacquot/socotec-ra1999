@@ -83,6 +83,8 @@ class OperationAdmin extends Admin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
+        $collection->remove('batch');
+        $collection->remove('export');
         $collection->add('report', $this->getRouterIdParameter().'/report');
         $collection->add('certificate', $this->getRouterIdParameter().'/certificate');
     }
@@ -162,6 +164,7 @@ class OperationAdmin extends Admin
                         ],
                     ]
                 ]);
+        $listMapper->remove('batch');
     }
 
     /**
@@ -512,7 +515,12 @@ class OperationAdmin extends Admin
         }
         $formMapper
             ->with("Plans des locaux", array('class' => 'col-md-9', 'tab'=>true))
-                ->add('picturesUploaded', FileType::class, array('data_class' => null, 'multiple' => true, 'required' => false, 'mapped' => false, 'label' => 'Ajouter une fiche de mesure'))
+                ->add('picturesUploaded', FileType::class, [
+                    'data_class' => null,
+                    'multiple' => true,
+                    'required' => false,
+                    'mapped' => false,
+                    'label' => 'Ajouter un plan'])
                 ->add('picturesOrder', ChoiceType::class, [
                     'choices' =>  $pictureOrder,
                     'required' => false,
