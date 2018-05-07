@@ -111,7 +111,7 @@ class AgencyAdmin  extends AbstractAdmin
                         'label' => 'Sonomètre',
                     ])
                 ->end()
-                ->with("Source de bruit")
+                ->with("Source de bruit", array('class' => 'col-md-6'))
                 ->add('noise_source', ModelType::class, [
                     'query' => $noise_source, //GET all sonometer with out agency and they must seleted
                     'btn_add' => true,
@@ -120,7 +120,7 @@ class AgencyAdmin  extends AbstractAdmin
                     'label' => 'Source de bruit',
                 ])
                 ->end()
-                ->with("Machine à chocs")
+                ->with("Machine à chocs", array('class' => 'col-md-6'))
                 ->add('shockmachine', ModelType::class, [
                     'query' => $shockmachine, //GET all M.a.C with out agency and they must seleted
                     'btn_add' => true,
@@ -129,7 +129,7 @@ class AgencyAdmin  extends AbstractAdmin
                     'label' => 'Machine à chocs',
                 ])
                 ->end()
-                ->with("Accessoire pour la mesure de durée de réverbération")
+                ->with("Accessoire pour la mesure de durée de réverbération", array('class' => 'col-md-6'))
                 ->add('reverb_accessory', ModelType::class, [
                     'query' => $revAcc, //GET all M.a.C with out agency and they must seleted
                     'btn_add' => true,
@@ -138,7 +138,7 @@ class AgencyAdmin  extends AbstractAdmin
                     'label' => 'Accessoire pour la mesure de durée de réverbération',
                 ])
                 ->end()
-                ->with("Logiciel")
+                ->with("Logiciel", array('class' => 'col-md-6'))
                 ->add('software', ModelType::class, [
                     'query' => $soft, //GET all M.a.C with out agency and they must seleted
                     'btn_add' => true,
@@ -149,56 +149,7 @@ class AgencyAdmin  extends AbstractAdmin
                 ->end()
             ->end();
         }
-        /*else{
-            $formMapper
-                ->with("Matériel", array('class' => 'col-md-9', 'tab' => true))
-                ->with("Sonomètre")
-                ->add('sonometer', ModelType::class, [
-                    'query' => $sonometer, //GET all sonometer with out agency and they must seleted
-                    'btn_add' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Sonomètre',
-                ])
-                ->end()
-                ->with("Source de bruit")
-                ->add('noise_source', ModelType::class, [
-                    'query' => $noise_source, //GET all sonometer with out agency and they must seleted
-                    'btn_add' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Source de bruit',
-                ])
-                ->end()
-                ->with("Machine à chocs")
-                ->add('shockmachine', ModelType::class, [
-                    'query' => $shockmachine, //GET all M.a.C with out agency and they must seleted
-                    'btn_add' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Machine à chocs',
-                ])
-                ->end()
-                ->with("Accessoire pour la mesure de durée de réverbération")
-                ->add('reverbaccessory', ModelType::class, [
-                    'query' => $revAcc, //GET all M.a.C with out agency and they must seleted
-                    'btn_add' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Accessoire pour la mesure de durée de réverbération',
-                ])
-                ->end()
-                ->with("Logiciel")
-                ->add('software', ModelType::class, [
-                    'query' => $soft, //GET all M.a.C with out agency and they must seleted
-                    'btn_add' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Logiciel',
-                ])
-                ->end()
-                ->end();
-        }*/
+
     }
 
     /**

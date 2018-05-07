@@ -40,7 +40,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 /**
  * Class OperationAdmin
@@ -521,14 +521,14 @@ class OperationAdmin extends Admin
                     'required' => false,
                     'mapped' => false,
                     'label' => 'Ajouter un plan'])
-                ->add('picturesOrder', ChoiceType::class, [
-                    'choices' =>  $pictureOrder,
-                    'required' => false,
-                    'mapped' => false,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Ordre d\'affichage des plans'
-                ])
+            ->add('picturesOrder', ChoiceType::class, [
+                'choices' =>  $pictureOrder,
+                'required' => false,
+                'mapped' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Ordre d\'affichage des plans'
+            ])
             ->end()
             ->end();
     }
