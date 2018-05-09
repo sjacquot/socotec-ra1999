@@ -90,10 +90,11 @@ class ReportAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->with("Génération du rapport de mesure détaillé");
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
             if ($this->isCurrentRoute('edit')) {
                 $formMapper
-                    ->with("Génération du rapport de mesure détaillé")
                     ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
                 }
                $formMapper
@@ -107,10 +108,9 @@ class ReportAdmin extends AbstractAdmin
                     }
                 ])
             ;
-        }else{
+        } else {
             if ($this->isCurrentRoute('edit')) {
                 $formMapper
-                    ->with("Génération du rapport de mesure détaillé")
                     ->add('reportReference',null ,['label'=>'Référence du rapport de mesure détaillé','required' => false]);
             }
             $formMapper
@@ -119,6 +119,8 @@ class ReportAdmin extends AbstractAdmin
                 ])
             ;
         }
+        $formMapper->end();
+
     }
 
     /**

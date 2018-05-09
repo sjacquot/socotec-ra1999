@@ -81,10 +81,14 @@ class CertificateAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->with("Génération de l'attestation RA1999");
         if(isset($_GET['operation']) && is_numeric($_GET['operation'])) {
+            if ($this->isCurrentRoute('edit')) {
+                $formMapper
+                    ->add('certifReference', null, ['label' => 'Référence de l\'attestation RA1999', 'required' => false]);
+            }
             $formMapper
-                ->with("Génération de l'attestation RA1999")
-//                ->add('certifReference',null,['label' => "Référence de l'attestation RA1999"])
                 ->add('operation', EntityType::class, [
                     'class' => Operation::class,
                     'label' => "Nom de l'Opération/Chantier",
@@ -93,17 +97,19 @@ class CertificateAdmin extends AbstractAdmin
                             ->where('o.id = :id')
                             ->setParameter('id', $_GET['operation']);
                     }
-                ])
-                ->end()
-            ;
-        }else{
+                ]);
+        } else {
+            if ($this->isCurrentRoute('edit')) {
+                $formMapper
+                    ->add('certifReference', null, ['label' => 'Référence de l\'attestation RA1999', 'required' => false]);
+            }
             $formMapper
-                ->add('certifReference')
-                ->add('operation', EntityType::class, [
-                    'class' => Operation::class,
-                ])
-            ;
-        }
+                    ->add('operation', EntityType::class, [
+                        'class' => Operation::class,
+                    ]);
+            }
+        $formMapper->end();
+
     }
 
     /**
