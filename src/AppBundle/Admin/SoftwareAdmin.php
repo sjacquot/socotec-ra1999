@@ -56,7 +56,7 @@ class SoftwareAdmin extends AbstractAdmin
             ])
             ->add('version')
             ->add('brand',ChoiceType::class,[
-                'label'=>'Nom',
+                'label'=>'Marque',
                 'choices' => array(
                     'NORSONIC' => 'NORSONIC',
                     '01dB-acoem' => '01dB-acoem',

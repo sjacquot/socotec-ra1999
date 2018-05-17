@@ -28,7 +28,7 @@ class ReverbAccessory
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
-    private $choices =  array('pistolet d’alarme 6 mm', 'pistolet d’alarme 9 mm', 'claquoir','ballons de baudruche');
+    private $choices =  array('pistolet d’alarme 6 mm', 'pistolet d’alarme 9 mm', 'claquoir','ballons de baudruche', 'source de bruit rose');
     private $label;
     /**
      * Many ReverbAcessory have One Agency.

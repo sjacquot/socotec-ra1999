@@ -41,7 +41,8 @@ class ReverbAccessoryAdmin extends AbstractAdmin
                     'pistolet d’alarme 6 mm' => 0,
                     'pistolet d’alarme 9 mm' => 1,
                     'claquoir' => 2,
-                    'ballons de baudruche' => 3
+                    'ballons de baudruche' => 3,
+                    'source de bruit rose' => 4
                 ),
                 'data'=> $this->getSubject()->getType(),
                 'multiple' => false,

@@ -105,7 +105,7 @@ class Sonometer
         $sonometer .= " Préamplificateur : ".$this->preamplifierType." n° : ".$this->preamplifierSerialNumber;
         $sonometer .= " Microphone : ".$this->microphoneType." n° : ".$this->MicrophoneSerialNumber;
         $sonometer .= " Calibreur : ".$this->calibratorType." n° : ".$this->calibratorSerialNumber;
-        $sonometer .= " Date de validité : ".$this->endOfValidity->format("d/m/Y");
+        $sonometer .= " Date de validité : ".$this->endOfValidity->format("m/Y");
 
         return $sonometer;
     }
