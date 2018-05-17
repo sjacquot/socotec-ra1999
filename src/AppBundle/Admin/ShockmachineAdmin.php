@@ -15,7 +15,7 @@ class ShockmachineAdmin extends AbstractAdmin
         $datagridMapper
             ->add('brand',null ,array('label'=>'marque'))
             ->add('type')
-            ->add('serialNumber',null ,array('label'=>'Numéroe de série'))
+            ->add('serialNumber',null ,array('label'=>'Numéro de série'))
         ;
     }
 
@@ -24,7 +24,7 @@ class ShockmachineAdmin extends AbstractAdmin
         $listMapper
             ->add('brand',null ,array('label'=>'marque'))
             ->add('type')
-            ->add('serialNumber',null ,array('label'=>'Numéroe de série'))
+            ->add('serialNumber',null ,array('label'=>'Numéro de série'))
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -41,7 +41,7 @@ class ShockmachineAdmin extends AbstractAdmin
             ->with("Machine à chocs")
             ->add('brand',null ,array('label'=>'marque'))
             ->add('type')
-            ->add('serialNumber',null ,array('label'=>'Numéroe de série'))
+            ->add('serialNumber',null ,array('label'=>'Numéro de série'))
             ->end();
     }
 
@@ -50,7 +50,7 @@ class ShockmachineAdmin extends AbstractAdmin
         $showMapper
             ->add('brand',null ,array('label'=>'marque'))
             ->add('type')
-            ->add('serialNumber',null ,array('label'=>'Numéroe de série'))
+            ->add('serialNumber',null ,array('label'=>'Numéro de série'))
         ;
     }
 }
