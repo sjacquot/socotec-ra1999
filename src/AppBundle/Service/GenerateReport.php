@@ -577,7 +577,6 @@ class GenerateReport extends WordGenerator
         $imagick = new \Imagick();
         $imagick->readImage($pdfFile);
         //$this->autoRotateImage($imagick);
-        $imagick->rotateimage("#000", 90);
         $imagick->flattenImages();
         $imagick->writeImages($pdfFile.'.jpg',false);
         $index = 0;
