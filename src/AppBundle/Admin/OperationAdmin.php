@@ -150,7 +150,7 @@ class OperationAdmin extends Admin
                     ->add('caseReference',null,['label'=>'Référence dossier'])
                     ->add('measureAuthor',null,['label'=>'Auteur(s)'])
                     ->add('measureDate','date',['label'=>'Date de la mesure', 'format'=> 'd/m/Y'])
-                    ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig',null,'label'=>'Fiche de mesure (XLS)'))
+                    ->add('document', 'string', array('template' => 'LIST/list_url_upload_file.html.twig',null,'label'=>'Fiche de mesure (XLSM)'))
                     ->add('_action', null, [
                     'actions' => [
                         'show' => [],
@@ -186,7 +186,7 @@ class OperationAdmin extends Admin
                 ->add('measureReport', null,['label'=>'Rapport de mesure'])
                 ->add('measureCert', null,['label'=>'Attestation'])
                 ->add('measureDate', null,['label'=>'Date de mesure'])
-                ->add('document', null,['label'=>'Fiche de mesure (XLS)'])
+                ->add('document', null,['label'=>'Fiche de mesure (XLSM)'])
                 ->add('status', null,['label'=>'Etat'])
             ->end()
         ;
