@@ -565,7 +565,6 @@ class GenerateReport extends WordGenerator
         } else {
             $templateProcessor->setValue('PLAN',"Aucun plan fourni.");
         }
-        die();
     }
 
     /**
@@ -577,16 +576,10 @@ class GenerateReport extends WordGenerator
     private function generateImagesFromPDF($pdfFile){
         $imagick = new \Imagick();
         $imagick->readImage($pdfFile);
-        echo 'ORIG '.$pdfFile.'<br>';
-        echo '<pre>';
-        var_dump($imagick->getSize());
-        echo '</pre>';
         //$this->autoRotateImage($imagick);
         $imagick->rotateimage("#FFF", 90);
         $imagick->flattenImages();
         $imagick->trimImage(0);
-        echo 'Image W '.$imagick->getImageWidth().'<br>';
-        echo 'Image H '.$imagick->getImageHeight().'<br>';
         //$imagick->writeImages($pdfFile.'.jpg',false);
         $imagick->writeImages($pdfFile.'.png',false);
 
