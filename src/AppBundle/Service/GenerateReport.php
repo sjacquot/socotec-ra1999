@@ -577,15 +577,14 @@ class GenerateReport extends WordGenerator
     private function generateImagesFromPDF($pdfFile){
         $imagick = new \Imagick();
         $imagick->readImage($pdfFile);
+        echo 'ORIG '.$pdfFile.'<br>';
+        echo 'ORIG W '.$imagick->getImageWidth().'<br>';
+        echo 'ORIG H '.$imagick->getImageHeight().'<br>';
         //$this->autoRotateImage($imagick);
         $imagick->rotateimage("#FFF", 90);
         $imagick->flattenImages();
-        echo 'Image '.$pdfFile.'.png'.'<br>';
         echo 'Image W '.$imagick->getImageWidth().'<br>';
         echo 'Image H '.$imagick->getImageHeight().'<br>';
-        echo '<pre>';
-        var_dump($imagick->getImageChannelRange());
-        echo '</pre>';
         //$imagick->writeImages($pdfFile.'.jpg',false);
         $imagick->writeImages($pdfFile.'.png',false);
 
