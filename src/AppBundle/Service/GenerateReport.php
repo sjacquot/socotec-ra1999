@@ -579,16 +579,19 @@ class GenerateReport extends WordGenerator
         //$this->autoRotateImage($imagick);
         $imagick->rotateimage("#FFF", 90);
         $imagick->flattenImages();
-        $imagick->writeImages($pdfFile.'.jpg',false);
+        //$imagick->writeImages($pdfFile.'.jpg',false);
         $imagick->writeImages($pdfFile.'.png',false);
         $index = 0;
         $result = [];
-        while(file_exists($pdfFile.'-'.$index.'.jpg')){
-            $result[] = $this->getImageBestFitParameters($pdfFile.'-'.$index.'.jpg',18,24);
+        //while(file_exists($pdfFile.'-'.$index.'.jpg')){
+        while(file_exists($pdfFile.'-'.$index.'.png')){
+//            $result[] = $this->getImageBestFitParameters($pdfFile.'-'.$index.'.jpg',18,24);
+            $result[] = $this->getImageBestFitParameters($pdfFile.'-'.$index.'.png',18,24);
             $index++;
         }
         if ($index==0){
-            $result[] = $this->getImageBestFitParameters($pdfFile.'.jpg',18,24);
+           // $result[] = $this->getImageBestFitParameters($pdfFile.'.jpg',18,24);
+            $result[] = $this->getImageBestFitParameters($pdfFile.'.png',18,24);
         }
         return $result;
     }
@@ -624,15 +627,15 @@ class GenerateReport extends WordGenerator
 
         switch($orientation) {
             case \imagick::ORIENTATION_BOTTOMRIGHT:
-                $image->rotateimage("#000", 180); // rotate 180 degrees
+                $image->rotateimage("#FFF", 180); // rotate 180 degrees
                 break;
 
             case \imagick::ORIENTATION_RIGHTTOP:
-                $image->rotateimage("#000", 90); // rotate 90 degrees CW
+                $image->rotateimage("#FFF", 90); // rotate 90 degrees CW
                 break;
 
             case \imagick::ORIENTATION_LEFTBOTTOM:
-                $image->rotateimage("#000", -90); // rotate 90 degrees CCW
+                $image->rotateimage("#FFF", -90); // rotate 90 degrees CCW
                 break;
         }
 
