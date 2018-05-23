@@ -565,6 +565,7 @@ class GenerateReport extends WordGenerator
         } else {
             $templateProcessor->setValue('PLAN',"Aucun plan fourni.");
         }
+        die();
     }
 
     /**
@@ -581,6 +582,13 @@ class GenerateReport extends WordGenerator
         $imagick->flattenImages();
         //$imagick->writeImages($pdfFile.'.jpg',false);
         $imagick->writeImages($pdfFile.'.png',false);
+        echo 'Image '.$pdfFile.'.png'.'<br>';
+        echo 'Image W'.$imagick->getImageWidth().'<br>';
+        echo 'Image H'.$imagick->getImageHeight().'<br>';
+        $clip = $imagick->getImageClipMask();
+        echo 'Image W'.$clip->getImageWidth().'<br>';
+        echo 'Image H'.$clip->getImageHeight().'<br>';
+
         $index = 0;
         $result = [];
         //while(file_exists($pdfFile.'-'.$index.'.jpg')){
