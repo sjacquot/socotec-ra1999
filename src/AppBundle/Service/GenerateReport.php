@@ -583,9 +583,6 @@ class GenerateReport extends WordGenerator
         echo 'Image '.$pdfFile.'.png'.'<br>';
         echo 'Image W '.$imagick->getImageWidth().'<br>';
         echo 'Image H '.$imagick->getImageHeight().'<br>';
-        $imagick->clipImage();
-        echo 'Clip W '.$imagick->getImageWidth().'<br>';
-        echo 'Clip H '.$imagick->getImageHeight().'<br>';
         echo '<pre>';
         var_dump($imagick->getImageChannelRange());
         echo '</pre>';
