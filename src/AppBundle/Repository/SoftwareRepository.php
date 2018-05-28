@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Software;
+use AppBundle\Entity\Operation;
+
 /**
  * SoftwareRepository
  *
@@ -10,4 +13,23 @@ namespace AppBundle\Repository;
  */
 class SoftwareRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findFirstByOperationAgency(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Software::class)
+            ->createQueryBuilder('s')
+            ->where('s.agency = :operationAgency')
+            ->setMaxResults(1)
+            ->setParameters(
+                [
+                    'operationAgency' => $operation->getAgency(),
+                ]
+            )
+            ->getQuery()
+            ->getResult();
+    }
 }

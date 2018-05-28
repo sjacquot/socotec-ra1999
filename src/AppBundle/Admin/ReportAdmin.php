@@ -203,7 +203,7 @@ class ReportAdmin extends AbstractAdmin
      */
     public function createReport($operation){
         $em = $this->entityManager;
-        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation, $this->entityManager);
+        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
 
         $document = $operation->getDocument();
         $document->setPathReport($pathDocReport);

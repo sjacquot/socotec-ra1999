@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\ReverbAccessory;
+use AppBundle\Entity\Operation;
+
 /**
  * ReverbAccessoryRepository
  *
@@ -10,4 +13,24 @@ namespace AppBundle\Repository;
  */
 class ReverbAccessoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findFirstByOperationAgency(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(ReverbAccessory::class)
+            ->createQueryBuilder('RA')
+            ->where('RA.agency = :operationAgency')
+            ->setMaxResults(1)
+            ->setParameters(
+                [
+                    'operationAgency' => $operation->getAgency(),
+                ]
+            )
+            ->getQuery()
+            ->getResult();
+    }
+
 }

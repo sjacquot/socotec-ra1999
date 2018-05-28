@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\NoiseSource;
+use AppBundle\Entity\Operation;
+
 /**
  * NoiseSourceRepository
  *
@@ -10,4 +13,24 @@ namespace AppBundle\Repository;
  */
 class NoiseSourceRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param Operation $operation
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findFirstByOperationAgency(Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(NoiseSource::class)
+            ->createQueryBuilder('NS')
+            ->where('NS.agency = :operationAgency')
+            ->setMaxResults(1)
+            ->setParameters(
+                [
+                    'operationAgency' => $operation->getAgency(),
+                ]
+            )
+            ->getQuery()
+            ->getResult();
+    }
+
 }

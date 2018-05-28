@@ -35,10 +35,6 @@ class GenerateReport extends WordGenerator
      * @var
      */
     private $ressourcepath;
-    /**
-     * @var
-     */
-    private $EnityManager;
 
     /**
      * @param Operation $operation
@@ -47,11 +43,10 @@ class GenerateReport extends WordGenerator
      * @throws \PhpOffice\PhpWord\Exception\CreateTemporaryFileException
      * @throws \PhpOffice\PhpWord\Exception\Exception
      */
-    public function generateReport(Operation $operation, EntityManager $em)
+    public function generateReport(Operation $operation)
     {
         $templateFile = $this->container->getParameter('path_template_report');
         $templateFile = realpath($templateFile);
-        $this->entityManager = $em;
 
         $this->ressourcepath = dirname($templateFile);
         $templateProcessor = new TemplateProcessor($templateFile);
@@ -142,7 +137,13 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
-            $templateProcessor->deleteRow("SONO");
+            $SonoArray = $this->entityManager->getRepository(Sonometer::class)->findFirstByOperationAgency($operation);
+            if (count($SonoArray)>0){
+                $templateProcessor->cloneRow("SONO", 1);
+                $this->tplGenerateSono($templateProcessor,$SonoArray[0],1);
+            }else {
+                $templateProcessor->deleteRow("SONO");
+            }
         }
 
         $NoiseSourceArray = $operation->getNoiseSource();
@@ -155,7 +156,13 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
-            $templateProcessor->deleteRow("NOISE");
+            $NoiseSourceArray = $this->entityManager->getRepository(NoiseSource::class)->findFirstByOperationAgency($operation);
+            if (count($NoiseSourceArray)>0){
+                $templateProcessor->cloneRow("NOISE", 1);
+                $this->tplGenerateNoise($templateProcessor,$NoiseSourceArray[0],1);
+            }else {
+                $templateProcessor->deleteRow("NOISE");
+            }
         }
         $ShockMachineArray = $operation->getShockmachine();
         $nbclone = count($ShockMachineArray);
@@ -167,8 +174,13 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
-
-            $templateProcessor->deleteRow("MAC");
+            $ShockMachineArray = $this->entityManager->getRepository(Shockmachine::class)->findFirstByOperationAgency($operation);
+            if (count($ShockMachineArray)>0){
+                $templateProcessor->cloneRow("MAC", 1);
+                $this->tplGenerateShockMachine($templateProcessor,$ShockMachineArray[0],1);
+            }else {
+                $templateProcessor->deleteRow("MAC");
+            }
         }
         $RevAccArray = $operation->getReverbAccessory();
         $nbclone = count($RevAccArray);
@@ -180,7 +192,13 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
-            $templateProcessor->deleteRow("REVTOOL");
+            $RevAccArray = $this->entityManager->getRepository(ReverbAccessory::class)->findFirstByOperationAgency($operation);
+            if (count($RevAccArray)>0){
+                $templateProcessor->cloneRow("REVTOOL", 1);
+                $this->tplGenerateReverb($templateProcessor,$RevAccArray[0],1);
+            }else {
+                $templateProcessor->deleteRow("REVTOOL");
+            }
         }
         $SoftArray = $operation->getSoftware();
         $nbclone = count($SoftArray);
@@ -192,7 +210,13 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
-            $templateProcessor->deleteRow("SOFT");
+            $SoftArray = $this->entityManager->getRepository(Software::class)->findFirstByOperationAgency($operation);
+            if (count($SoftArray)>0){
+                $templateProcessor->cloneRow("SOFT", 1);
+                $this->tplGenerateSoft($templateProcessor,$SoftArray[0],1);
+            }else {
+                $templateProcessor->deleteRow("SOFT");
+            }
         }
         $templateProcessor->setValue('XLS',$operation->getDocument()->getName());
 
