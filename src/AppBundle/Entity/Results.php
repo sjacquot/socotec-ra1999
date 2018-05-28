@@ -11,8 +11,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Results
+ * \class Results
+ * Results Manage Manage DB I/O For results data \n
+ * ExcelSheet : Résultats \n
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM : \n
  * @ORM\Table(name="results")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ResultsRepository")
  */

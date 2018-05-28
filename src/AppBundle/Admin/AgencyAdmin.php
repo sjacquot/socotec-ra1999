@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Tests\Model;
 
 
 /**
- * Class AgencyAdmin
+ * \class AgencyAdmin
  * @package AppBundle\Admin
  */
 class AgencyAdmin  extends AbstractAdmin

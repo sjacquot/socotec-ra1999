@@ -24,7 +24,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 
 /**
- * Class AgencyAdmin
+ * \class  PictureAdmin
  * @package AppBundle\Admin
  */
 class PicturesAdmin  extends AbstractAdmin

@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\Collection;
 
 
 /**
- * Agency
+ * \class Agency
+ * Manage Database I/O for Agency\n
  *
  * @ORM\Table(name="agency")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AgencyRepository")

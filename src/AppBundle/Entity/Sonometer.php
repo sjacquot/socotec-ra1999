@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Sonometer
+ * \class Sonometer
  *
  * @ORM\Table(name="sonometer")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SonometerRepository")

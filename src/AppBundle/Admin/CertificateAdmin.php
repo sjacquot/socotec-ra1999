@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Class CertificateAdmin
+ * \class CertificateAdmin
  * @package AppBundle\Admin
  */
 class CertificateAdmin extends AbstractAdmin

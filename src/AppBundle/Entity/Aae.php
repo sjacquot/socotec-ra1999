@@ -2,11 +2,18 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Repository\AaeRepository;
+use AppBundle\Service\ExtractAAE;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Aae
+ * \class Aae
+ * AAE Manage DB I/O For AAE data : "Aire d'Absorption Equivalente" \n
+ * ExcelSheet : AAE \n
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM : \n
  * @ORM\Table(name="aae")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AaeRepository")
  */

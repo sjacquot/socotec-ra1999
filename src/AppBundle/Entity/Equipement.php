@@ -5,8 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Equipement
+ * \class Equipement
+ * Equipement Manage Manage DB I/O For Equipement data \n
+ * ExcelSheet : EQUIPEMENTS \n
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM : \n
  * @ORM\Table(name="equipement")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EquipementRepository")
  */

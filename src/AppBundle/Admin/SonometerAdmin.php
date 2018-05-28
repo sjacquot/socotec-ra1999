@@ -9,6 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 
+/**
+ * \class SonometerAdmin
+ * @package AppBundle\Admin
+ */
 class SonometerAdmin extends AbstractAdmin
 {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

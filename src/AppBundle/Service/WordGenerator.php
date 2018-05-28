@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class WordGenerator
+ * \class WordGenerator
  * @package AppBundle\Service
  */
 class WordGenerator

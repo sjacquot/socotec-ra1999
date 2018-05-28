@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Pictures
+ * \class Pictures
  *
  * @ORM\Table(name="pictures")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PicturesRepository")

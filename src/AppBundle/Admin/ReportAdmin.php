@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Class ReportAdmin
+ * \class ReportAdmin
  * @package AppBundle\Admin
  */
 class ReportAdmin extends AbstractAdmin
@@ -203,7 +203,7 @@ class ReportAdmin extends AbstractAdmin
      */
     public function createReport($operation){
         $em = $this->entityManager;
-        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation);
+        $pathDocReport = $this->container->get('app.generate_report')->generateReport($operation, $this->entityManager);
 
         $document = $operation->getDocument();
         $document->setPathReport($pathDocReport);

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Deal
+ * \class Document
  *
  * @ORM\Table(name="document")
  * @ORM\Entity

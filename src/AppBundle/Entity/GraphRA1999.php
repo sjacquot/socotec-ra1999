@@ -15,28 +15,44 @@ require_once ('../../../vendor/jpgraph/jpgraph/lib/jpgraph/src/themes/UniversalT
 
 use JpGraph\JpGraph;
 
+/**
+ * \class GraphRA1999
+ * Create Graph Images from A(#), F(#), C(#) data
+ * Curve SRC Is Acoustique Measure
+ * Curve Template Is calculated from dynamique Template Curve according to Curve SRC
+ *
+ */
 class GraphRA1999
 {
-
+    /**
+     * @var array
+     */
     private $Settings =
         ["A" =>
-            ["Width"=>464,"Height"=>841,
+            ["Width"=>464, "Height"=>841,
             "title" => "Isolement acoustique standardise DnT",
             "Gabarit"=>['title'=>'Gabarit ISO 717-1']],
         "F" =>
-            ["Width"=>464,"Height"=>841,
+            ["Width"=>464, "Height"=>841,
                 "title" => "Isolement acoustique standardise DnT",
                 "Gabarit"=>['title'=>'Gabarit ISO 717-1']],
         "C" =>
-            ["Width"=>464,"Height"=>841,
+            ["Width"=>464, "Height"=>841,
                 "title" => "Niveau du bruit de choc standardise L'nT",
                 "Gabarit"=>['title'=>'Gabarit ISO 717-2']]];
+    /**
+     * @var string A|F|C
+     */
     private $typeGraph;
     private $Graph;
+    /**
+     * @var JpGraph
+     */
     private $PathCharts;
 
     /**
      * GraphRA1999 constructor.
+     * @param $pathCharts string Path to store generated images
      */
     public function __construct($pathCharts)
     {
@@ -44,7 +60,11 @@ class GraphRA1999
 
     }
 
-
+    /**
+     * Create Graph Image file BAI A(#)
+     * @param null $data
+     * @return bool|null
+     */
     public function createA($data = null)
     {
         if (!is_null($data)){
@@ -54,6 +74,11 @@ class GraphRA1999
             return $data;
         } else return false;
     }
+    /**
+     * Create Graph Image file BAE F(#)
+     * @param null $data
+     * @return bool|null
+     */
     public function createF($data = null)
     {
         if (!is_null($data)){
@@ -64,6 +89,11 @@ class GraphRA1999
         } else return false;
 
     }
+    /**
+     * Create Graph Image file BC C(#)
+     * @param null $data
+     * @return bool|null
+     */
     public function createC($data = null)
     {
         if (!is_null($data)){
@@ -73,6 +103,13 @@ class GraphRA1999
             return $data;
         } else return false;
     }
+
+    /**
+     * generate Graph image from data and settings
+     * @param $SettingsGraph
+     * @param $data
+     * @return string file path
+     */
     private function create($SettingsGraph, $data){
 
         JpGraph::load();
@@ -133,6 +170,11 @@ class GraphRA1999
 
     }
 
+    /**
+     * Calculate Template Curve for BAI $data
+     * @param $data array of SRC data
+     * @return array Template data
+     */
     private function CalcTemplateCurveA($data){
         $maxi = 0;
         for($index = 0;$index<=112;$index++){
@@ -147,14 +189,32 @@ class GraphRA1999
         }
         return $this->getTemplateACurve($maxi);
     }
+
+    /**
+     * Returns dynamique BAI template data at $start (in Decibel value for 500Hz)
+     * @param $start
+     * @return array
+     */
     private function getTemplateACurve($start){
         return [$start-16,$start-7,$start,$start+3,$start+4];
     }
 
+
+    /**
+     * Calculate Template Curve for BAE $data
+     * @param $data array of SRC data
+     * @return array Template data
+     */
     private function CalcTemplateCurveF($data){
         return $this->CalcTemplateCurveA($data);
     }
 
+
+    /**
+     * Calculate Template Curve for BC $data
+     * @param $data array of SRC data
+     * @return array Template data
+     */
     private function CalcTemplateCurveC($data){
         $min = null;
         for($index = 0;$index<=105&&is_null($min);$index++) {
@@ -170,6 +230,11 @@ class GraphRA1999
         return $this->getTemplateCurveC($min);
     }
 
+    /**
+     * Returns dynamique BC template data from $start (in Decibel value for 500Hz)
+     * @param $start
+     * @return array
+     */
     private function getTemplateCurveC($start){
         return [$start+2,$start+2,$start,$start-3,$start-16];
     }

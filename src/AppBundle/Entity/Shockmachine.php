@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Shockmachine
+ * \class Shockmachine
  *
  * @ORM\Table(name="shockmachine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ShockmachineRepository")

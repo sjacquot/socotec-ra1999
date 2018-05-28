@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * NoiseSource
+ * \class NoiseSource
  *
  * @ORM\Table(name="noise_source")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NoiseSourceRepository")

@@ -8,9 +8,8 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
-
 /**
- * Class Operation
+ * \class Operation
  *
  * @ORM\Table(name="operation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OperationRepository")

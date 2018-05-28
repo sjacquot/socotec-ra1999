@@ -5,8 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Shock
+ * \class Shock
+ * Shock Manage DB I/O For BC data : "Bruit de Chocs" \n
+ * Feuille de calcul : C(#) \n
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM : \n
  * @ORM\Table(name="Shock")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ShockRepository")
  */

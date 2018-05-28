@@ -21,11 +21,12 @@ use AppBundle\Entity\Aae;
 use AppBundle\Entity\Shockmachine;
 use AppBundle\Entity\Software;
 use AppBundle\Entity\Sonometer;
+use Doctrine\ORM\EntityManager;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 
 /**
- * Class GenerateReport
+ * \class GenerateReport
  * @package AppBundle\Service
  */
 class GenerateReport extends WordGenerator
@@ -34,6 +35,10 @@ class GenerateReport extends WordGenerator
      * @var
      */
     private $ressourcepath;
+    /**
+     * @var
+     */
+    private $EnityManager;
 
     /**
      * @param Operation $operation
@@ -42,10 +47,11 @@ class GenerateReport extends WordGenerator
      * @throws \PhpOffice\PhpWord\Exception\CreateTemporaryFileException
      * @throws \PhpOffice\PhpWord\Exception\Exception
      */
-    public function generateReport(Operation $operation)
+    public function generateReport(Operation $operation, EntityManager $em)
     {
         $templateFile = $this->container->getParameter('path_template_report');
         $templateFile = realpath($templateFile);
+        $this->entityManager = $em;
 
         $this->ressourcepath = dirname($templateFile);
         $templateProcessor = new TemplateProcessor($templateFile);
@@ -161,6 +167,7 @@ class GenerateReport extends WordGenerator
                 $index++;
             }
         } else {
+
             $templateProcessor->deleteRow("MAC");
         }
         $RevAccArray = $operation->getReverbAccessory();

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * ReverbAccessory
+ * \class ReverbAccessory
  *
  * @ORM\Table(name="reverb_accessory")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReverbAccessoryRepository")

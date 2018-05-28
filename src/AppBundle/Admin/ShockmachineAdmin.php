@@ -8,6 +8,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * \class ShockmachineAdmin
+ * @package AppBundle\Admin
+ */
 class ShockmachineAdmin extends AbstractAdmin
 {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

@@ -2,11 +2,25 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Admin\OperationAdmin;
+use AppBundle\Repository\AerienRepository;
+use AppBundle\Service\ExtractBAI;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Aerien
+ * @defgroup Acoustique Acoustique
+ * Les entités gérants les informations extraites depuis les fichiers XLMS de mesure acoustique
+ */
+
+
+/**
+ * \class Aerien
+ * Aerien Manage DB I/O For BAI data : "Bruit Aérien Intérieur"
+ * Feuille de calcul : A(#)
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM :
  * @ORM\Table(name="aerien")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AerienRepository")
  */

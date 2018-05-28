@@ -5,8 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Foreigner
+ * \class Foreigner
+ * Foreigner Manage DB I/O For BAE data : "Bruit Aérien Exterieur" ou Facade
+ * ExcelSheet : F(#)
  *
+ * @ingroup Acoustique
+ *
+ * Information ORM :
  * @ORM\Table(name="foreigner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ForeignerRepository")
  */

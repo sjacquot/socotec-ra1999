@@ -9,6 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+/**
+ * \class ReverbAccessoryAdmin
+ * @package AppBundle\Admin
+ */
 class ReverbAccessoryAdmin extends AbstractAdmin
 {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

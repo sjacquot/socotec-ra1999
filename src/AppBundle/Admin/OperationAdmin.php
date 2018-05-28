@@ -43,7 +43,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 /**
- * Class OperationAdmin
+ * \class OperationAdmin
  * @package AppBundle\Admin
  */
 class OperationAdmin extends Admin
