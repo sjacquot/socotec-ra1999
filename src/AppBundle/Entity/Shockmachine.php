@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * \class Shockmachine
+ * Agency's ShockMachine
+ * @ingroup Materiel
  *
  * @ORM\Table(name="shockmachine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ShockmachineRepository")

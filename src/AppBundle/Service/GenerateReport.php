@@ -167,7 +167,7 @@ class GenerateReport extends WordGenerator
                 $this->tplGenerateNoise($templateProcessor,$NoiseSourceArray[0],1);
             }else {
                 $templateProcessor->setValue('NOISEMANDATORY','Merci de bien vouloir renseigner un matériel de type source de bruit.');
-                $templateProcessor->setValue('NOISE','');
+                $templateProcessor->deleteRow('NOISE');
             }
         }
         $ShockMachineArray = $operation->getShockmachine();

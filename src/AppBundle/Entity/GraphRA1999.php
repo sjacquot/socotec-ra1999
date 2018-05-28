@@ -17,9 +17,10 @@ use JpGraph\JpGraph;
 
 /**
  * \class GraphRA1999
- * Create Graph Images from A(#), F(#), C(#) data
- * Curve SRC Is Acoustique Measure
- * Curve Template Is calculated from dynamique Template Curve according to Curve SRC
+ * Create Graph Images from A(#), F(#), C(#) data \n
+ * Curve SRC Is Acoustique Measure values \n
+ * Curve Template Is calculated from dynamique Template Curve according to Curve SRC \n
+ * @ingroup Acoustique
  *
  */
 class GraphRA1999

@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * \class Document
- *
+ *  @ingroup Office
+ **
  * @ORM\Table(name="document")
  * @ORM\Entity
  */

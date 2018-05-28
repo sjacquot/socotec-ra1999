@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * \class NoiseSource
+ * Agency's Noise Source
+ * @ingroup Materiel
  *
  * @ORM\Table(name="noise_source")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NoiseSourceRepository")

@@ -6,7 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @defgroup Office Documents office
+ * Les entités gérants les différents types de matériels d'une agence pour effectuer des mesures
+ */
+
+
+/**
  * \class Certificate
+ *
+ *  @ingroup Office
  *
  * @ORM\Table(name="certificate")
  * @ORM\Entity

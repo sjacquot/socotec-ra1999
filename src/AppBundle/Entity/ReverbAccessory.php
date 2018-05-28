@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * \class ReverbAccessory
+ * Agency's Reverb tool
+ * @ingroup Materiel
  *
  * @ORM\Table(name="reverb_accessory")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReverbAccessoryRepository")

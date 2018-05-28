@@ -6,13 +6,16 @@ use AppBundle\Entity\Operation;
 use AppBundle\Entity\Sonometer;
 use Doctrine\ORM\EntityRepository;
 
+
 /**
- * Class SonometerRepository
+ * \class SonometerRepository
  * @package AppBundle\Repository
+ * @ingroup Materiel
  */
 class SonometerRepository extends EntityRepository
 {
     /**
+     * @returns the 1st sonometer registered for an agency
      * @param Operation $operation
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException

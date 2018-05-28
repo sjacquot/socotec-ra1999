@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * \class Report
+ *  @ingroup Office
  *
  * @ORM\Table(name="report")
  * @ORM\Entity

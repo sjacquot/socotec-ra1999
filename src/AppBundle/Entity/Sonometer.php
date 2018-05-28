@@ -12,7 +12,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @defgroup Materiel Matériel
+ * Les entités gérants les différents types de matériels d'une agence pour effectuer des mesures
+ */
+
+
+
+/**
  * \class Sonometer
+ * Agency's sonometer
+ * @ingroup Materiel
  *
  * @ORM\Table(name="sonometer")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SonometerRepository")

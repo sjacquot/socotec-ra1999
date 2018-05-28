@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * \class Software
+ * Agency's Software
+ * @ingroup Materiel
  *
  * @ORM\Table(name="software")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SoftwareRepository")
