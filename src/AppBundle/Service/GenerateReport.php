@@ -130,7 +130,8 @@ class GenerateReport extends WordGenerator
         $SonoArray = $operation->getSonometer();
         $nbclone = count($SonoArray);
         if($nbclone > 0) {
-            $templateProcessor->cloneRow("SONO", $nbclone);
+            $templateProcessor->setValue('SONOMANDATORY','');
+            $templateProcessor->cloneRow('SONO', $nbclone);
             $index = 1;
             foreach ($SonoArray->toArray() as $Sono){
                 $this->tplGenerateSono($templateProcessor,$Sono,$index);
@@ -139,17 +140,20 @@ class GenerateReport extends WordGenerator
         } else {
             $SonoArray = $this->entityManager->getRepository(Sonometer::class)->findFirstByOperationAgency($operation);
             if (count($SonoArray)>0){
-                $templateProcessor->cloneRow("SONO", 1);
+                $templateProcessor->setValue('SONOMANDATORY','');
+                $templateProcessor->cloneRow('SONO', 1);
                 $this->tplGenerateSono($templateProcessor,$SonoArray[0],1);
             }else {
-                $templateProcessor->deleteRow("SONO");
+                $templateProcessor->setValue('SONOMANDATORY','Merci de bien vouloir renseigner un matériel de type sonomètre.');
+                $templateProcessor->setValue('SONO','');
             }
         }
 
         $NoiseSourceArray = $operation->getNoiseSource();
         $nbclone = count($NoiseSourceArray);
         if($nbclone > 0) {
-            $templateProcessor->cloneRow("NOISE", $nbclone);
+            $templateProcessor->setValue('NOISEMANDATORY','');
+            $templateProcessor->cloneRow('NOISE', $nbclone);
             $index = 1;
             foreach ($NoiseSourceArray->toArray() as $NS){
                 $this->tplGenerateNoise($templateProcessor,$NS,$index);
@@ -158,16 +162,19 @@ class GenerateReport extends WordGenerator
         } else {
             $NoiseSourceArray = $this->entityManager->getRepository(NoiseSource::class)->findFirstByOperationAgency($operation);
             if (count($NoiseSourceArray)>0){
-                $templateProcessor->cloneRow("NOISE", 1);
+                $templateProcessor->setValue('NOISEMANDATORY','');
+                $templateProcessor->cloneRow('NOISE', 1);
                 $this->tplGenerateNoise($templateProcessor,$NoiseSourceArray[0],1);
             }else {
-                $templateProcessor->deleteRow("NOISE");
+                $templateProcessor->setValue('NOISEMANDATORY','Merci de bien vouloir renseigner un matériel de type source de bruit.');
+                $templateProcessor->setValue('NOISE','');
             }
         }
         $ShockMachineArray = $operation->getShockmachine();
         $nbclone = count($ShockMachineArray);
         if($nbclone > 0) {
-            $templateProcessor->cloneRow("MAC", $nbclone);
+            $templateProcessor->setValue('MACMANDATORY','');
+            $templateProcessor->cloneRow('MAC', $nbclone);
             $index = 1;
             foreach ($ShockMachineArray->toArray() as $SM){
                 $this->tplGenerateShockMachine($templateProcessor,$SM,$index);
@@ -176,16 +183,19 @@ class GenerateReport extends WordGenerator
         } else {
             $ShockMachineArray = $this->entityManager->getRepository(Shockmachine::class)->findFirstByOperationAgency($operation);
             if (count($ShockMachineArray)>0){
-                $templateProcessor->cloneRow("MAC", 1);
+                $templateProcessor->setValue('MACMANDATORY','');
+                $templateProcessor->cloneRow('MAC', 1);
                 $this->tplGenerateShockMachine($templateProcessor,$ShockMachineArray[0],1);
             }else {
-                $templateProcessor->deleteRow("MAC");
+                $templateProcessor->setValue('MACMANDATORY','Merci de bien vouloir renseigner un matériel de type machine à chocs.');
+                $templateProcessor->setValue('MAC','');
             }
         }
         $RevAccArray = $operation->getReverbAccessory();
         $nbclone = count($RevAccArray);
         if($nbclone > 0) {
-            $templateProcessor->cloneRow("REVTOOL", $nbclone);
+            $templateProcessor->setValue('REVTOOLMANDATORY','');
+            $templateProcessor->cloneRow('REVTOOL', $nbclone);
             $index = 1;
             foreach ($RevAccArray->toArray() as $RevAcc){
                 $this->tplGenerateReverb($templateProcessor,$RevAcc,$index);
@@ -194,16 +204,19 @@ class GenerateReport extends WordGenerator
         } else {
             $RevAccArray = $this->entityManager->getRepository(ReverbAccessory::class)->findFirstByOperationAgency($operation);
             if (count($RevAccArray)>0){
-                $templateProcessor->cloneRow("REVTOOL", 1);
+                $templateProcessor->setValue('REVTOOLMANDATORY','');
+                $templateProcessor->cloneRow('REVTOOL', 1);
                 $this->tplGenerateReverb($templateProcessor,$RevAccArray[0],1);
             }else {
-                $templateProcessor->deleteRow("REVTOOL");
+                $templateProcessor->setValue('REVTOOLMANDATORY','Merci de bien vouloir renseigner un matériel de type acccésoire pour la mesure de la réverbération.');
+                $templateProcessor->setValue('REVTOOL','');
             }
         }
         $SoftArray = $operation->getSoftware();
         $nbclone = count($SoftArray);
         if($nbclone > 0) {
-            $templateProcessor->cloneRow("SOFT", $nbclone);
+            $templateProcessor->setValue('SOFTMANDATORY','');
+            $templateProcessor->cloneRow('SOFT', $nbclone);
             $index = 1;
             foreach ($SoftArray->toArray() as $Soft){
                 $this->tplGenerateSoft($templateProcessor,$Soft,$index);
@@ -212,10 +225,12 @@ class GenerateReport extends WordGenerator
         } else {
             $SoftArray = $this->entityManager->getRepository(Software::class)->findFirstByOperationAgency($operation);
             if (count($SoftArray)>0){
-                $templateProcessor->cloneRow("SOFT", 1);
+                $templateProcessor->setValue('SOFTMANDATORY','');
+                $templateProcessor->cloneRow('SOFT', 1);
                 $this->tplGenerateSoft($templateProcessor,$SoftArray[0],1);
             }else {
-                $templateProcessor->deleteRow("SOFT");
+                $templateProcessor->setValue('SOFTMANDATORY','Merci de bien vouloir renseigner un matériel de type logiciel.');
+                $templateProcessor->setValue('SOFT','');
             }
         }
         $templateProcessor->setValue('XLS',$operation->getDocument()->getName());
