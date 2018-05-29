@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @defgroup Office Documents office
- * Les entités gérants les différents types de matériels d'une agence pour effectuer des mesures
+ * Les entités gérants les différents documents Office Excel (IN) et Word (OUT)
  */
 
 
