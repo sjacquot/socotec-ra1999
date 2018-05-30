@@ -348,11 +348,11 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->setValue('AMEASURETTXDATE#'.$index, $Aerial->getMeasureTTX());
 
-        $templateProcessor->setValue('ALocEmit-Name#'.$index, $Aerial->getLocalEmissionName());
-        $templateProcessor->setValue('ALocEmit-Vol#'.$index, $Aerial->getLocalEmissionVolume());
-        $templateProcessor->setValue('ALocRecieve-Name#'.$index, $Aerial->getLocalReceptionName());
-        $templateProcessor->setValue('ALocRecieve-Vol#'.$index, $Aerial->getLocalReceptionVolume());
-        $templateProcessor->setValue('AType#'.$index, $Aerial->getTransmissionType());
+        $templateProcessor->setValue('ALocEmit-Name#'.$index, $this->EscapeOutput($Aerial->getLocalEmissionName()));
+        $templateProcessor->setValue('ALocEmit-Vol#'.$index, $this->EscapeOutput($Aerial->getLocalEmissionVolume()));
+        $templateProcessor->setValue('ALocRecieve-Name#'.$index, $this->EscapeOutput($Aerial->getLocalReceptionName()));
+        $templateProcessor->setValue('ALocRecieve-Vol#'.$index, $this->EscapeOutput($Aerial->getLocalReceptionVolume()));
+        $templateProcessor->setValue('AType#'.$index, $this->EscapeOutput($Aerial->getTransmissionType()));
         $templateProcessor->setValue('AW#'.$index, $Aerial->getWeightedStandardizedAcousticIsolation());
         $templateProcessor->setValue('AObj#'.$index, $Aerial->getObjectifRa1999());
 //        $templateProcessor->setValue('APassRa1999#'.$index, $Aerial->getPassRa1999());
@@ -365,16 +365,16 @@ class GenerateReport extends WordGenerator
             $templateProcessor->setValue('ANotPassRa1999#'.$index, '');
         }
 
-        $templateProcessor->setValue('ASepWal-Nature#'.$index, $Aerial->getSeparatingNatureWall());
-        $templateProcessor->setValue('ASepWal-Dub-Nature#'.$index, $Aerial->getSeparatingDubbingNatureWall());
-        $templateProcessor->setValue('ASepWal-Thick#'.$index, $Aerial->getSeparatingThicknessWall());
+        $templateProcessor->setValue('ASepWal-Nature#'.$index, $this->EscapeOutput($Aerial->getSeparatingNatureWall()));
+        $templateProcessor->setValue('ASepWal-Dub-Nature#'.$index, $this->EscapeOutput($Aerial->getSeparatingDubbingNatureWall()));
+        $templateProcessor->setValue('ASepWal-Thick#'.$index, $this->EscapeOutput($Aerial->getSeparatingThicknessWall()));
 
-        $templateProcessor->setValue('ANb-Door#'.$index, $Aerial->getDoorNumber());
+        $templateProcessor->setValue('ANb-Door#'.$index, $this->EscapeOutput($Aerial->getDoorNumber()));
 
-        $templateProcessor->setValue('AExtraction-Mouth#'.$index, $Aerial->getExtractionMouth());
+        $templateProcessor->setValue('AExtraction-Mouth#'.$index, $this->EscapeOutput($Aerial->getExtractionMouth()));
 
-        $templateProcessor->setValue('AFacade-Nature#'.$index, $Aerial->getFacadeDoublingNature());
-        $templateProcessor->setValue('AFacade-Thick#'.$index, $Aerial->getFacadeDoublingThickness());
+        $templateProcessor->setValue('AFacade-Nature#'.$index, $this->EscapeOutput($Aerial->getFacadeDoublingNature()));
+        $templateProcessor->setValue('AFacade-Thick#'.$index, $this->EscapeOutput($Aerial->getFacadeDoublingThickness()));
 
 
         $Results = $Aerial->getTestResult();
@@ -411,26 +411,26 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->setValue('FMEASURETTXDATE#'.$index, $foreigner->getMeasureTTX());
 
-        $templateProcessor->setValue('FEmitName#'.$index, $foreigner->getLocalEmissionName());
-        $templateProcessor->setValue('FEmitType#'.$index, $foreigner->getLocalEmissionType());
-        $templateProcessor->setValue('FRecieveName#'.$index, $foreigner->getLocalReceptionName());
-        $templateProcessor->setValue('FRecieveVol#'.$index, $foreigner->getLocalReceptionVolume());
+        $templateProcessor->setValue('FEmitName#'.$index, $this->EscapeOutput($foreigner->getLocalEmissionName()));
+        $templateProcessor->setValue('FEmitType#'.$index, $this->EscapeOutput($foreigner->getLocalEmissionType()));
+        $templateProcessor->setValue('FRecieveName#'.$index, $this->EscapeOutput($foreigner->getLocalReceptionName()));
+        $templateProcessor->setValue('FRecieveVol#'.$index, $this->EscapeOutput($foreigner->getLocalReceptionVolume()));
 
-        $templateProcessor->setValue('FSepWal-Nature#'.$index, $foreigner->getSeparatingNatureWall());
-        $templateProcessor->setValue('FSepWal-Thick#'.$index, $foreigner->getSeparatingThicknessWall());
-        $templateProcessor->setValue('FSepWal-Dub-Nature#'.$index, $foreigner->getSeparatingDubbingNatureWall());
-        $templateProcessor->setValue('FSepWal-Dub-thick#'.$index, $foreigner->getSeparatingDubbingThicknessWall());
+        $templateProcessor->setValue('FSepWal-Nature#'.$index, $this->EscapeOutput($foreigner->getSeparatingNatureWall()));
+        $templateProcessor->setValue('FSepWal-Thick#'.$index, $this->EscapeOutput($foreigner->getSeparatingThicknessWall()));
+        $templateProcessor->setValue('FSepWal-Dub-Nature#'.$index, $this->EscapeOutput($foreigner->getSeparatingDubbingNatureWall()));
+        $templateProcessor->setValue('FSepWal-Dub-thick#'.$index, $this->EscapeOutput($foreigner->getSeparatingDubbingThicknessWall()));
 
-        $templateProcessor->setValue('FWoodWorkNature#'.$index, $foreigner->getCarpentryMaterial());
-        $templateProcessor->setValue('FWoodWorkOpening#'.$index, $foreigner->getCarpentryOpening());
-        $templateProcessor->setValue('FWoodWorkType#'.$index, $foreigner->getCarpentryOpeningType());
-        $templateProcessor->setValue('FShutterBox#'.$index, $foreigner->getRollingShutterBox());
+        $templateProcessor->setValue('FWoodWorkNature#'.$index, $this->EscapeOutput($foreigner->getCarpentryMaterial()));
+        $templateProcessor->setValue('FWoodWorkOpening#'.$index, $this->EscapeOutput($foreigner->getCarpentryOpening()));
+        $templateProcessor->setValue('FWoodWorkType#'.$index, $this->EscapeOutput($foreigner->getCarpentryOpeningType()));
+        $templateProcessor->setValue('FShutterBox#'.$index, $this->EscapeOutput($foreigner->getRollingShutterBox()));
 
-        $templateProcessor->setValue('FVMC-Number#'.$index, $foreigner->getVmcAirIntakeNumber());
-        $templateProcessor->setValue('FVMC-Position#'.$index, $foreigner->getVmcAirIntakePosition());
-        $templateProcessor->setValue('FVMC-Type#'.$index, $foreigner->getVmcAirIntakeType());
+        $templateProcessor->setValue('FVMC-Number#'.$index, $this->EscapeOutput($foreigner->getVmcAirIntakeNumber()));
+        $templateProcessor->setValue('FVMC-Position#'.$index, $this->EscapeOutput($foreigner->getVmcAirIntakePosition()));
+        $templateProcessor->setValue('FVMC-Type#'.$index, $this->EscapeOutput($foreigner->getVmcAirIntakeType()));
 
-        $templateProcessor->setValue('FBoilerCup#'.$index, $foreigner->getBoilerSuctionCup());
+        $templateProcessor->setValue('FBoilerCup#'.$index, $this->EscapeOutput($foreigner->getBoilerSuctionCup()));
         $Results = $foreigner->getTestResult();
 
         $idLigne = 1;
@@ -476,22 +476,22 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->setValue('CMEASURETTXDATE#'.$index, $choc->getMeasureTTX());
 
-        $templateProcessor->setValue('CLocEmit-Name#'.$index, $choc->getLocalEmissionName());
-        $templateProcessor->setValue('CLocEmit-Vol#'.$index, $choc->getLocalEmissionVolume());
-        $templateProcessor->setValue('CLocRecieve-Name#'.$index, $choc->getLocalReceptionName());
-        $templateProcessor->setValue('CLocRecieve-Vol#'.$index, $choc->getLocalReceptionVolume());
-        $templateProcessor->setValue('CType#'.$index, $choc->getTransmissionType());
+        $templateProcessor->setValue('CLocEmit-Name#'.$index, $this->EscapeOutput($choc->getLocalEmissionName()));
+        $templateProcessor->setValue('CLocEmit-Vol#'.$index, $this->EscapeOutput($choc->getLocalEmissionVolume()));
+        $templateProcessor->setValue('CLocRecieve-Name#'.$index, $this->EscapeOutput($choc->getLocalReceptionName()));
+        $templateProcessor->setValue('CLocRecieve-Vol#'.$index, $this->EscapeOutput($choc->getLocalReceptionVolume()));
+        $templateProcessor->setValue('CType#'.$index, $this->EscapeOutput($choc->getTransmissionType()));
 
-        $templateProcessor->setValue('CFloor-Nature#'.$index, $choc->getSeparatingNatureFloor());
-        $templateProcessor->setValue('CFloor-Thick#'.$index, $choc->getSeparatingThicknessFloor());
+        $templateProcessor->setValue('CFloor-Nature#'.$index, $this->EscapeOutput($choc->getSeparatingNatureFloor()));
+        $templateProcessor->setValue('CFloor-Thick#'.$index, $this->EscapeOutput($choc->getSeparatingThicknessFloor()));
 
-        $templateProcessor->setValue('CFloorCover-Nature#'.$index, $choc->getFlooringNature());
-        $templateProcessor->setValue('CFloor-TTX#'.$index, $choc->getFlooringAcousticTreatment());
+        $templateProcessor->setValue('CFloorCover-Nature#'.$index, $this->EscapeOutput($choc->getFlooringNature()));
+        $templateProcessor->setValue('CFloor-TTX#'.$index, $this->EscapeOutput($choc->getFlooringAcousticTreatment()));
 
-        $templateProcessor->setValue('CNbPosMAC#'.$index, $choc->getNbShockMachines());
+        $templateProcessor->setValue('CNbPosMAC#'.$index, $this->EscapeOutput($choc->getNbShockMachines()));
 
-        $templateProcessor->setValue('CW#'.$index, $choc->getWeightedStandardizedShockNoise());
-        $templateProcessor->setValue('CObj#'.$index, $choc->getObjectifRa1999());
+        $templateProcessor->setValue('CW#'.$index, $this->EscapeOutput($choc->getWeightedStandardizedShockNoise()));
+        $templateProcessor->setValue('CObj#'.$index, $this->EscapeOutput($choc->getObjectifRa1999()));
 //        $templateProcessor->setValue('CPassRa1999#'.$index, $choc->getPassRa1999());
 // New red for not pass text
         $passornot = $choc->getPassRa1999();
@@ -538,33 +538,33 @@ class GenerateReport extends WordGenerator
                 $templateProcessor->cloneRow('AAE', (int) ($nbLigne/3));
                 for ($index = 0; $index < $nbLigne; $index++){
                     $row = $index+1;
-                    $templateProcessor->setValue('AAE#'.$row, $data[$index][0]);
+                    $templateProcessor->setValue('AAE#'.$row, $this->EscapeOutput($data[$index][0]));
 
-                    $templateProcessor->setValue('AAE1#'.$row,$data[$index][1]);
-                    $templateProcessor->setValue('AAE3-1#'.$row,$data[$index][3]);
-                    $templateProcessor->setValue('AAE5-1#'.$row,$data[$index][5]);
-                    $templateProcessor->setValue('AAE7-1#'.$row,$data[$index][7]);
-                    $templateProcessor->setValue('AAE8#'.$row,$data[$index][8]);
-                    $templateProcessor->setValue('AAE9#'.$row,$data[$index][9]);
-                    $templateProcessor->setValue('AAE10#'.$row,$data[$index][14]);
+                    $templateProcessor->setValue('AAE1#'.$row,$this->EscapeOutput($data[$index][1]));
+                    $templateProcessor->setValue('AAE3-1#'.$row,$this->EscapeOutput($data[$index][3]));
+                    $templateProcessor->setValue('AAE5-1#'.$row,$this->EscapeOutput($data[$index][5]));
+                    $templateProcessor->setValue('AAE7-1#'.$row,$this->EscapeOutput($data[$index][7]));
+                    $templateProcessor->setValue('AAE8#'.$row,$this->EscapeOutput($data[$index][8]));
+                    $templateProcessor->setValue('AAE9#'.$row,$this->EscapeOutput($data[$index][9]));
+                    $templateProcessor->setValue('AAE10#'.$row,$this->EscapeOutput($data[$index][14]));
                     if(strpos($data[$index][15],'NON')!==false){
-                        $templateProcessor->setValue('NOTAAE11#'.$row,$data[$index][15]);
+                        $templateProcessor->setValue('NOTAAE11#'.$row,$this->EscapeOutput($data[$index][15]));
                         $templateProcessor->setValue('AAE11#'.$row,'');
 
                     }else{
-                        $templateProcessor->setValue('AAE11#'.$row,$data[$index][15]);
+                        $templateProcessor->setValue('AAE11#'.$row,$this->EscapeOutput($data[$index][15]));
                         $templateProcessor->setValue('NOTAAE11#'.$row,'');
                     }
                     $index++;
                     if ($index < $nbLigne){
-                        $templateProcessor->setValue('AAE3-2#'.$row,$data[$index][3]);
-                        $templateProcessor->setValue('AAE5-2#'.$row,$data[$index][5]);
-                        $templateProcessor->setValue('AAE7-2#'.$row,$data[$index][7]);
+                        $templateProcessor->setValue('AAE3-2#'.$row,$this->EscapeOutput($data[$index][3]));
+                        $templateProcessor->setValue('AAE5-2#'.$row,$this->EscapeOutput($data[$index][5]));
+                        $templateProcessor->setValue('AAE7-2#'.$row,$this->EscapeOutput($data[$index][7]));
                         $index++;
                         if ($index < $nbLigne){
-                            $templateProcessor->setValue('AAE3-3#'.$row,$data[$index][3]);
-                            $templateProcessor->setValue('AAE5-3#'.$row,$data[$index][5]);
-                            $templateProcessor->setValue('AAE7-3#'.$row,$data[$index][7]);
+                            $templateProcessor->setValue('AAE3-3#'.$row,$this->EscapeOutput($data[$index][3]));
+                            $templateProcessor->setValue('AAE5-3#'.$row,$this->EscapeOutput($data[$index][5]));
+                            $templateProcessor->setValue('AAE7-3#'.$row,$this->EscapeOutput($data[$index][7]));
                         }
                     }
                 }

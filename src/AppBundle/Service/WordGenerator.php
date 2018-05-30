@@ -209,31 +209,31 @@ class WordGenerator
      */
     protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
         // MO
-        $templateProcessor->setValue('MO', $operation->getMoName());
-        $templateProcessor->setValue('MOADDR', $operation->getMoAddress());
-        $templateProcessor->setValue('MOADDRCOMP', $operation->getMoAddressComp());
-        $templateProcessor->setValue('MOCITY', $operation->getMoCity());
-        $templateProcessor->setValue('MOCP', $operation->getMoCP());
-        $templateProcessor->setValue('MODEST', $operation->getMoDest());
-        $templateProcessor->setValue('MOEMAIL', $operation->getMoEmail());
-        $templateProcessor->setValue('MOTEL', $operation->getMoTel());
+        $templateProcessor->setValue('MO', $this->EscapeOutput($operation->getMoName()));
+        $templateProcessor->setValue('MOADDR', $this->EscapeOutput($operation->getMoAddress()));
+        $templateProcessor->setValue('MOADDRCOMP', $this->EscapeOutput($operation->getMoAddressComp()));
+        $templateProcessor->setValue('MOCITY', $this->EscapeOutput($operation->getMoCity()));
+        $templateProcessor->setValue('MOCP', $this->EscapeOutput($operation->getMoCP()));
+        $templateProcessor->setValue('MODEST', $this->EscapeOutput($operation->getMoDest()));
+        $templateProcessor->setValue('MOEMAIL', $this->EscapeOutput($operation->getMoEmail()));
+        $templateProcessor->setValue('MOTEL', $this->EscapeOutput($operation->getMoTel()));
         // OPE + UTILS
-        $templateProcessor->setValue('OPENAME', $operation->getName());
-        $templateProcessor->setValue('Version', $operation->getInfo());
+        $templateProcessor->setValue('OPENAME', $this->EscapeOutput($operation->getName()));
+        $templateProcessor->setValue('Version', $this->EscapeOutput($operation->getInfo()));
         //
-        $ref = (strlen($operation->getReportReference())>0)? $operation->getReportReference():'NUMCHRONO';
+        $ref = (strlen($operation->getReportReference())>0)? $this->EscapeOutput($operation->getReportReference()):'NUMCHRONO';
         $templateProcessor->setValue('REPORTREF', $ref);
-        $ref = (strlen($operation->getCertifReference())>0)? $operation->getCertifReference():'NUMCHRONO';
+        $ref = (strlen($operation->getCertifReference())>0)? $this->EscapeOutput($operation->getCertifReference()):'NUMCHRONO';
         $templateProcessor->setValue('CERTREF', $ref);
         //
         // Agence
         if (!is_null($operation->getAgency())){
-            $templateProcessor->setValue('AGNAME',$operation->getAgency()->getName());
-            $templateProcessor->setValue('AGCITY',$operation->getAgency()->getCity());
-            $templateProcessor->setValue('AGCP',$operation->getAgency()->getCp());
-            $templateProcessor->setValue('AGADD',$operation->getAgency()->getAddress());
-            $templateProcessor->setValue('AGTEL',$operation->getAgency()->getTel());
-            $templateProcessor->setValue('AGMAIL',$operation->getAgency()->getMail());
+            $templateProcessor->setValue('AGNAME',$this->EscapeOutput($operation->getAgency()->getName()));
+            $templateProcessor->setValue('AGCITY',$this->EscapeOutput($operation->getAgency()->getCity()));
+            $templateProcessor->setValue('AGCP',$this->EscapeOutput($operation->getAgency()->getCp()));
+            $templateProcessor->setValue('AGADD',$this->EscapeOutput($operation->getAgency()->getAddress()));
+            $templateProcessor->setValue('AGTEL',$this->EscapeOutput($operation->getAgency()->getTel()));
+            $templateProcessor->setValue('AGMAIL',$this->EscapeOutput($operation->getAgency()->getMail()));
         } else {
             $templateProcessor->setValue('AGNAME','');
             $templateProcessor->setValue('AGCITY','');
@@ -249,7 +249,7 @@ class WordGenerator
         $templateProcessor->setValue('OPENBFLAT', $value);
 
         $templateProcessor->setValue('OPENBBAT', $operation->getOperationNbBuilding());
-        $templateProcessor->setValue('OPEADDRESS', $operation->getOperationAddress());
+        $templateProcessor->setValue('OPEADDRESS', $this->EscapeOutput($operation->getOperationAddress()));
         if($operation->isOperationCollectif()){
             $templateProcessor->setValue('OPISCOL', self::cbChecked);
         }else{
@@ -272,43 +272,43 @@ class WordGenerator
         }
         $date = date ( "d/m/Y");
         $templateProcessor->setValue('REPORTDATE', $date);
-        $templateProcessor->setValue('CASEREF', $operation->getCaseReference());
-        $templateProcessor->setValue('MEASURECOMP', $operation->getMeasureCompany());
+        $templateProcessor->setValue('CASEREF', $this->EscapeOutput($operation->getCaseReference()));
+        $templateProcessor->setValue('MEASURECOMP', $this->EscapeOutput($operation->getMeasureCompany()));
         // TODO: Unification des Balises AUTHOR
-        $templateProcessor->setValue('COMPSPEAKER',$operation->getCompanySpeaker());
-        $templateProcessor->setValue('DOCAUTHOR',$operation->getDocAuthor());
-        $templateProcessor->setValue('DOCAUTHORMAIL',$operation->getDocAuthorEmail());
-        $templateProcessor->setValue('OPEAUTHOR', $operation->getMeasureAuthor());
-        $templateProcessor->setValue('MEASUREAUTHOR', $operation->getMeasureAuthor());
-        $templateProcessor->setValue('OPECITY', $operation->getOperationCity());
-        $templateProcessor->setValue('OPEADDR', $operation->getOperationAddress());
-        $templateProcessor->setValue('OPECP', $operation->getOperationCP());
-        $templateProcessor->setValue('OPELABEL', $operation->getOperationLabel());
-        $templateProcessor->setValue('OPMINMEASURE',$operation->getNbMeasure());
+        $templateProcessor->setValue('COMPSPEAKER',$this->EscapeOutput($operation->getCompanySpeaker()));
+        $templateProcessor->setValue('DOCAUTHOR',$this->EscapeOutput($operation->getDocAuthor()));
+        $templateProcessor->setValue('DOCAUTHORMAIL',$this->EscapeOutput($operation->getDocAuthorEmail()));
+        $templateProcessor->setValue('OPEAUTHOR', $this->EscapeOutput($operation->getMeasureAuthor()));
+        $templateProcessor->setValue('MEASUREAUTHOR', $this->EscapeOutput($operation->getMeasureAuthor()));
+        $templateProcessor->setValue('OPECITY', $this->EscapeOutput($operation->getOperationCity()));
+        $templateProcessor->setValue('OPEADDR', $this->EscapeOutput($operation->getOperationAddress()));
+        $templateProcessor->setValue('OPECP', $this->EscapeOutput($operation->getOperationCP()));
+        $templateProcessor->setValue('OPELABEL', $this->EscapeOutput($operation->getOperationLabel()));
+        $templateProcessor->setValue('OPMINMEASURE',$this->EscapeOutput($operation->getNbMeasure()));
         // DELEGATE MO
-        $templateProcessor->setValue('DELMO',$operation->getDelegateMO());
-        $templateProcessor->setValue('DELMOADDR',$operation->getDelegateMOAddress());
+        $templateProcessor->setValue('DELMO',$this->EscapeOutput($operation->getDelegateMO()));
+        $templateProcessor->setValue('DELMOADDR',$this->EscapeOutput($operation->getDelegateMOAddress()));
         // Maitre oeuvre
-        $templateProcessor->setValue('ME',$operation->getMEName());
-        $templateProcessor->setValue('MEADDR',$operation->getMEAddress());
-        $templateProcessor->setValue('MEMIS',$operation->getMEMission());
+        $templateProcessor->setValue('ME',$this->EscapeOutput($operation->getMEName()));
+        $templateProcessor->setValue('MEADDR',$this->EscapeOutput($operation->getMEAddress()));
+        $templateProcessor->setValue('MEMIS',$this->EscapeOutput($operation->getMEMission()));
         // BET
-        $templateProcessor->setValue('BETAM', $operation->getBETAudioMission());
-        $templateProcessor->setValue('BETAN', $operation->getBETAudioName());
-        $templateProcessor->setValue('BETSM', $operation->getBETStructureMission());
-        $templateProcessor->setValue('BETSN', $operation->getBETStructureName());
-        $templateProcessor->setValue('BETFM', $operation->getBETFluidMission());
-        $templateProcessor->setValue('BETFN', $operation->getBETFluidName());
-        $templateProcessor->setValue('BETTM', $operation->getBETThermalMission());
-        $templateProcessor->setValue('BETTN', $operation->getBETThermalName());
-        $templateProcessor->setValue('BETOAMOM', $operation->getOtherBETAMOMission());
-        $templateProcessor->setValue('BETOAMON', $operation->getOtherBETAMOName());
+        $templateProcessor->setValue('BETAM', $this->EscapeOutput($operation->getBETAudioMission()));
+        $templateProcessor->setValue('BETAN', $this->EscapeOutput($operation->getBETAudioName()));
+        $templateProcessor->setValue('BETSM', $this->EscapeOutput($operation->getBETStructureMission()));
+        $templateProcessor->setValue('BETSN', $this->EscapeOutput($operation->getBETStructureName()));
+        $templateProcessor->setValue('BETFM', $this->EscapeOutput($operation->getBETFluidMission()));
+        $templateProcessor->setValue('BETFN', $this->EscapeOutput($operation->getBETFluidName()));
+        $templateProcessor->setValue('BETTM', $this->EscapeOutput($operation->getBETThermalMission()));
+        $templateProcessor->setValue('BETTN', $this->EscapeOutput($operation->getBETThermalName()));
+        $templateProcessor->setValue('BETOAMOM', $this->EscapeOutput($operation->getOtherBETAMOMission()));
+        $templateProcessor->setValue('BETOAMON', $this->EscapeOutput($operation->getOtherBETAMOName()));
         // PC
         $date = (!is_null($operation->getPcRequestDate()))? $operation->getPcRequestDate()->format("d / m / Y"):"";
         $templateProcessor->setValue('PCRDATE', $date);
-        $templateProcessor->setValue('PCCURPHASE', $operation->getPcCurrentPhase());
-        $templateProcessor->setValue('PCREF', $operation->getPcReference());
-        $templateProcessor->setValue('PCNBPHASE', $operation->getPcNbPhase());
+        $templateProcessor->setValue('PCCURPHASE', $this->EscapeOutput($operation->getPcCurrentPhase()));
+        $templateProcessor->setValue('PCREF', $this->EscapeOutput($operation->getPcReference()));
+        $templateProcessor->setValue('PCNBPHASE', $this->EscapeOutput($operation->getPcNbPhase()));
         $date = (!is_null($operation->getPcDate()))? $operation->getPcDate()->format("d / m / Y"):"";
         $templateProcessor->setValue('PCDATE', $date);
         // Cal
@@ -441,6 +441,16 @@ class WordGenerator
                 $templateProcessor->setValue($ArrayNeedle[$index], '');
             }
         }
+    }
+    /**
+     * To avoid ill formed XML in Word Output
+     * @param $value
+     * @return mixed|string
+     */
+    protected function EscapeOutput($value){
+
+        return htmlspecialchars($value);
+
     }
 
     /**
