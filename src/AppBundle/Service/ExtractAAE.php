@@ -40,13 +40,9 @@ class ExtractAAE
             // Col #3 = Col C Local name mandatory for AAE
         $value = $this->worksheet->getCellByColumnAndRow(3,$index)->getCalculatedValue();
             if(strlen($value)>0){
-                $tampon = $this->worksheet->rangeToArray("B".$index.":Q".($index+2),'',true,true,false);
-             //   echo $value."<br><pre>";
-             //   print_r($tampon);echo "</pre>";
-                $this->data[] = $tampon;
+                $this->data[] = $this->worksheet->rangeToArray("B".$index.":Q".($index+2),'',true,true,false);
             }
         }
-       // die();
         $this->comments = $this->worksheet->rangeToArray("T6:T".$index,'',true,true,false);
         return true;
     }
