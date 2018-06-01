@@ -530,43 +530,40 @@ class GenerateReport extends WordGenerator
      * @param Aae $aae
      */
     private function tplGenerateAAE(TemplateProcessor $templateProcessor, Aae $aae){
-        $data = $aae->getData();
-        $data = $data[0];
-        if (is_array($data)){
-            $nbLigne = count($data);
+        $dataAAE = $aae->getData();
+        if (is_array($dataAAE)){
+            $nbLigne = count($dataAAE);
             if ($nbLigne>0){
-                $templateProcessor->cloneRow('AAE', (int) ($nbLigne/3));
+                $templateProcessor->cloneRow('AAE', (int) $nbLigne /*($nbLigne/3)*/);
                 for ($index = 0; $index < $nbLigne; $index++){
+                    $data = $dataAAE[$index];
                     $row = $index+1;
-                    $templateProcessor->setValue('AAE#'.$row, $this->EscapeOutput($data[$index][0]));
-
-                    $templateProcessor->setValue('AAE1#'.$row,$this->EscapeOutput($data[$index][1]));
-                    $templateProcessor->setValue('AAE3-1#'.$row,$this->EscapeOutput($data[$index][3]));
-                    $templateProcessor->setValue('AAE5-1#'.$row,$this->EscapeOutput($data[$index][5]));
-                    $templateProcessor->setValue('AAE7-1#'.$row,$this->EscapeOutput($data[$index][7]));
-                    $templateProcessor->setValue('AAE8#'.$row,$this->EscapeOutput($data[$index][8]));
-                    $templateProcessor->setValue('AAE9#'.$row,$this->EscapeOutput($data[$index][9]));
-                    $templateProcessor->setValue('AAE10#'.$row,$this->EscapeOutput($data[$index][14]));
-                    if(strpos($data[$index][15],'NON')!==false){
-                        $templateProcessor->setValue('NOTAAE11#'.$row,$this->EscapeOutput($data[$index][15]));
+                    // 1ere ligne du resultat de la ligne
+                    $templateProcessor->setValue('AAE#'.$row, $this->EscapeOutput($data[0][0]));
+                    $templateProcessor->setValue('AAE1#'.$row,$this->EscapeOutput($data[0][1]));
+                    $templateProcessor->setValue('AAE3-1#'.$row,$this->EscapeOutput($data[0][3]));
+                    $templateProcessor->setValue('AAE5-1#'.$row,$this->EscapeOutput($data[0][5]));
+                    $templateProcessor->setValue('AAE7-1#'.$row,$this->EscapeOutput($data[0][7]));
+                    $templateProcessor->setValue('AAE8#'.$row,$this->EscapeOutput($data[0][8]));
+                    $templateProcessor->setValue('AAE9#'.$row,$this->EscapeOutput($data[0][9]));
+                    $templateProcessor->setValue('AAE10#'.$row,$this->EscapeOutput($data[0][14]));
+                    // Affichage de la valeur avec gestion du style dans gabarit NOTAAE11#{index} = ROUGE vs AAE11#{index} = BLEU
+                    if(strpos($data[0][15],'NON')!==false){
+                        $templateProcessor->setValue('NOTAAE11#'.$row,$this->EscapeOutput($data[0][15]));
                         $templateProcessor->setValue('AAE11#'.$row,'');
 
                     }else{
-                        $templateProcessor->setValue('AAE11#'.$row,$this->EscapeOutput($data[$index][15]));
+                        $templateProcessor->setValue('AAE11#'.$row,$this->EscapeOutput($data[0][15]));
                         $templateProcessor->setValue('NOTAAE11#'.$row,'');
                     }
-                    $index++;
-                    if ($index < $nbLigne){
-                        $templateProcessor->setValue('AAE3-2#'.$row,$this->EscapeOutput($data[$index][3]));
-                        $templateProcessor->setValue('AAE5-2#'.$row,$this->EscapeOutput($data[$index][5]));
-                        $templateProcessor->setValue('AAE7-2#'.$row,$this->EscapeOutput($data[$index][7]));
-                        $index++;
-                        if ($index < $nbLigne){
-                            $templateProcessor->setValue('AAE3-3#'.$row,$this->EscapeOutput($data[$index][3]));
-                            $templateProcessor->setValue('AAE5-3#'.$row,$this->EscapeOutput($data[$index][5]));
-                            $templateProcessor->setValue('AAE7-3#'.$row,$this->EscapeOutput($data[$index][7]));
-                        }
-                    }
+                    // 2eme ligne du resultat de la ligne
+                    $templateProcessor->setValue('AAE3-2#'.$row,$this->EscapeOutput($data[1][3]));
+                    $templateProcessor->setValue('AAE5-2#'.$row,$this->EscapeOutput($data[1][5]));
+                    $templateProcessor->setValue('AAE7-2#'.$row,$this->EscapeOutput($data[1][7]));
+                    // 3eme ligne du resultat de la ligne
+                    $templateProcessor->setValue('AAE3-3#'.$row,$this->EscapeOutput($data[2][3]));
+                    $templateProcessor->setValue('AAE5-3#'.$row,$this->EscapeOutput($data[2][5]));
+                    $templateProcessor->setValue('AAE7-3#'.$row,$this->EscapeOutput($data[2][7]));
                 }
 
             } else{
@@ -579,7 +576,6 @@ class GenerateReport extends WordGenerator
                 ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
                 ['NA']);
         }
-
     }
 
     /**
