@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+use DateTime;
 
 /**
  * \class Operation
@@ -275,9 +275,9 @@ class Operation
      */
     private $measureCompany = 'SOCOTEC';
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="sheet_date", type="string", length=255, nullable=true)
+     * @ORM\Column(name="sheet_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $sheetDate;
     /**
@@ -432,9 +432,9 @@ class Operation
     // Utility fields / XLS Extract
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="measure_date", type="string", nullable=true)
+     * @ORM\Column(name="measure_date", type="datetime", options={"default": "null"}, nullable=true)
      */
     private $measureDate;
 
@@ -1560,6 +1560,26 @@ class Operation
     }
 
     /**
+     * Get XLSM Sheet Date
+     * @return \DateTime
+     */
+    public function getSheetDate()
+    {
+        return $this->sheetDate;
+    }
+
+    /**
+     * Set XLSM Sheet date
+     * @param \DateTime $sheetDate
+     * @return Operation
+     */
+    public function setSheetDate($sheetDate)
+    {
+        $this->sheetDate = $sheetDate;
+        return $this;
+    }
+
+    /**
      * Set info
      *
      * @param string $info
@@ -1822,7 +1842,6 @@ class Operation
     {
         return $this->aerien;
     }
-
     /**
      * @param Aerien $aerien
      * @return Aerien
@@ -1833,6 +1852,7 @@ class Operation
 
         return $aerien;
     }
+
     /**
      * @param Foreigner $foreigner
      * @return Foreigner
@@ -1937,22 +1957,6 @@ class Operation
     }
 
     /**
-     * @return string
-     */
-    public function getSheetDate()
-    {
-        return $this->sheetDate;
-    }
-
-    /**
-     * @param string $sheetDate
-     */
-    public function setSheetDate($sheetDate)
-    {
-        $this->sheetDate = $sheetDate;
-    }
-
-    /**
      * @param array $sheetNames
      */
     public function setSheetNames($sheetNames)
@@ -1996,8 +2000,12 @@ class Operation
         $this->setMeasureCompany($workSheet->getCell("D6")->getCalculatedValue());
         $this->setMeasureAuthor($workSheet->getCell("D7")->getCalculatedValue());
 
-        $this->setMeasureDate($workSheet->getCell("D8")->getFormattedValue());
-        $this->setSheetDate($workSheet->getCell("D9")->getFormattedValue());
+        $datestr = $workSheet->getCell("D8")->getFormattedValue();
+        $this->setMeasureDate($this->checkDate($datestr));
+        //$this->setMeasureDate($workSheet->getCell("D8")->getFormattedValue());
+        $datestr = $workSheet->getCell("D9")->getFormattedValue();
+        $this->setSheetDate($this->checkDate($datestr));
+        //$this->setSheetDate($workSheet->getCell("D9")->getFormattedValue());
 
         $this->setName($workSheet->getCell("D10")->getCalculatedValue());
         $this->setInfo("");
@@ -2006,6 +2014,19 @@ class Operation
         $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());
         $this->setOperationObjective($workSheet->getCell("D15")->getCalculatedValue());
         $this->setOperationMeasureRef($workSheet->getCell("D16")->getCalculatedValue());
+    }
+
+    /**
+     * @param $datestr
+     * @return bool|DateTime|null
+     */
+    private function checkDate($datestr){
+        $datearry = explode(' ',$datestr);
+        for($i=0;$i<count($datearry);$i++){
+           $date = DateTime::createFromFormat('d/m/Y', $datearry[$i]);
+           if($date !== false) return $date;
+        }
+        return null;
     }
 
     /**

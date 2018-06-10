@@ -307,21 +307,6 @@ class OperationAdmin extends Admin
                 $em->remove($S);
             }
         }
-        /*$ResRepo = $em->getRepository(Results::class);
-        $R = $ResRepo->findOneByOperation($operation);
-        if(!is_null($R)){
-            $em->remove($R);
-        }
-        $AAERepo = $em->getRepository(Aae::class);
-        $AAE = $AAERepo->findOneByOperation($operation);
-        if(!is_null($AAE)){
-            $em->remove($AAE);
-        }
-        $EquipRepo = $em->getRepository(Equipement::class);
-        $Equip = $EquipRepo->findOneByOperation($operation);
-        if(!is_null($Equip)){
-            $em->remove($Equip);
-        }*/
         $em->flush();
 
     }
@@ -335,6 +320,22 @@ class OperationAdmin extends Admin
                 ->add('operationAddress',null,['label'=>"Adresse de l'opération"])
                 ->add('operationCP',null,['label'=>"Code postal de l'opération"])
                 ->add('operationCity',null,['label'=>"Commune de l'opération"])
+
+            ->add("measureDate", DatePickerType::class, array(
+                'required' => false,
+                'label' => 'Date de mesure',
+                'dp_side_by_side' => true,
+                'dp_use_current' => true,
+                'format' => 'dd/MM/yyyy',
+            ))
+            ->add("sheetDate", DatePickerType::class, array(
+                'required' => false,
+                'label' => 'Date du fichier de mesures',
+                'dp_side_by_side' => true,
+                'dp_use_current' => true,
+                'format' => 'dd/MM/yyyy',
+            ))
+
             ->end()
             ->with('Logements et bâtiments', array('class' => 'col-md-6'))
                 ->add('operationIndividuel',null,['label'=>'Logement individuel'])
