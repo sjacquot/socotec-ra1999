@@ -345,7 +345,6 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->setValue('AMEASUREDATE#'.$index, $Aerial->getMeasureDate());
         $this->AddDate( $Aerial->getMeasureDate());
-
         $templateProcessor->setValue('AMEASURETTXDATE#'.$index, $Aerial->getMeasureTTX());
 
         $templateProcessor->setValue('ALocEmit-Name#'.$index, $this->EscapeOutput($Aerial->getLocalEmissionName()));

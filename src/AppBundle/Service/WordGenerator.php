@@ -493,7 +493,7 @@ class WordGenerator
      * @param $date
      */
     protected function AddDate($date){
-        if(is_a($date,'Datetime')) $date = $date->format('d/m/y');
+        if(is_a($date,'Datetime')) $date = $date->format('m/d/Y');
         if(strlen($date)<=1)return;
         if(strpos($date,'/')){
             $datearray = explode('/',$date);

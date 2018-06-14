@@ -12,6 +12,8 @@ use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use DateTime;
+
 
 /**
  * Class ExtractBAE Extract data from F(#) worksheet
@@ -233,10 +235,15 @@ class ExtractBAE
         $this->version = $worksheet->getCell("B2")->getFormattedValue();
 
         $dateUS = $worksheet->getCell("I7")->getFormattedValue();
-        $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
+        $dateUS = $this->checkDate($dateUS);
+        //$strDate = $dateUS->format('m/d/Y');
+        $this->MeasureDate = (!is_null($dateUS))? strftime('%d %B %Y', $dateUS->getTimestamp()):"";
+        //        $this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
         $dateUS = $worksheet->getCell("L7")->getFormattedValue();
-        $this->MeasureTTX = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
+        $dateUS = $this->checkDate($dateUS);
+        $this->MeasureTTX = (!is_null($dateUS))? strftime('%d %B %Y', $dateUS->getTimestamp()):"";
+        //$this->MeasureTTX = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
 
         $this->localEmissionName = $worksheet->getCell('I14')->getCalculatedValue();
@@ -313,5 +320,31 @@ class ExtractBAE
         $correction = (-10*log10($sum))-$MasterVal;
         return round($MasterVal+$correction);
     }
+    /**
+     * @param $datestr
+     * @return null|DateTime
+     */
+    private function checkDate($datestr){
+        if(strlen($datestr)==0) return null;
+        if(strtotime($datestr)!==false){
+            $date = new DateTime();
+            $date->setTimestamp(strtotime($datestr));
+        } else {
+            $dateArray = explode(' ', $datestr);
+            if(count($dateArray) > 1) {
+                for($i=0;$i<count($dateArray);$i++){
+                    $datetest = explode('/',$dateArray[$i]);
+                    if(count($datetest) == 3){
+                        return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
+                    }
+                }
+                return null;
+            } else { // plain direct date from XLS Sheet UK Format
+                $date = DateTime::createFromFormat('m/d/Y', $datestr);
+            }
+        }
+        return $date;
+    }
+
 
 }

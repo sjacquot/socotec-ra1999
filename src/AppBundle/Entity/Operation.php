@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use DateTime;
@@ -2027,20 +2026,26 @@ class Operation
      * @return null|DateTime
      */
      private function checkDate($datestr){
-         $dateArray = explode(' ', $datestr);
-         if(count($dateArray) > 1) {
-             for($i=0;$i<count($dateArray);$i++){
-                 $datetest = explode('/',$dateArray[$i]);
-                 if(count($datetest) == 3){
-                     return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
+         if(strlen($datestr)==0) return null;
+         if(strtotime($datestr)!==false){
+             $date = new DateTime();
+             $date->setTimestamp(strtotime($datestr));
+         } else {
+             $dateArray = explode(' ', $datestr);
+             if(count($dateArray) > 1) {
+                 for($i=0;$i<count($dateArray);$i++){
+                     $datetest = explode('/',$dateArray[$i]);
+                     if(count($datetest) == 3){
+                         return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
+                     }
                  }
+                 return null;
+             } else { // plain direct date from XLS Sheet UK Format
+                 $date = DateTime::createFromFormat('m/d/Y', $datestr);
              }
-             return null;
-         } else { // plain direct date from XLS Sheet UK Format
-             $date = DateTime::createFromFormat('m/d/Y', $datestr);
          }
-        return $date;
-    }
+         return $date;
+     }
 
     /**
      * @return mixed
