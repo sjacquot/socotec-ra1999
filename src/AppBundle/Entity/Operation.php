@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use DateTime;
@@ -275,7 +276,7 @@ class Operation
      */
     private $measureCompany = 'SOCOTEC';
     /**
-     * @var \DateTime
+     * @var string
      *
      * @ORM\Column(name="sheet_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
@@ -434,7 +435,7 @@ class Operation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="measure_date", type="datetime", options={"default": "null"}, nullable=true)
+     * @ORM\Column(name="measure_date", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $measureDate;
 
@@ -2000,12 +2001,17 @@ class Operation
         $this->setMeasureCompany($workSheet->getCell("D6")->getCalculatedValue());
         $this->setMeasureAuthor($workSheet->getCell("D7")->getCalculatedValue());
 
+        // Date input parse
         $datestr = $workSheet->getCell("D8")->getFormattedValue();
-        $this->setMeasureDate($this->checkDate($datestr));
+        $datestr = $this->checkDate($datestr);
+        $this->setMeasureDate($datestr);
         //$this->setMeasureDate($workSheet->getCell("D8")->getFormattedValue());
+
         $datestr = $workSheet->getCell("D9")->getFormattedValue();
-        $this->setSheetDate($this->checkDate($datestr));
+        $datestr = $this->checkDate($datestr);
+        $this->setSheetDate($datestr);
         //$this->setSheetDate($workSheet->getCell("D9")->getFormattedValue());
+        // /Date input parse
 
         $this->setName($workSheet->getCell("D10")->getCalculatedValue());
         $this->setInfo("");
@@ -2018,15 +2024,22 @@ class Operation
 
     /**
      * @param $datestr
-     * @return bool|DateTime|null
+     * @return null|DateTime
      */
-    private function checkDate($datestr){
-        $datearry = explode(' ',$datestr);
-        for($i=0;$i<count($datearry);$i++){
-           $date = DateTime::createFromFormat('d/m/Y', $datearry[$i]);
-           if($date !== false) return $date;
-        }
-        return null;
+     private function checkDate($datestr){
+         $dateArray = explode(' ', $datestr);
+         if(count($dateArray) > 1) {
+             for($i=0;$i<count($dateArray);$i++){
+                 $datetest = explode('/',$dateArray[$i]);
+                 if(count($datetest) == 3){
+                     return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
+                 }
+             }
+             return null;
+         } else { // plain direct date from XLS Sheet UK Format
+             $date = DateTime::createFromFormat('m/d/Y', $datestr);
+         }
+        return $date;
     }
 
     /**
