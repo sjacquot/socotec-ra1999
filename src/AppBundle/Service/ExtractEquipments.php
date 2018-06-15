@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 
-class ExtractEquipments
+class ExtractEquipments extends ExtractService
 {
     /**
      * sheetName of the spreadsheet workbook where results are to be found
@@ -46,7 +46,6 @@ class ExtractEquipments
         $this->worksheet = $xlsReader->getActiveSheet();
         $this->highestRow = $this->worksheet->getHighestRow();
         $index = 1;
-        //$value = $this->worksheet->getCellByColumnAndRow(2, $index)->getCalculatedValue();
 
         for ($index; $index <= $this->highestRow; $index++) {
             // Search in column D of worksheet to find "Type 1"

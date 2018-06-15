@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExtractAAE
+class ExtractAAE extends ExtractService
 {
     const sheetName = "AAE";
 

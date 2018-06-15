@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class ExtractResults
+class ExtractResults extends ExtractService
 {
     /**
      * sheetName of the spreadsheet workbook where results are to be found
@@ -188,13 +188,6 @@ class ExtractResults
                 }
             }
         }
-/*        echo "<pre>";
-        echo "<h2>".self::BAI."</h2>";
-        var_dump($resultsArray[self::BAI]);
-        echo "<h2>".self::AAE."</h2>";
-        var_dump($resultsArray[self::AAE]);
-        echo "</pre>";
-        die(); */
         return $resultsArray;
     }
 }

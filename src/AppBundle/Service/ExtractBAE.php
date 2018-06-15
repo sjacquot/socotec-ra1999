@@ -12,7 +12,6 @@ use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use DateTime;
 
 
 /**
@@ -20,7 +19,7 @@ use DateTime;
  * @package AppBundle\Service
  */
 
-class ExtractBAE
+class ExtractBAE extends ExtractService
 {
     /**
      * Fiche de traitement de mesure n° F(1)
@@ -227,6 +226,14 @@ class ExtractBAE
      */
     public $version;
 
+    /**
+     * Extract all meaningful values from F(#) Sheets (Foreign/Facade) and generate F(#) Curve chart
+     * @param Spreadsheet $xlsReader
+     * @param $sheetName
+     * @param $pathCharts
+     * @return bool
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function extractBAE(Spreadsheet $xlsReader, $sheetName,$pathCharts){
 
         $xlsReader->setActiveSheetIndexByName($sheetName);
@@ -290,7 +297,7 @@ class ExtractBAE
         $this->testTemplateCurve = $worksheet->rangeToArray('U40:U44', '', true, true, false);
 
         $data["TEST"] = $this->ArrayToFloat($dataTest);
-//        $data["TEMPLATE"] = $this->ArrayToFloat($this->testTemplateCurve);
+
         $result = $chart->createF($data);
         if($result !==false){
             $this->fileChart = $result["src"];
@@ -301,15 +308,15 @@ class ExtractBAE
         return true;
 
     }
-    private function ArrayToFloat($dataXLS){
-        foreach ($dataXLS as $item)
-        {
-            $data[] = floatval($item[0]);
-        }
-        return $data;
-    }
+
+    /**
+     * Compute Weighted Standardized Isolation Value for F (Foreign/Facade Noise) Curve \n
+     * Value = Template Curve value for 500 hz minus As MasterVal + Correction Coefficient in dB. \n
+     * Coef = (-10*LOG(10^((-14-CurveValue[125Hz])/10)+10^((-14-CurveValue[250Hz])/10)+10^((-7-CurveValue[500Hz])/10)+10^((-4-CurveValue[1kHz])/10)+10^((-6-CurveValue[2kHz])/10)))-MasterVal
+     * @param $data
+     * @return float
+     */
     private function CalcWeightedStandardizedAcousticIsolation($data){
-        //(-10*LOG(10^((-21-H40)/10)+10^((-14-H41)/10)+10^((-8-H42)/10)+10^((-5-H43)/10)+10^((-4-H44)/10)))-AG7
         $MeasureData = $data["TEST"];
         $MasterVal = $data["TEMPLATE"][2];
         $sum  = pow(10,(-14-$MeasureData[0])/10);
@@ -320,31 +327,5 @@ class ExtractBAE
         $correction = (-10*log10($sum))-$MasterVal;
         return round($MasterVal+$correction);
     }
-    /**
-     * @param $datestr
-     * @return null|DateTime
-     */
-    private function checkDate($datestr){
-        if(strlen($datestr)==0) return null;
-        if(strtotime($datestr)!==false){
-            $date = new DateTime();
-            $date->setTimestamp(strtotime($datestr));
-        } else {
-            $dateArray = explode(' ', $datestr);
-            if(count($dateArray) > 1) {
-                for($i=0;$i<count($dateArray);$i++){
-                    $datetest = explode('/',$dateArray[$i]);
-                    if(count($datetest) == 3){
-                        return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
-                    }
-                }
-                return null;
-            } else { // plain direct date from XLS Sheet UK Format
-                $date = DateTime::createFromFormat('m/d/Y', $datestr);
-            }
-        }
-        return $date;
-    }
-
 
 }

@@ -9,6 +9,6 @@
 namespace AppBundle\Service;
 
 
-class ExtractOperation
+class ExtractOperation extends ExtractService
 {
 }

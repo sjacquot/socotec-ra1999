@@ -12,13 +12,12 @@ use AppBundle\Entity\GraphRA1999;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use DateTime;
 
 /**
  * Class ExtractBC Extract data from C(#) worksheet
  * @package AppBundle\Service
  */
-class ExtractBC
+class ExtractBC extends ExtractService
 {
     public $idOfSheet;
 
@@ -209,6 +208,14 @@ class ExtractBC
      */
     public $version;
 
+    /**
+     * Extract all meaningful values from C(#) Sheets and generate C(#) Curve chart
+     * @param Spreadsheet $xlsReader
+     * @param $sheetName
+     * @param $pathCharts
+     * @return bool
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function extractBC(Spreadsheet $xlsReader, $sheetName, $pathCharts){
         $xlsReader->setActiveSheetIndexByName($sheetName);
         $worksheet = $xlsReader->getActiveSheet();
@@ -217,14 +224,11 @@ class ExtractBC
 
         $dateUS = $worksheet->getCell("I7")->getFormattedValue();
         $dateUS = $this->checkDate($dateUS);
-        //$strDate = $dateUS->format('m/d/Y');
         $this->MeasureDate = (!is_null($dateUS))? strftime('%d %B %Y', $dateUS->getTimestamp()):"";
-        //$this->MeasureDate = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
         $dateUS = $worksheet->getCell("L7")->getFormattedValue();
         $dateUS = $this->checkDate($dateUS);
         $this->MeasureTTX = (!is_null($dateUS))? strftime('%d %B %Y', $dateUS->getTimestamp()):"";
-        //$this->MeasureTTX = (strlen($dateUS)>0)? strftime('%d %B %Y', strtotime($dateUS)):"";
 
         $this->localEmissionName = $worksheet->getCell('I15')->getCalculatedValue();
         $this->localEmissionVolume = $worksheet->getCell('I16')->getCalculatedValue();
@@ -269,40 +273,15 @@ class ExtractBC
         return true;
 
     }
-    private function ArrayToFloat($dataXLS){
-        foreach ($dataXLS as $item)
-        {
-            $data[] = floatval($item[0]);
-        }
-        return $data;
-    }
+
+    /**
+     * Compute Weighted Standardized Value for C (Shock Noise) Curve \n
+     * Value = Curve value for 500 hz minus 5 dB.
+     * @param $curveData
+     * @return int
+     */
     private function CalcweightedStandardizedShockNoise($curveData){
             return $curveData[2]-5;
-    }
-    /**
-     * @param $datestr
-     * @return null|DateTime
-     */
-    private function checkDate($datestr){
-        if(strlen($datestr)==0) return null;
-        if(strtotime($datestr)!==false){
-            $date = new DateTime();
-            $date->setTimestamp(strtotime($datestr));
-        } else {
-            $dateArray = explode(' ', $datestr);
-            if(count($dateArray) > 1) {
-                for($i=0;$i<count($dateArray);$i++){
-                    $datetest = explode('/',$dateArray[$i]);
-                    if(count($datetest) == 3){
-                        return $date = DateTime::createFromFormat('d/m/Y',$dateArray[$i]);
-                    }
-                }
-                return null;
-            } else { // plain direct date from XLS Sheet UK Format
-                $date = DateTime::createFromFormat('m/d/Y', $datestr);
-            }
-        }
-        return $date;
     }
 
 }
