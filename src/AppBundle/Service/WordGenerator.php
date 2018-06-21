@@ -292,6 +292,13 @@ class WordGenerator
         $templateProcessor->setValue('ME',$this->EscapeOutput($operation->getMEName()));
         $templateProcessor->setValue('MEADDR',$this->EscapeOutput($operation->getMEAddress()));
         $templateProcessor->setValue('MEMIS',$this->EscapeOutput($operation->getMEMission()));
+        // Autre Maitre oeuvre
+        if (strlen($operation->getOtherMEName())>1){
+            $templateProcessor->cloneBlock('BLOCK_OMOE',1,false);
+            $templateProcessor->setValue('OME',$this->EscapeOutput($operation->getOtherMEName()));
+            $templateProcessor->setValue('OMEMIS',$this->EscapeOutput($operation->getOtherMEMission()));
+        } else $templateProcessor->deleteBlock('BLOCK_OMOE');
+
         // BET
         $templateProcessor->setValue('BETAM', $this->EscapeOutput($operation->getBETAudioMission()));
         $templateProcessor->setValue('BETAN', $this->EscapeOutput($operation->getBETAudioName()));
