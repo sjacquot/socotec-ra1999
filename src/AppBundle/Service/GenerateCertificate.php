@@ -10,7 +10,8 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Operation;
 use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\TemplateProcessor;
+//use PhpOffice\PhpWord\TemplateProcessor;
+use AppBundle\Entity\PhpOfficeWord;
 
 
 /**
@@ -31,7 +32,8 @@ class GenerateCertificate extends WordGenerator
 
         $templateFile = $this->container->getParameter('path_template_certificate');
         $templateFile = realpath($templateFile);
-        $templateProcessor = new TemplateProcessor($templateFile);
+//        $templateProcessor = new TemplateProcessor($templateFile);
+        $templateProcessor = new PhpOfficeWord($templateFile);
 
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);

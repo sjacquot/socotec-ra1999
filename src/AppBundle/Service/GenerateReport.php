@@ -22,7 +22,8 @@ use AppBundle\Entity\Shockmachine;
 use AppBundle\Entity\Software;
 use AppBundle\Entity\Sonometer;
 use Doctrine\ORM\EntityManager;
-use PhpOffice\PhpWord\TemplateProcessor;
+//use PhpOffice\PhpWord\TemplateProcessor;
+use AppBundle\Entity\PhpOfficeWord;
 
 
 /**
@@ -49,7 +50,8 @@ class GenerateReport extends WordGenerator
         $templateFile = realpath($templateFile);
 
         $this->ressourcepath = dirname($templateFile);
-        $templateProcessor = new TemplateProcessor($templateFile);
+        //$templateProcessor = new TemplateProcessor($templateFile);
+        $templateProcessor = new PhpOfficeWord($templateFile);
         // Data from Operation
         $this->fillTplOperation($templateProcessor,$operation);
         // Data from Results
@@ -251,10 +253,10 @@ class GenerateReport extends WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Equipement $equipement
      */
-    private function tplGenerateEquipment(TemplateProcessor $templateProcessor, Equipement $equipement){
+    private function tplGenerateEquipment(PhpOfficeWord $templateProcessor, Equipement $equipement){
         $data = $equipement->getType1();
         $nbLigne = count($data);
         if ($nbLigne>0){
@@ -336,11 +338,11 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('EQ2Ambiant',$equipement->getType2AmbiantNoise());
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Aerien $Aerial
      * @param $index
      */
-    private function tplGenerateA(TemplateProcessor $templateProcessor, Aerien $Aerial, $index){
+    private function tplGenerateA(PhpOfficeWord $templateProcessor, Aerien $Aerial, $index){
         $templateProcessor->setValue('A#'.$index, $Aerial->getIdOfSheet());
 
         $templateProcessor->setValue('AMEASUREDATE#'.$index, $Aerial->getMeasureDate());
@@ -397,11 +399,11 @@ class GenerateReport extends WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Foreigner $foreigner
      * @param $index
      */
-    private function tplGenerateF(TemplateProcessor $templateProcessor, Foreigner $foreigner, $index)
+    private function tplGenerateF(PhpOfficeWord $templateProcessor, Foreigner $foreigner, $index)
     {
         $templateProcessor->setValue('F#'.$index, $foreigner->getIdOfSheet());
 
@@ -463,11 +465,11 @@ class GenerateReport extends WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Shock $choc
      * @param $index
      */
-    private function tplGenerateC(TemplateProcessor $templateProcessor, Shock $choc, $index)
+    private function tplGenerateC(PhpOfficeWord $templateProcessor, Shock $choc, $index)
     {
         $templateProcessor->setValue('C#'.$index, $choc->getIdOfSheet());
         $templateProcessor->setValue('CMEASUREDATE#'.$index, $choc->getMeasureDate());
@@ -525,10 +527,10 @@ class GenerateReport extends WordGenerator
 
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Aae $aae
      */
-    private function tplGenerateAAE(TemplateProcessor $templateProcessor, Aae $aae){
+    private function tplGenerateAAE(PhpOfficeWord $templateProcessor, Aae $aae){
         $dataAAE = $aae->getData();
         if (is_array($dataAAE)){
             $nbLigne = count($dataAAE);
@@ -579,11 +581,11 @@ class GenerateReport extends WordGenerator
 
     /**
      * Import buildings floor plans into word template as IMG attachment
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Operation $operation
      * @throws \ImagickException
      */
-    private function tplAddPlan(TemplateProcessor $templateProcessor, Operation $operation){
+    private function tplAddPlan(PhpOfficeWord $templateProcessor, Operation $operation){
         $pictures = $this->entityManager->getRepository(Pictures::class)->getPictureByOperationOrder($operation);
         $PictFilePath = realpath($this->container->getParameter('path_picture'));
         $PictFilePath .= '/';
@@ -644,7 +646,7 @@ class GenerateReport extends WordGenerator
      * @param $file
      * @param $width
      * @param $height
-     * @return array Array of parameters for TemplateProcessor setFixedSizedImages
+     * @return array Array of parameters for PhpOfficeWord setFixedSizedImages
      */
     private function getImageBestFitParameters($file, $width, $height){
         $imagick = new \Imagick();
@@ -688,11 +690,11 @@ class GenerateReport extends WordGenerator
 
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Sonometer $sono
      * @param integer $index
      */
-    private function tplGenerateSono(TemplateProcessor $templateProcessor, Sonometer $sono, $index){
+    private function tplGenerateSono(PhpOfficeWord $templateProcessor, Sonometer $sono, $index){
         $templateProcessor->setValue('SONO#'.$index,$sono->getType());
         $templateProcessor->setValue('SONO-N#'.$index,$sono->getSerialNumber());
         $templateProcessor->setValue('SONOP-T#'.$index,$sono->getPreamplifierType());
@@ -704,35 +706,35 @@ class GenerateReport extends WordGenerator
         $templateProcessor->setValue('SONO-D#'.$index,$sono->getEndOfValidity()->format('m/Y'));
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param NoiseSource $noise
      * @param integer $index
      */
-    private function tplGenerateNoise(TemplateProcessor $templateProcessor, NoiseSource $noise, $index){
+    private function tplGenerateNoise(PhpOfficeWord $templateProcessor, NoiseSource $noise, $index){
         $templateProcessor->setValue('NOISE#'.$index,$noise->__toString());
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Shockmachine $sm
      * @param integer $index
      */
-    private function tplGenerateShockMachine(TemplateProcessor $templateProcessor, Shockmachine $sm, $index){
+    private function tplGenerateShockMachine(PhpOfficeWord $templateProcessor, Shockmachine $sm, $index){
         $templateProcessor->setValue('MAC#'.$index,$sm->__toString());
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param ReverbAccessory $ra
      * @param integer $index
      */
-    private function tplGenerateReverb(TemplateProcessor $templateProcessor, ReverbAccessory $ra, $index){
+    private function tplGenerateReverb(PhpOfficeWord $templateProcessor, ReverbAccessory $ra, $index){
         $templateProcessor->setValue('REVTOOL#'.$index,$ra->getLabel());
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Software $soft
      * @param integer $index
      */
-    private function tplGenerateSoft(TemplateProcessor $templateProcessor, Software $soft, $index){
+    private function tplGenerateSoft(PhpOfficeWord $templateProcessor, Software $soft, $index){
         $templateProcessor->setValue('SOFT#'.$index,$soft->__toString());
     }
 
