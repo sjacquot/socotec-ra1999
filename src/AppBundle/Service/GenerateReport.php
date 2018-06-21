@@ -567,12 +567,12 @@ class GenerateReport extends WordGenerator
 
             } else{
                 $this->fillArrayOfValues($templateProcessor,
-                    ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
+                    ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11','NOTAAE11'],
                     ['NA']);
             }
         }else{
             $this->fillArrayOfValues($templateProcessor,
-                ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11'],
+                ['AAE', 'AAE1', 'AAE3-1', 'AAE3-2', 'AAE3-3', 'AAE5-1', 'AAE5-2', 'AAE5-3', 'AAE7-1', 'AAE7-2', 'AAE7-3', 'AAE8', 'AAE9', 'AAE10', 'AAE11','NOTAAE11'],
                 ['NA']);
         }
     }
