@@ -328,13 +328,13 @@ class OperationAdmin extends Admin
                 'dp_use_current' => true,
                 'format' => 'dd/MM/yyyy',
             ))
-            ->add("sheetDate", DatePickerType::class, array(
+            /*->add("sheetDate", DatePickerType::class, array(
                 'required' => false,
                 'label' => 'Date du fichier de mesures',
                 'dp_side_by_side' => true,
                 'dp_use_current' => true,
                 'format' => 'dd/MM/yyyy',
-            ))
+            ))*/
 
             ->end()
             ->with('Logements et bâtiments', array('class' => 'col-md-6'))
