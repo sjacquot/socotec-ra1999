@@ -1992,7 +1992,8 @@ class Operation
      *
      * @param IOFactory
      */
-    public function readOperationData($xlsReader){
+    public function readOperationData($xlsReader)
+    {
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
 
         $workSheet = $xlsReader->getActiveSheet();
@@ -2016,7 +2017,15 @@ class Operation
         $this->setInfo("");
 
         $this->setOperationAddress($workSheet->getCell("D12")->getCalculatedValue());
-        $this->setOperationCity($workSheet->getCell("D13")->getCalculatedValue());
+        $citystr = $workSheet->getCell("D13")->getCalculatedValue();
+        preg_match('/(?P<city>\w+) (?P<cp>\d+)/', $citystr, $matches);
+        if (count($matches) == 0)
+            preg_match('/(?P<cp>\d+) (?P<city>\w+)/', $citystr, $matches);
+        if (count($matches) != 0) {
+            $this->setOperationCity($matches['city']);
+            $this->setOperationCP($matches['cp']);
+        } else
+            $this->setOperationCity($citystr);
         $this->setOperationObjective($workSheet->getCell("D15")->getCalculatedValue());
         $this->setOperationMeasureRef($workSheet->getCell("D16")->getCalculatedValue());
     }
