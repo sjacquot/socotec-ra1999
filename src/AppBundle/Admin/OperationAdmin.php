@@ -404,7 +404,7 @@ class OperationAdmin extends Admin
                 ->end()
                 ->with('Opération/Informations', array('class' => 'col-md-6'))
                     ->add('caseReference', null, ['label' => 'Référence dossier'])
-                    ->add('reportReference', EntityType::class, [
+                  /*  ->add('reportReference', EntityType::class, [
                         'label' => 'Référence du rapport de mesures détaillées',
                         'class' => Report::class,
                         'query_builder' => function (EntityRepository $er){
@@ -421,7 +421,7 @@ class OperationAdmin extends Admin
                                 ->where('r.operation = :operation')
                                 ->setParameter('operation', $this->getSubject());
                         }
-                    ])
+                    ])*/
                     ->add('measureCompany',null,['label'=>'Sociéte en charge de la mesure'])
                 ->end()
             ->end();

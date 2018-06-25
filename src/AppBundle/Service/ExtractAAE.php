@@ -28,6 +28,13 @@ class ExtractAAE extends ExtractService
      */
     public $version;
 
+    /**
+     * Read AAE Data \n
+     * and update sheet to transmit data to Results Sheet
+     * @param Spreadsheet $xlsReader
+     * @return bool
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function readAAE(Spreadsheet $xlsReader)
     {
         $xlsReader->setActiveSheetIndexByName(self::sheetName);
@@ -38,12 +45,41 @@ class ExtractAAE extends ExtractService
         $index = 6;
         for($index;$index<=$this->highestRow;$index+=3){
             // Col #3 = Col C Local name mandatory for AAE
-        $value = $this->worksheet->getCellByColumnAndRow(3,$index)->getCalculatedValue();
+            $value = $this->worksheet->getCellByColumnAndRow(3,$index)->getCalculatedValue();
             if(strlen($value)>0){
-                $this->data[] = $this->worksheet->rangeToArray("B".$index.":Q".($index+2),'',true,true,false);
+                $data = $this->worksheet->rangeToArray("B".$index.":Q".($index+2),'',true,true,false);
+                $data = $this->computeAAE($data);
+                $this->worksheet->setCellValue('K'.$index,$data[0][9]);
+                $this->worksheet->setCellValue('Q'.$index,$data[0][15]);
+                $this->data[] = $data;
             }
         }
         $this->comments = $this->worksheet->rangeToArray("T6:T".$index,'',true,true,false);
         return true;
+    }
+
+    /**
+     * Recompute AAE value from raw data to avoid rounding issue with PHPSpreadsheet \n
+     * Update data for score evaluation
+     * @param $data
+     * @return mixed
+     */
+    private function computeAAE($data){
+        $coeff = 0;
+        for ($i = 0;$i < count($data);$i++){
+            $coeff += floatval($data[$i][5])*floatval($data[$i][7]);
+        }
+        $coeff = ($coeff / floatval($data[0][8]))*100;
+
+        $data[0][9] =  round($coeff,0) ;
+        echo "A = ".$coeff." B = ".floatval($data[0][14])." C = ".(floatval($data[0][14])-0.5)."<br>";
+        if ($coeff < (floatval($data[0][14])-0.5)){
+            $res = 'NON COHERENT';
+        } else{
+            $res =  'COHERENT';
+        }
+        $data[0][15] = $res;
+        return $data;
+
     }
 }

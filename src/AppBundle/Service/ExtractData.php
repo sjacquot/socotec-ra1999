@@ -78,13 +78,6 @@ class ExtractData
 
         $SheetNames = $spreadSheet->getSheetNames();
 
-        $extractResult = new ExtractResults();
-        $dataResult = $extractResult->readResults($spreadSheet);
-
-        if($dataResult){
-            $this->UploadResults($operation, $dataResult);
-        }
-
         $matches  = preg_grep ('/^A\((\d+)\)/i', $SheetNames);
         foreach ($matches as $sheet){
                 // BAI
@@ -129,6 +122,14 @@ class ExtractData
                 $this->UploadAAE($operation, $AAE);
             }
         }
+
+        $extractResult = new ExtractResults();
+        $dataResult = $extractResult->readResults($spreadSheet);
+
+        if($dataResult){
+            $this->UploadResults($operation, $dataResult);
+        }
+
     }
 
     /**
