@@ -41,6 +41,8 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use DateTime;
+
 
 /**
  * \class OperationAdmin
@@ -270,6 +272,17 @@ class OperationAdmin extends Admin
             $this->removeXLSData($operation);
             $this->container->get('app.extract_data')->extractData($operation);
         }
+    }
+
+    /**
+     * @param $operation
+     */
+    public function preUpdate($operation)
+    {
+        $update = new DateTime();
+        $operation->setUpdatedAt($update->format('Y-m-d H:i:s'));
+
+        parent::preUpdate($operation);
     }
 
     /**
