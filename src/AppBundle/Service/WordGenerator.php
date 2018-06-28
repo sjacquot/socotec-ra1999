@@ -9,9 +9,10 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Operation;
-use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+//use PhpOffice\PhpWord\TemplateProcessor;
+use AppBundle\Entity\PhpOfficeWord;
 
 /**
  * \class WordGenerator
@@ -82,11 +83,11 @@ class WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param \stdClass $resultsData
      * @throws \PhpOffice\PhpWord\Exception\Exception
      */
-    protected function fillTplResuls(TemplateProcessor $templateProcessor, \stdClass $resultsData){
+    protected function fillTplResuls(PhpOfficeWord $templateProcessor, \stdClass $resultsData){
         if (isset($resultsData->{self::BAI})) {
             $count = $this->fillClonedValues($templateProcessor,$resultsData->{self::BAI},'BAI');
             $grade = $this->getGradeSocoTec($resultsData->{self::BAI},7);
@@ -204,10 +205,10 @@ class WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param Operation $operation
      */
-    protected function fillTplOperation(TemplateProcessor $templateProcessor, Operation $operation){
+    protected function fillTplOperation(PhpOfficeWord $templateProcessor, Operation $operation){
         // MO
         $templateProcessor->setValue('MO', $this->EscapeOutput($operation->getMoName()));
         $templateProcessor->setValue('MOADDR', $this->EscapeOutput($operation->getMoAddress()));
@@ -372,12 +373,12 @@ class WordGenerator
     }
 
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param $dataArray
      * @param $needle
      * @throws \PhpOffice\PhpWord\Exception\Exception
      */
-    protected function fillClonedValues(TemplateProcessor $templateProcessor, $dataArray, $needle){
+    protected function fillClonedValues(PhpOfficeWord $templateProcessor, $dataArray, $needle){
         $count = count($dataArray);
         $templateProcessor->cloneRow($needle, $count);
         for ($index= 0; $index < $count; $index++) {
@@ -436,11 +437,11 @@ class WordGenerator
 
     }
     /**
-     * @param TemplateProcessor $templateProcessor
+     * @param PhpOfficeWord $templateProcessor
      * @param $ArrayNeedle
      * @param $ArrayFill
      */
-    protected function fillArrayOfValues(TemplateProcessor $templateProcessor, $ArrayNeedle, $ArrayFill){
+    protected function fillArrayOfValues(PhpOfficeWord $templateProcessor, $ArrayNeedle, $ArrayFill){
         for ($index = 0; $index < count($ArrayNeedle); $index++) {
             if (isset($ArrayFill[$index])){
                 $templateProcessor->setValue($ArrayNeedle[$index], $this->cleanValues($ArrayFill[$index]));
@@ -485,7 +486,6 @@ class WordGenerator
      * @param bool $is_filename
      * @return mixed|null|string|string[]
      */
-
     protected function sanitize($string = '', $is_filename = FALSE)
     {
         // Replace all weird characters with dashes
