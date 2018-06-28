@@ -22,7 +22,6 @@ use PhpOffice\PhpWord\Settings;
 
 class PhpOfficeWord extends TemplateProcessor
 {
-//    const MAXIMUM_REPLACEMENTS_DEFAULT = -1;
     const SEARCH_LEFT = -1;
     const SEARCH_RIGHT = 1;
     const SEARCH_AROUND = 0;

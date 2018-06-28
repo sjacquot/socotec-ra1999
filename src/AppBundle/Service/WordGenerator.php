@@ -11,7 +11,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Operation;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-//use PhpOffice\PhpWord\TemplateProcessor;
 use AppBundle\Entity\PhpOfficeWord;
 
 /**

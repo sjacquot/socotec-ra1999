@@ -25,6 +25,7 @@ use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\Shared\ZipArchive;
 use Zend\Stdlib\StringUtils;
 
+
 class TemplateProcessor
 {
     const MAXIMUM_REPLACEMENTS_DEFAULT = -1;
