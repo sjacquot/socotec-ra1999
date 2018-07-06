@@ -60,6 +60,7 @@ class ExtractData
             /**
              *  Read all data to fill Operation Entity
              */
+            $memoryLimit = ini_set('memory_limit','512M');
             $operation->readOperationData($spreadSheet);
             /**
              * Extract other file data
@@ -67,6 +68,8 @@ class ExtractData
             $this->extractDataFromDocument($operation, $spreadSheet);
             $this->entityManager->persist($operation);
             $this->entityManager->flush();
+            ini_set('memory_limit',$memoryLimit);
+
         }
     }
 
