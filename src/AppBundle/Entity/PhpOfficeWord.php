@@ -1,6 +1,6 @@
 <?php
 /**
- * Fork of TemplateProcessor from PhpOffice\PhpWord with cumulated enhancement from various user \n
+ * Fork of TemplateProcessor from PhpOffice\PhpWord with cumulated enhancement from various contributors \n
  * to manage Block Clones with variables and Images integration and bestfit images intégration.
  * User: Stéphane Jacquot
  * Date: 15/06/2018

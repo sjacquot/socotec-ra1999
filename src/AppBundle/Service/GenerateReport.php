@@ -45,6 +45,7 @@ class GenerateReport extends WordGenerator
      */
     public function generateReport(Operation $operation)
     {
+        $maxExecutionTime = ini_set("max_execution_time",0);
         $templateFile = $this->container->getParameter('path_template_report');
         $templateFile = realpath($templateFile);
 
@@ -248,6 +249,7 @@ class GenerateReport extends WordGenerator
 
         $templateProcessor->saveAs($reportFilePath);
 
+        ini_set("max_execution_time",$maxExecutionTime);
         return $reportFileName;
     }
 
