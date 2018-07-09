@@ -236,20 +236,15 @@ class OperationAdmin extends Admin
             $pictureRepo = $em->getRepository(Pictures::class);
             $i = 1;
             foreach($pictures as $picture) {
-                $image = $pictureRepo->findOneByName($picture, $this->getSubject());
-                if(is_array($image)){
-                    foreach($image as $item) {
-                        if(!is_null($item)){
-                            $item->setPosition($i);
-                            $em->persist($item);
+                // To solve issue when 2 images with same name occurs
+                $images = $pictureRepo->findByName($picture, $this->getSubject());
+                if(is_array($images)){
+                    foreach($images as $image) {
+                        if(!is_null($image)){
+                            $image->setPosition($i);
+                            $em->persist($image);
                             $i++;
                         }
-                    }
-                } else {
-                    if(!is_null($image)){
-                        $image->setPosition($i);
-                        $em->persist($image);
-                        $i++;
                     }
                 }
             }

@@ -34,8 +34,28 @@ class PicturesRepository extends EntityRepository
                 ]
             )
             ->getQuery()
-           // ->getOneOrNullResult();
-           ->getResult();
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $name
+     * @param Operation $operation
+     * @return mixed
+     */
+    public function findByName($name, Operation $operation){
+        return $this->getEntityManager()
+            ->getRepository(Pictures::class)
+            ->createQueryBuilder('p')
+            ->where('p.name = :name')
+            ->andWhere('p.operation = :operation')
+            ->setParameters(
+                [
+                    'name' => $name,
+                    'operation' => $operation,
+                ]
+            )
+            ->getQuery()
+            ->getResult();
     }
 
     /**
