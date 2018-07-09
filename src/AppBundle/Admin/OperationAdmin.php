@@ -237,10 +237,20 @@ class OperationAdmin extends Admin
             $i = 1;
             foreach($pictures as $picture) {
                 $image = $pictureRepo->findOneByName($picture, $this->getSubject());
-                if(!is_null($image)){
-                    $image->setPosition($i);
-                    $em->persist($image);
-                    $i++;
+                if(is_array($image)){
+                    foreach($image as $item) {
+                        if(!is_null($item)){
+                            $item->setPosition($i);
+                            $em->persist($item);
+                            $i++;
+                        }
+                    }
+                } else {
+                    if(!is_null($image)){
+                        $image->setPosition($i);
+                        $em->persist($image);
+                        $i++;
+                    }
                 }
             }
             $em->flush();

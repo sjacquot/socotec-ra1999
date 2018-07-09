@@ -34,7 +34,8 @@ class PicturesRepository extends EntityRepository
                 ]
             )
             ->getQuery()
-            ->getOneOrNullResult();
+           // ->getOneOrNullResult();
+           ->getResult();
     }
 
     /**
